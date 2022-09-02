@@ -13,4 +13,9 @@ class ApiUrl {
   static const String updateProfile = '${BASE_URL}api/v1/updateProfile';
   static const String verifyEmail = '${BASE_URL}api/v1/verifyEmail';
   static const String getMe = '${BASE_URL}api/v1/getMe';
+
+
+  static const String saveCard = '${BASE_URL}api/v1/saveCard';
+  static const String deleteCard = '${BASE_URL}api/v1/deleteCard';
+  static const String getCard = '${BASE_URL}api/v1/getCard';
 }

@@ -70,7 +70,7 @@ class UserCard {
     this.updatedAt,
     this.deletedAt,
   });
-  UserCard.fromMap(Map<String, dynamic> json) {
+  UserCard.fromMap(json) {
     id = json['id']?.toInt();
     userId = json['user_id']?.toString();
     transactionId = json['transaction_id']?.toString();
