@@ -7,7 +7,6 @@ import '../../core/constant/constants.dart';
 import '../provider/card_provider.dart';
 
 class CardRepository {
-  CardRepository._();
 
   CardProvider cardProvider = CardProvider();
 

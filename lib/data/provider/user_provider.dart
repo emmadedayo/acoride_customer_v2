@@ -82,10 +82,20 @@ class UserProvider{
     return result;
   }
 
+  Future<String?> getCurrentToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token =  prefs.getString(USER_TOKEN);
+    return token;
+  }
 
   Future setCurrentUser(UserModel user) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(PREF_CURRENT_USER, json.encode(user.toMap()));
+  }
+
+  Future setToken(String data) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(USER_TOKEN, data);
   }
 
   Future logout() async {

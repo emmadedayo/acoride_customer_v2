@@ -94,7 +94,8 @@ class UserRepository{
     String message = map[FIELD_MESSAGE]?? '';
     if (map.isNotEmpty && map[FIELD_DATA] != null) {
       try {
-        user = UserModel.fromMap(map[FIELD_DATA]);
+        user = UserModel.fromMap(map[FIELD_DATA]['user']);
+        await setToken(map[FIELD_DATA]['token']);
       }
       catch(err) {
         return ResultItem<UserModel?>(result: null, errorCode: 404, message: 'Error: $err');
@@ -132,6 +133,14 @@ class UserRepository{
       }
     }
     return ResultItem<UserModel?>(result: newUser, errorCode: statusCode, message: message);
+  }
+
+  Future getToken() async {
+    return await provider.getCurrentToken();
+  }
+
+  Future setToken(data) async {
+    await provider.setToken(data);
   }
 
   Future setCurrentUser(UserModel userModel) async {
