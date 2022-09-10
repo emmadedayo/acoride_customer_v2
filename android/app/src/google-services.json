@@ -1,0 +1,190 @@
+{
+  "project_info": {
+    "project_number": "763557308352",
+    "project_id": "acoride-production",
+    "storage_bucket": "acoride-production.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763557308352:android:4d38fc65d49993d07f0a25",
+        "android_client_info": {
+          "package_name": "com.acadaar.softamos.acoride_pilot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763557308352-00th3utfd5afrbujs2aji136nt8aqedm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.acadaar.softamos.acoridePilot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763557308352:android:d3763a93fd0af2f07f0a25",
+        "android_client_info": {
+          "package_name": "com.softamos.mobile.acoride.client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763557308352-00th3utfd5afrbujs2aji136nt8aqedm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.acadaar.softamos.acoridePilot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763557308352:android:dd5b95f7784cad887f0a25",
+        "android_client_info": {
+          "package_name": "com.softamos.mobile.acoride.rider"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763557308352-00th3utfd5afrbujs2aji136nt8aqedm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.acadaar.softamos.acoridePilot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763557308352:android:b140a51da9ff60ca7f0a25",
+        "android_client_info": {
+          "package_name": "com.softapay.acoride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763557308352-00th3utfd5afrbujs2aji136nt8aqedm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.acadaar.softamos.acoridePilot"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:763557308352:android:2b1b2415928ab0277f0a25",
+        "android_client_info": {
+          "package_name": "com.softpay.acoride"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "763557308352-8h5ubkp3i12e7qor86g17cu1j6p6lpnv.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "763557308352-00th3utfd5afrbujs2aji136nt8aqedm.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.acadaar.softamos.acoridePilot"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

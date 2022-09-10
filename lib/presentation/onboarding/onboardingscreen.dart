@@ -1,11 +1,14 @@
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:acoride/data/entities/settings_item.dart';
+import 'package:acoride/presentation/router/router_constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/helper/helper_color.dart';
+import '../../logic/cubits/settings_cubit.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({Key? key}) : super(key: key);
@@ -45,11 +48,17 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         pageController: _pageController,
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
         onSkip: () {
-          // print('skipped');
+          SettingsItem settings = context.read<SettingsCubit>().state.settings;
+          settings.isFirstUse = false;
+          context.read<SettingsCubit>().setSettings(settings);
+          Navigator.of(context).pushNamed(baseAuthScreen);
         },
         // Either Provide onDone Callback or nextButton Widget to handle done state
         onDone: () {
-          // print('done tapped');
+          SettingsItem settings = context.read<SettingsCubit>().state.settings;
+          settings.isFirstUse = false;
+          context.read<SettingsCubit>().setSettings(settings);
+          Navigator.of(context).pushNamed(baseAuthScreen);
         },
         onBoardData: onBoardData,
         descriptionStyles: HelperStyle.textStyle(
@@ -64,7 +73,10 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
         skipButton: TextButton(
           onPressed: () {
-            // print('skipButton pressed');
+            SettingsItem settings = context.read<SettingsCubit>().state.settings;
+            settings.isFirstUse = false;
+            context.read<SettingsCubit>().setSettings(settings);
+            Navigator.of(context).pushNamed(baseAuthScreen);
           },
           child: Text(
             "Skip",
@@ -110,13 +122,10 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         curve: Curves.easeInOutSine,
       );
     } else {
-      //prefs.setString("ONBOARDING", 'true');
-      // Navigator.push(
-      //   context,
-      //   CupertinoPageRoute(
-      //     builder: (context) => const BaseAuthController(),
-      //   ),
-      // );
+      SettingsItem settings = context.read<SettingsCubit>().state.settings;
+      settings.isFirstUse = false;
+      context.read<SettingsCubit>().setSettings(settings);
+      Navigator.of(context).pushNamed(baseAuthScreen);
     }
   }
 }

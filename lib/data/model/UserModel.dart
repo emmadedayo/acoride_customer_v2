@@ -1,3 +1,7 @@
+import 'package:acoride/data/model/bank_model.dart';
+
+import 'kyc_model.dart';
+
 class UserModel {
 /*
 {
@@ -32,6 +36,10 @@ class UserModel {
   String? fmsToken;
   bool? hasPin;
   int? bonus;
+  int? rate;
+  int? totalRide;
+  Kyc? kyc;
+  UserBank? userBank;
 
   UserModel({
     this.id =0,
@@ -47,6 +55,10 @@ class UserModel {
     this.fmsToken = '',
     this.hasPin = false,
     this.bonus = 0,
+    this.rate = 0,
+    this.totalRide = 0,
+    this.kyc,
+    this.userBank,
   });
 
   UserModel.fromMap(Map json) {
@@ -63,6 +75,10 @@ class UserModel {
     fmsToken = json['fms_token'] ?? '';
     hasPin = json['has_pin'] ?? false;
     bonus = json['bonus']  ?? 0;
+    rate = json['rate']  ?? 0;
+    totalRide = json['total_ride']  ?? 0;
+    kyc = json['kyc'] != null ? Kyc.fromMap(json['kyc']) : null;
+    userBank = json['userbank'] != null ? UserBank.fromMap(json['userbank']) : null;
   }
 
 
@@ -81,6 +97,14 @@ class UserModel {
     data['fms_token'] = fmsToken;
     data['has_pin'] = hasPin;
     data['bonus'] = bonus;
+    data['rate'] = rate;
+    data['total_ride'] = totalRide;
+    if (kyc != null) {
+      data['kyc'] = kyc!.toMap();
+    }
+    if (userBank != null) {
+      data['userbank'] = userBank!.toMap();
+    }
     return data;
   }
 }

@@ -8,8 +8,14 @@ enum HttpMethod {
   PUT_WITH_AUTH,
   DELETE_WITH_AUTH
 }
+
 enum CustomState {
   LOADING,
   DONE,
   ERROR,
+}
+
+enum SettingsResponse {
+  dataDeleted,
+  failedDeleteData,
 }

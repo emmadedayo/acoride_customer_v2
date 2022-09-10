@@ -47,7 +47,6 @@ class UserProvider{
   Future<Map> login(Map<String,dynamic> map) async {
     Response? response = await RestApi.getDataFromServer(ApiUrl.login,
         map, method: HttpMethod.POST);
-
     return RestApi.getMapFromResponse(response);
   }
 

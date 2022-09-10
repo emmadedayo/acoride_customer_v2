@@ -35,7 +35,7 @@ class AppCubit extends Cubit<AppState> {
     if (state.user != null) {
       state.userInitialized = true;
       state.transactions = await transactionRepository.getTransaction('${state.token}');
-      state.cards = await cardRepository.getAll('${state.token}');
+      state.cards = await cardRepository.getAll();
     }
 
     state.customState = CustomState.DONE;

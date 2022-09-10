@@ -30,7 +30,6 @@ class UserCard {
   int? id;
   String? userId;
   String? transactionId;
-  String? authorizationCode;
   String? bin;
   String? last4;
   String? expMonth;
@@ -41,18 +40,13 @@ class UserCard {
   String? countryCode;
   String? brand;
   String? reusable;
-  String? signature;
   String? accountName;
   String? isActive;
-  String? createdAt;
-  String? updatedAt;
-  String? deletedAt;
 
   UserCard({
     this.id,
     this.userId,
     this.transactionId,
-    this.authorizationCode,
     this.bin,
     this.last4,
     this.expMonth,
@@ -63,18 +57,13 @@ class UserCard {
     this.countryCode,
     this.brand,
     this.reusable,
-    this.signature,
     this.accountName,
     this.isActive,
-    this.createdAt,
-    this.updatedAt,
-    this.deletedAt,
   });
   UserCard.fromMap(json) {
     id = json['id']?.toInt();
     userId = json['user_id']?.toString();
     transactionId = json['transaction_id']?.toString();
-    authorizationCode = json['authorization_code']?.toString();
     bin = json['bin']?.toString();
     last4 = json['last4']?.toString();
     expMonth = json['exp_month']?.toString();
@@ -85,19 +74,14 @@ class UserCard {
     countryCode = json['country_code']?.toString();
     brand = json['brand']?.toString();
     reusable = json['reusable']?.toString();
-    signature = json['signature']?.toString();
     accountName = json['account_name']?.toString();
     isActive = json['is_active']?.toString();
-    createdAt = json['created_at']?.toString();
-    updatedAt = json['updated_at']?.toString();
-    deletedAt = json['deleted_at']?.toString();
   }
   Map<String, dynamic> toMap() {
     final data = <String, dynamic>{};
     data['id'] = id;
     data['user_id'] = userId;
     data['transaction_id'] = transactionId;
-    data['authorization_code'] = authorizationCode;
     data['bin'] = bin;
     data['last4'] = last4;
     data['exp_month'] = expMonth;
@@ -108,12 +92,8 @@ class UserCard {
     data['country_code'] = countryCode;
     data['brand'] = brand;
     data['reusable'] = reusable;
-    data['signature'] = signature;
     data['account_name'] = accountName;
     data['is_active'] = isActive;
-    data['created_at'] = createdAt;
-    data['updated_at'] = updatedAt;
-    data['deleted_at'] = deletedAt;
     return data;
   }
 }

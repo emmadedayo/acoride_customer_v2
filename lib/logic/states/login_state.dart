@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class LoginState{
   bool isLoading;
-  bool hasError;
+  bool? hasError;
   String? message;
   UserModel? user;
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  LoginState({this.isLoading = false, this.message, this.hasError = false, this.user});
+  LoginState({this.isLoading = false, this.message, this.hasError, this.user});
   LoginState copy() {
     LoginState copy = LoginState(isLoading: isLoading, message: message, hasError: hasError, user: user);
     copy.phoneController = phoneController;

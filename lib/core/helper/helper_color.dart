@@ -9,11 +9,11 @@ class HelperColor {
   ///
   ///
 
-  Color textFieldColor = const Color.fromRGBO(168, 160, 149, 0.6);
+  static const Color textFieldColor = Color.fromRGBO(168, 160, 149, 0.6);
   static const Color primaryColor = Color(0xFF2EA445);
   static const Color primaryColorTwo = Color(0xFF24314E);
   static const Color primaryLightColor = Color(0xFFE2F1F4);
-  static const Color redColor = Color(0xFFFF6868);
+  static const Color redColor = Colors.red;
   static const Color greenColor = Color(0xFF00A447);
   static const Color lightGreen = Color(0xFF33cb75);
   static const Color freyColor = Color(0xFF989898);

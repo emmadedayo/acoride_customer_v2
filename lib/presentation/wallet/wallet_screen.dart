@@ -1,6 +1,6 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/presentation/components/buttonWidget.dart';
+import 'package:acoride/presentation/wallet/component/wallet_screen_component.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,14 +25,6 @@ class WalletScreenState extends State<WalletScreen> {
 
   @override
   void initState() {
-    //Provider.of<DashBoardProvider>(context, listen: false).getUserInfo(context);
-    Future.delayed(const Duration(seconds: 10), () {
-      if(mounted){
-        setState(() {
-          isLoading = false;
-        });
-      }
-    });
     super.initState();
   }
 
@@ -45,94 +37,110 @@ class WalletScreenState extends State<WalletScreen> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return PlatformScaffold(
+      backgroundColor: Colors.white,
+      appBar: PlatformAppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          'Wallet',
+          style: HelperStyle.textStyleTwo(
+              context, HelperColor.black, 20.sp, FontWeight.normal),
+        ),
+        material: (_, __)  => MaterialAppBarData(
+          elevation: 0,
+          automaticallyImplyLeading: true,
+          centerTitle: true,
+          iconTheme: const IconThemeData(
+            color: Colors.black, //change your color here
+          ),
+        ),
+        cupertino: (_, __) => CupertinoNavigationBarData(
+            automaticallyImplyLeading: true
+        ),
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child:Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Padding(
-                  padding: const EdgeInsets.all(20),
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Expanded(child:  Text('Welcome, Adenagbe ', style: HelperStyle.textStyle(
-                              context, Colors.black, 24.sp, FontWeight.w500,letterSpacing: -1),
-                          ),),
 
-                          //  const Spacer(),
-                          GestureDetector(
-                            child: const Icon(Icons.notifications,color: Color(0xff5A5A5A),size: 23,),
-                            onTap: (){
-                              // Navigator.push(context,MaterialPageRoute(builder: (context) =>  const NotificationIndexScreen()));
-
-                            },
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                //margin: EdgeInsets.only(left: 5.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.all(16.0),
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: const DecorationImage(
+                          fit: BoxFit.fill,
+                          image: AssetImage('assets/images/earning_bg_@3x.png'),
+                        ),
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 30.h,),
+                          Text('Total Balance',
+                            style: HelperStyle.textStyle(
+                                context, Colors.white, 14.sp, FontWeight.w400),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text('NGN 1.00',
+                            style: HelperStyle.textStyle(
+                                context, HelperColor.slightWhiteColor, 25.sp, FontWeight.w700,letterSpacing: 0.5),
+                          ),
+                          const SizedBox(
+                            height: 20,
                           ),
 
+                          Container(
+                            padding: const EdgeInsets.only(left: 15,right: 15),
+                            child: Row(
+                              children: <Widget>[
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Row(
+                                      children: [
+                                        Text("Bonus Balance", style: HelperStyle.textStyle(
+                                            context, const Color(0xffFFFC00), 12, FontWeight.w400),),
+                                      ],
+                                    ),
+                                    const SizedBox(height: 2,),
+                                    Text("₦ ", style: HelperStyle.textStyle(
+                                        context, const Color(0xffFFFC00), 14, FontWeight.w700),)
+                                  ],
+                                ),
+                                const Spacer(),
+                                //
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                      const SizedBox(height: 5,),
-                      Text("Today's ${DateFormat.MMMMEEEEd().format(DateTime.now())}", style: HelperStyle.textStyle(
-                          context, Colors.black, 13.sp, FontWeight.w400),
-                      ),
-                    ],
-                  )
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  Container(
-                      width: ScreenUtil().setWidth(400),
-                      decoration: const BoxDecoration(
-                        color: HelperColor.primaryColor,
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/images/bg.png'),
-                        ),
-                      ),
-                      child: Container(
-                        padding: const EdgeInsets.only(left: 20,right: 20,top: 25),
-                        margin: const EdgeInsets.all(30),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('Total Balance',
-                              style: HelperStyle.textStyle(
-                                  context, Colors.white, 14.sp, FontWeight.w400),
-                            ),
-                            const SizedBox(
-                              height: 5,
-                            ),
-                            Text('NGN 1.00',
-                              style: HelperStyle.textStyle(
-                                  context, HelperColor.black, 25.sp, FontWeight.w700,letterSpacing: 0.5),
-                            ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            ButtonWidget(
-                              buttonTextSize: 16,
-                              containerHeight: 40.h,
-                              containerWidth: 100.w,
-                              buttonText: "Withdraw",
-                              color: Colors.black,
-                              textColor: Colors.white,
-                              onTap: (){
+                    ),
 
+                    const SizedBox(
+                      height: 20,
+                    ),
 
-                              },
-                              radius: 10,
-
-                            ),
-                          ],
-                        ),
-                      )
-                  ),
-                ],
+                    ListView.builder(
+                      itemCount: choices.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (BuildContext context,int index){
+                        return TransactionWalletWidget(
+                          transactionModel: choices[index],
+                        );
+                      },
+                    )
+                  ],
+                ),
               ),
               SizedBox(height: 30.h,),
 
@@ -144,3 +152,81 @@ class WalletScreenState extends State<WalletScreen> {
     
   }
 }
+
+class TransactionModel {
+  TransactionModel({this.id,this.userId,this.amount,this.type,this.createdAt,this.remark, this.paymentFor,this.paymentRef});
+  int? id;
+  int? userId;
+  String? amount;
+  String? remark;
+  String? type;
+  String? paymentFor;
+  String? paymentRef;
+  String? createdAt;
+}
+ List<TransactionModel> choices = <TransactionModel>[
+  TransactionModel(
+    id: 1,
+    userId: 1,
+    amount: "100",
+    type: "credit",
+    createdAt: "01 Sep, 10:00 AM",
+    remark: "Payment for ride",
+    paymentFor: "ride",
+    paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+  ),
+  TransactionModel(
+    id: 2,
+    userId: 1,
+    amount: "100",
+    type: "credit",
+    createdAt: "01 Sep, 10:00 AM",
+    remark: "Payment for ride",
+    paymentFor: "ride",
+    paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+  ),
+  TransactionModel(
+    id: 3,
+    userId: 1,
+    amount: "100",
+    type: "credit",
+    createdAt: "01 Sep, 10:00 AM",
+    remark: "Payment for ride",
+    paymentFor: "ride",
+    paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+  ),
+
+   TransactionModel(
+     id: 4,
+     userId: 1,
+     amount: "100",
+     type: "credit",
+     createdAt: "01 Sep, 10:00 AM",
+     remark: "Payment for ride",
+     paymentFor: "ride",
+     paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+   ),
+
+   TransactionModel(
+     id: 5,
+     userId: 1,
+     amount: "100",
+     type: "credit",
+     createdAt: "01 Sep, 10:00 AM",
+     remark: "Payment for ride",
+     paymentFor: "ride",
+     paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+   ),
+
+   TransactionModel(
+     id: 6,
+     userId: 1,
+     amount: "100",
+     type: "credit",
+     createdAt: "01 Sep, 10:00 AM",
+     remark: "Payment for ride",
+     paymentFor: "ride",
+     paymentRef: "6e2baf40-484f-4513-bdd3-379558d88303",
+   ),
+
+];

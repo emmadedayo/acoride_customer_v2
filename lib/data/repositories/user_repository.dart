@@ -108,20 +108,45 @@ class UserRepository{
     UserModel? user;
 
     Map<String, dynamic> map = await provider.getCurrentUser();
-    try {
-      user = UserModel.fromMap(map);
-    }
-    catch(err) {
-      debugPrint('=================Failed to get current user: $err');
+    if (map.isNotEmpty) {
+      try {
+        user = UserModel.fromMap(map);
+      }
+      catch(err) {
+        if (kDebugMode) {
+          print(err);
+        }
+      }
     }
     return user;
   }
 
   Future<ResultItem<UserModel?>> updateProfile(maps,token) async {
+    debugPrint('$token');
     UserModel? newUser;
     Map map = await provider.updateProfile(maps,token);
     int? statusCode = map[FIELD_STATUS_CODE];
     String message = map[FIELD_MESSAGE]?? '';
+    if (map.isNotEmpty) {
+      try {
+        newUser = UserModel.fromMap(map[FIELD_DATA]);
+      }
+      catch(err) {
+        if (kDebugMode) {
+          print(err);
+        }
+      }
+    }
+    return ResultItem<UserModel?>(result: newUser, errorCode: statusCode, message: message);
+  }
+
+  Future<ResultItem<UserModel?>> verifyEmail(maps,token) async {
+    debugPrint('$token');
+    UserModel? newUser;
+    Map map = await provider.verifyEmail(maps,token);
+    int? statusCode = map[FIELD_STATUS_CODE];
+    String message = map[FIELD_MESSAGE]?? '';
+    debugPrint("message: $message");
     if (map.isNotEmpty) {
       try {
         newUser = UserModel.fromMap(map[FIELD_DATA]);

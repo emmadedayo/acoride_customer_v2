@@ -1,6 +1,7 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
+import 'package:acoride/presentation/router/router_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -61,9 +62,9 @@ class BaseAuthScreenState extends State<BaseAuthScreen> {
                     ),
                     const Spacer(),
                     Text(
-                      'On-Demand Ride hailing Service is an online ride hailing service with efficiency, safety and affordability as its bedrock of service',
+                      'On-Demand Ride hailing Service is an online ride hailing Service with efficiency, safety and affordability as its bedrock of Service',
                       style: HelperStyle.textStyleTwo(
-                          context, HelperColor.kTextColorAccent, 16, FontWeight.normal,letterSpacing: 1.0
+                          context, HelperColor.kTextColorAccent, 13, FontWeight.normal,letterSpacing: 1.0
                       ),
                     ),
                     const Spacer(),
@@ -75,12 +76,7 @@ class BaseAuthScreenState extends State<BaseAuthScreen> {
                       color: HelperColor.primaryColor,
                       textColor: HelperColor.primaryLightColor,
                       onTap: (){
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const RegisterScreenController(),
-                        //   ),
-                        // );
+                        Navigator.of(context).pushNamed(loginScreenController);
                       },
                       radius: 8,
 

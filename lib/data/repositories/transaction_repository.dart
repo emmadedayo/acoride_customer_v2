@@ -41,7 +41,7 @@ class TransactionRepository {
     List<TransactionModel> sites = [];
     List list = await transactionProvider.getTransaction(token);
     for (int i = 0; i < list.length; i++) {
-      Map map = list[i]['data'];
+      Map map = list[i];
       if (map.isNotEmpty && map['id'] > 0) {
         TransactionModel? site = TransactionModel.fromMap(map);
         if (site != null) {

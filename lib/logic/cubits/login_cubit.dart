@@ -6,7 +6,7 @@ class LoginCubit extends Cubit<LoginState>{
   UserRepository userRepository = UserRepository();
   LoginCubit(LoginState initialState) : super(initialState);
 
-  signUp() async {
+  loginIn() async {
     emit(state.copy());
     state.isLoading = true;
     emit(state.copy());
@@ -14,15 +14,15 @@ class LoginCubit extends Cubit<LoginState>{
       'phone_number': state.phoneController.text,
       'password': state.passwordController.text,
     });
-    print("object  ${result.result}");
     if (result.errorCode! >= 400) {
       state.message = result.message;
       state.hasError = true;
       state.isLoading = false;
     } else {
       userRepository.setCurrentUser(result.result!);
+      state.user = result.result;
     }
-
+    state.isLoading = false;
     emit(state.copy());
   }
 

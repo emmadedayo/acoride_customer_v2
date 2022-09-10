@@ -138,10 +138,10 @@ class RestApi {
 
     if (response != null) {
       try {
-        list = jsonDecode(response.body);
+        list = jsonDecode(response.body)[FIELD_DATA];
       }
       catch (err) {
-        //debugPrint('=======Err $err');
+        debugPrint('=======Err $err');
       }
     }
 
