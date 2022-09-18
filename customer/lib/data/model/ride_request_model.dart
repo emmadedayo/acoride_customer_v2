@@ -1,4 +1,5 @@
 import 'package:acoride/data/model/UserModel.dart';
+import 'package:acoride/data/model/trip_request_amount.dart';
 
 class RideRequestModel {
   int? id;
@@ -32,6 +33,7 @@ class RideRequestModel {
   String? distanceCovered;
   String? estimatedDistanceCovered;
   UserModel? user;
+  TripAmountRequest? tripAmountRequest;
 
   RideRequestModel(
       {this.id,
@@ -98,6 +100,7 @@ class RideRequestModel {
     distanceCovered = json['distance_covered'];
     estimatedDistanceCovered = json['estimated_distance_covered'];
     user = json['user'] != null ? UserModel.fromMap(json['user']) : null;
+    tripAmountRequest = json['trip_amount'] != null ? TripAmountRequest.fromMap(json['trip_amount']) : null;
   }
 
   Map<String?, dynamic> toMap() {
@@ -135,6 +138,9 @@ class RideRequestModel {
     data['estimated_distance_covered'] = estimatedDistanceCovered;
     if (user != null) {
       data['user'] = user!.toMap();
+    }
+    if (tripAmountRequest != null) {
+      data['trip_amount'] = tripAmountRequest!.toMap();
     }
     return data;
   }

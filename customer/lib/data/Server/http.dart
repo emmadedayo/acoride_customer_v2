@@ -124,6 +124,7 @@ class RestApi {
       try {
         map = jsonDecode(response.body);
         map[FIELD_STATUS_CODE] = response.statusCode;
+        debugPrint('=========Response: ${response.body}');
       }
       catch (err) {
         debugPrint('=======Err $err');

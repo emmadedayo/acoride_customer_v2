@@ -3,6 +3,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 class HelperConfig{
@@ -67,6 +68,10 @@ class HelperConfig{
     return 'assets/images/$imageName.png';
   }
 
+  static String splitName(String imageName){
+    return imageName.split(' ')[1];
+  }
+
   static Future<Uint8List?> getBytesFromAsset(String path, int width) async {
     ByteData data = await rootBundle.load(path);
     ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(), targetWidth: width);
@@ -101,4 +106,13 @@ class HelperConfig{
   static String uuid() {
     return const Uuid().v4();
   }
+
+  static Future<void> makePhoneCall(String url) async {
+    if (await canLaunchUrl(Uri.parse(url))) {
+      await launchUrl(Uri.parse(url));
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 }

@@ -2,18 +2,23 @@ import 'dart:io';
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/entities/settings_item.dart';
 import 'package:acoride/data/repositories/settings_repository.dart';
+import 'package:acoride/logic/cubits/cancellation_cubit.dart';
 import 'package:acoride/logic/cubits/card_cubit.dart';
 import 'package:acoride/logic/cubits/change_password_cubit.dart';
 import 'package:acoride/logic/cubits/emergency_cubit.dart';
+import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/cubits/settings_cubit.dart';
+import 'package:acoride/logic/states/cancellation_state.dart';
 import 'package:acoride/logic/states/card_state.dart';
 import 'package:acoride/logic/states/change_password_state.dart';
 import 'package:acoride/logic/states/emergency_state.dart';
+import 'package:acoride/logic/states/map_state.dart';
 import 'package:acoride/presentation/auth/base_auth_screen.dart';
 import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/router/app_router.dart';
 import 'package:acoride/presentation/styles/styles.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,6 +28,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'core/constant/constants.dart';
+import 'firebase_options.dart';
 import 'logic/cubits/app_cubit.dart';
 import 'logic/states/app_state.dart';
 import 'logic/states/settings_state.dart';
@@ -32,6 +38,10 @@ Future<void> main() async {
   if (defaultTargetPlatform == TargetPlatform.android) {
     AndroidGoogleMapsFlutter.useAndroidViewSurface = true;
   }
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+    name: 'acoride',
+  );
   SettingsItem settings = await SettingsRepository().getSettings();
   runApp(MainInitState(settings: settings,appRouter: AppRouter(),),);
 
@@ -74,6 +84,13 @@ class MainInitState extends StatelessWidget {
           ),
           BlocProvider<CardCubit>(
               create: (context) => CardCubit(CardState())
+          ),
+          BlocProvider<MapCubit>(
+              create: (context) => MapCubit(MapState())
+          ),
+
+          BlocProvider<CancellationCubit>(
+              create: (context) => CancellationCubit(CancellationState())
           ),
         ],
         child:BlocBuilder<SettingsCubit, SettingsState>(

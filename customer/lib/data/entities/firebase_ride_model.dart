@@ -19,7 +19,7 @@ class FireStoreModel {
     required this.amount,
   });
 
-  FireStoreModel.fromJson(Map<String, dynamic> json) {
+  FireStoreModel.fromJson(json) {
     driverID = json['driver_id'];
     passengerID = json['passenger_id'];
     deleteTrip = json['delete_trip'];

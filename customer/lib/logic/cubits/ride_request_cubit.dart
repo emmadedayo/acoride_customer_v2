@@ -1,26 +1,29 @@
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/data/entities/firebase_ride_model.dart';
+import 'package:acoride/data/repositories/firebase_repository.dart';
 import 'package:acoride/data/repositories/google_web_service_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
-import 'package:acoride/logic/states/map_state.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import '../../core/helper/helper_config.dart';
+import '../states/ride_request_state.dart';
 
 
-class MapCubit extends Cubit<MapState> {
+class RideRequestCubit extends Cubit<RideRequestState> {
 
-  MapCubit(MapState initialState) : super(initialState) {
-     initState();
+  RideRequestCubit(RideRequestState initialState) : super(initialState) {
+    initState();
   }
 
   GoogleWebService googleWebService = GoogleWebService();
   RideRequestRepository rideRequestRepository = RideRequestRepository();
-
   var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
 
   initState() async {
@@ -28,16 +31,20 @@ class MapCubit extends Cubit<MapState> {
     state.markers.clear();
     locationInit();
     initLastKnownLocation();
+    await getUsers();
     emit(state.copy());
-    getLocationLine(state.dataFrom[0]['lat'].toString(), state.dataFrom[0]['long'].toString(), state.dataTo[0]['lat'].toString(), state.dataTo[0]['long'].toString());
-
     if (await HelperConfig.determinePosition()) {
+      getLocationLine(
+          state.rideRequestModel?.passengerPickupLatitude.toString() ?? "",
+          state.rideRequestModel?.passengerPickupLongitude.toString() ?? "",
+          state.rideRequestModel?.passengerDestinationLatitude.toString() ?? "",
+          state.rideRequestModel?.passengerDestinationLongitude.toString() ?? "",
+      );
       state.position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       if (kDebugMode) {
         print("object ${state.position}");
       }
       if (state.position != null) {
-        var result = await googleGeocoding.geocoding.getReverse(LatLon(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0));
         state.mapController?.animateCamera(
           CameraUpdate?.newCameraPosition(
             CameraPosition(
@@ -49,65 +56,6 @@ class MapCubit extends Cubit<MapState> {
       }
     } else {
 
-    }
-    state.positionLoading = CustomState.DONE;
-    emit(state.copy());
-  }
-
-  loadingAndWaitingForDriver() async {
-    state.positionLoading = CustomState.LOADING;
-    emit(state.copy());
-    var result = await rideRequestRepository.getDriver(
-        {
-          "myLat":"7.3313237",
-          "myLon":"3.8666836"
-        }
-    );
-    if (result.errorCode! >= 400) {
-      state.positionLoading = CustomState.DONE;
-      state.initVisible = true;
-    } else {
-      state.initVisible = false;
-      state.driverFoundVisible = true;
-      state.userRideRequest = result.result;
-      state.positionLoading = CustomState.DONE;
-    }
-    state.positionLoading = CustomState.DONE;
-    emit(state.copy());
-  }
-
-
-  createTrip() async {
-    state.positionLoading = CustomState.LOADING;
-    emit(state.copy());
-    debugPrint('=========Maps : ${state.dataFrom}');
-    var result = await rideRequestRepository.createTrip(
-        {
-          "ride_id":HelperConfig.uuid(),
-          "driver_id":state.userRideRequest?.user?.id,
-          "passenger_id": state.userModel?.id,
-          "passenger_pickup_address":state.dataFrom[0]['name'],
-          "passenger_pickup_latitude":state.dataFrom[0]['lat'],
-          "passenger_pickup_longitude":state.dataFrom[0]['long'],
-          "passenger_destination_address":state.dataTo[0]['name'],
-          "passenger_destination_latitude":state.dataTo[0]['lat'],
-          "passenger_destination_longitude":state.dataTo[0]['long'],
-          "ride_type":"instant",
-          "km":"983",
-          "km_in_time":"8393",
-          "payment_type":"wallet",
-          "estimated_price":state.userRideRequest?.estimatedPrice,
-          "on_going": "1",
-          "base_fare_fee": "200"
-        }
-    );
-    if (result.errorCode! >= 400) {
-      state.positionLoading = CustomState.DONE;
-      state.initVisible = true;
-    } else {
-
-      state.rideRequestModel = result.result;
-      state.positionLoading = CustomState.DONE;
     }
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
@@ -157,58 +105,28 @@ class MapCubit extends Cubit<MapState> {
 
 
   addMarker() async {
-
     state.dropOffMarker = Marker(
       markerId: MarkerId('drop_off_destination${UniqueKey()}'),
-      position: LatLng(state.dataFrom[0]['lat'] ?? 0.0 , state.dataFrom[0]['long'] ?? 0.0),
+      position: LatLng(state.rideRequestModel?.passengerDestinationLatitude ?? 0.0 , state.rideRequestModel?.passengerDestinationLongitude ?? 0.0),
       icon:BitmapDescriptor.defaultMarker,
     );
 
     state.pickupMarker = Marker(
-      markerId: MarkerId('pick_up_location${UniqueKey()}'),
-      position: LatLng(state.dataTo[0]['lat'] ?? 0.0, state.dataTo[0]['long'] ?? 0.0),
-      icon:BitmapDescriptor.defaultMarker
+        markerId: MarkerId('pick_up_location${UniqueKey()}'),
+        position: LatLng(state.rideRequestModel?.passengerPickupLatitude ?? 0.0, state.rideRequestModel?.passengerPickupLongitude ?? 0.0),
+        icon:BitmapDescriptor.defaultMarker
     );
 
-    double miny = (state.dataFrom[0]['lat'] <= state.dataTo[0]['lat']) ? state.dataFrom[0]['lat'] : state.dataTo[0]['lat'];
-    double minx = (state.dataFrom[0]['long'] <= state.dataTo[0]['long']) ? state.dataFrom[0]['long'] : state.dataTo[0]['long'];
-    double maxy = (state.dataFrom[0]['lat'] <= state.dataTo[0]['lat']) ? state.dataTo[0]['lat'] : state.dataFrom[0]['lat'];
-    double maxx = (state.dataFrom[0]['long'] <= state.dataTo[0]['long']) ? state.dataTo[0]['long'] : state.dataFrom[0]['long'];
-
-    double southWestLatitude = miny;
-    double southWestLongitude = minx;
-
-    double northEastLatitude = maxy;
-    double northEastLongitude = maxx;
-
-    Future.delayed(const Duration(milliseconds: 200), () async {
-      state.mapController?.animateCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(northEastLatitude, northEastLongitude),
-            southwest: LatLng(southWestLatitude, southWestLongitude),
-          ),
-          100.0,
-        ),
-      );
-    });
     if (state.position != null) {
       state.markers.add(state.pickupMarker!);
       state.markers.add(state.dropOffMarker!);
     }
+    emit(state.copy());
   }
-
-  getPositionName(lat,lng) async {
-    if (lat != null && lng != null) {
-      var result = await googleGeocoding.geocoding.getReverse(LatLon(lat,lng));
-      state.pickUpAddress = result?.results![0].formattedAddress ?? 'Current Location';
-      emit(state);
-    }
-  }
-
+  
 
   getLocationLine(String userLatFrom , String userLongFrom, String userLatTo, String userLongTo) async {
-
+    emit(state.copy());
     final String polylineIdVal = 'polyline_id_${HelperConfig.getTimeStampDividedByOneThousand(DateTime.now())}';
     final PolylineId polylineId = PolylineId(polylineIdVal);
     state.polyLines.clear();
@@ -221,6 +139,19 @@ class MapCubit extends Cubit<MapState> {
     state.duration = state.googleDirectionModel?.routes?[0].legs?[0].duration?.text ?? '';
     debugPrint("=============================>>>>>>>>>> object distance ${state.distance}");
     debugPrint("=============================>>>>>>>>>> object duration ${state.duration}");
+
+    Future.delayed(const Duration(milliseconds: 200), () async {
+      state.mapController?.animateCamera(
+        CameraUpdate.newLatLngBounds(
+          LatLngBounds(
+            northeast: LatLng(state.googleDirectionModel?.routes![0].bounds?.northeast?.lat ?? 0.0, state.googleDirectionModel?.routes![0].bounds?.northeast?.lng ?? 0.0),
+            southwest: LatLng(state.googleDirectionModel?.routes![0].bounds?.southwest?.lat! ?? 0.0, state.googleDirectionModel?.routes![0].bounds?.southwest?.lng ?? 0.0),
+          ),
+          10,
+        ),
+      );
+    });
+
     state.polyLines.add(Polyline(
       polylineId: polylineId,
       width: 3,
@@ -230,5 +161,18 @@ class MapCubit extends Cubit<MapState> {
       jointType: JointType.round,
       points: HelperConfig.convertToLatLng(HelperConfig.decodePoly(state.googleDirectionModel?.routes?[0].overviewPolyline?.points ?? '')),
     ));
+    emit(state.copy());
+  }
+
+   getUsers() async{
+
+    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request').doc('OG6839').snapshots();
+    rideRequestStream.listen((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
+        print("objectobject ${state.fireStoreModel?.driverID}");
+        emit(state.copy());
+      }
+    });
   }
 }

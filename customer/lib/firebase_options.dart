@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAsM2rA7eedO9ghLEquw55xz-cWwqqmFQw',
-    appId: '1:763557308352:android:2b1b2415928ab0277f0a25',
+    appId: '1:763557308352:android:e5237a26e42793b17f0a25',
     messagingSenderId: '763557308352',
     projectId: 'acoride-production',
     storageBucket: 'acoride-production.appspot.com',
@@ -59,11 +59,11 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyCvbtxetTCT6sRWWH-F3oaA1NuqPlhFOJU',
-    appId: '1:763557308352:ios:c71b5cbfd3acb77a7f0a25',
+    appId: '1:763557308352:ios:a8487c952f1af3a57f0a25',
     messagingSenderId: '763557308352',
     projectId: 'acoride-production',
     storageBucket: 'acoride-production.appspot.com',
-    iosClientId: '763557308352-m78439333ttd0pii055smr4g4dbdaq0o.apps.googleusercontent.com',
-    iosBundleId: 'com.softpay.acoride',
+    iosClientId: '763557308352-6373rq5098r3c8b647s8rgapfcpqrfpq.apps.googleusercontent.com',
+    iosBundleId: 'com.acoride.customer',
   );
 }
