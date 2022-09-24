@@ -1,7 +1,7 @@
 import 'package:acoride/core/constant/enum.dart';
-import 'package:acoride/data/repositories/object_box_repository.dart';
+import 'package:acoride/data/repositories/google_web_service_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
-import 'package:acoride/logic/states/dashboard_state.dart';
+import 'package:acoride/logic/states/rate_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -11,15 +11,16 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/helper/helper_config.dart';
 
-class DashBoardCubit extends Cubit<DashBoardState> {
 
-  DashBoardCubit(DashBoardState initialState) : super(initialState) {
+class RateCubit extends Cubit<RateState> {
+
+  RateCubit(RateState initialState) : super(initialState) {
     initState();
   }
 
-  var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
+  GoogleWebService googleWebService = GoogleWebService();
   RideRequestRepository rideRequestRepository = RideRequestRepository();
-  ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
+  var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
 
   initState() async {
     state.positionLoading = CustomState.LOADING;
@@ -31,23 +32,6 @@ class DashBoardCubit extends Cubit<DashBoardState> {
       state.position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       if (kDebugMode) {
         print("object ${state.position}");
-      }
-      if (state.position != null) {
-        var result = await googleGeocoding.geocoding.getReverse(LatLon(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0));
-        state.mapController?.animateCamera(
-          CameraUpdate?.newCameraPosition(
-            CameraPosition(
-              target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
-              zoom: 17.0,
-            ),
-          ),
-        );
-        state.cameraPosition = CameraPosition(
-          target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
-          zoom: 17.0,
-        );
-        addMarker();
-        state.currentAddress = result?.results![0].formattedAddress ?? '';
       }
     } else {
 
@@ -64,21 +48,6 @@ class DashBoardCubit extends Cubit<DashBoardState> {
       position = null;
     }
     state.lastKnownPositions = position;
-    emit(state.copy());
-  }
-
-  returnToRide() async {
-    state.isLoading = true;
-    emit(state.copy());
-
-    var result = await rideRequestRepository.getTrip(state.rideDetails?.rideId);
-    if (result.errorCode! >= 400) {
-      state.isLoading = false;
-    } else {
-      state.rideRequestModel = result.result;
-      state.isLoading = false;
-    }
-    state.isLoading = false;
     emit(state.copy());
   }
 
@@ -113,29 +82,53 @@ class DashBoardCubit extends Cubit<DashBoardState> {
     emit(state.copy());
   }
 
-  onCameraMove(CameraPosition position) {
-    state.cameraPosition = position;
+
+  addMarker() async {
+    state.dropOffMarker = Marker(
+      markerId: MarkerId('drop_off_destination${UniqueKey()}'),
+      position: LatLng(state.rideRequestModel?.passengerDestinationLatitude ?? 0.0 , state.rideRequestModel?.passengerDestinationLongitude ?? 0.0),
+      icon:BitmapDescriptor.defaultMarker,
+    );
+
+    state.pickupMarker = Marker(
+        markerId: MarkerId('pick_up_location${UniqueKey()}'),
+        position: LatLng(state.rideRequestModel?.passengerPickupLatitude ?? 0.0, state.rideRequestModel?.passengerPickupLongitude ?? 0.0),
+        icon:BitmapDescriptor.defaultMarker
+    );
+
+    if (state.position != null) {
+      state.markers.add(state.pickupMarker!);
+      state.markers.add(state.dropOffMarker!);
+    }
     emit(state.copy());
   }
 
-  addMarker() async {
-    Future.delayed(const Duration(milliseconds: 200), () async {
-      state.mapController?.animateCamera(
-        CameraUpdate?.newCameraPosition(
-          CameraPosition(
-            target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
-            zoom: 17.0,
-          ),
-        ),
-      );
-    });
+  rate() async {
+    state.isLoading = true;
+    emit(state.copy());
+    var result = await rideRequestRepository.rate(
+        {
+          "driver_id": state.rideRequestModel?.driverId,
+          "user_id": state.rideRequestModel?.passengerId,
+          "rate": state.rating,
+          "ride_id": state.rideRequestModel?.rideId,
+          "comment": state.commentController?.text,
+        }
+    );
+    if (result.errorCode! > 400) {
+      state.isLoading = false;
+      state.hasError = false;
+      state.message = result.message;
+    } else {
+      state.hasError = true;
+      state.message = result.message;
+      state.isLoading = false;
+    }
+    emit(state.copy());
   }
 
-  getPositionName(lat,lng) async {
-    if (lat != null && lng != null) {
-      var result = await googleGeocoding.geocoding.getReverse(LatLon(lat,lng));
-      state.currentAddress = result?.results![0].formattedAddress ?? 'Current Location';
-      emit(state);
-    }
+  void selectRating(double v) {
+    state.rating = v;
+    emit(state.copy());
   }
 }

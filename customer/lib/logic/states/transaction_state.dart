@@ -2,10 +2,9 @@ import 'package:acoride/data/Entities/paystack_top_up_form.dart';
 import 'package:acoride/data/model/TransactionModel.dart';
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:flutter/material.dart';
-import '../../core/constant/enum.dart';
-import '../../data/entities/card_top_up.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';
 
+import '../../data/entities/card_top_up.dart';
 import '../../data/model/UserCard.dart';
 
 class TransactionState{

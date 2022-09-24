@@ -1,17 +1,19 @@
+import 'package:acoride/core/constant/constants.dart';
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/data/entities/firebase_ride_model.dart';
-import 'package:acoride/data/repositories/firebase_repository.dart';
+import 'package:acoride/data/model/location_model.dart';
 import 'package:acoride/data/repositories/google_web_service_repository.dart';
+import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/helper/helper_config.dart';
 import '../states/ride_request_state.dart';
 
@@ -24,6 +26,8 @@ class RideRequestCubit extends Cubit<RideRequestState> {
 
   GoogleWebService googleWebService = GoogleWebService();
   RideRequestRepository rideRequestRepository = RideRequestRepository();
+  ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
+
   var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
 
   initState() async {
@@ -34,17 +38,17 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     await getUsers();
     emit(state.copy());
     if (await HelperConfig.determinePosition()) {
-      getLocationLine(
-          state.rideRequestModel?.passengerPickupLatitude.toString() ?? "",
-          state.rideRequestModel?.passengerPickupLongitude.toString() ?? "",
-          state.rideRequestModel?.passengerDestinationLatitude.toString() ?? "",
-          state.rideRequestModel?.passengerDestinationLongitude.toString() ?? "",
-      );
       state.position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       if (kDebugMode) {
         print("object ${state.position}");
       }
       if (state.position != null) {
+        getLocationLine(
+          state.position?.latitude.toString() ?? '',
+          state.position?.longitude.toString() ?? '',
+          state.rideRequestModel?.passengerDestinationLatitude.toString() ?? "",
+          state.rideRequestModel?.passengerDestinationLongitude.toString() ?? "",
+        );
         state.mapController?.animateCamera(
           CameraUpdate?.newCameraPosition(
             CameraPosition(
@@ -140,17 +144,6 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     debugPrint("=============================>>>>>>>>>> object distance ${state.distance}");
     debugPrint("=============================>>>>>>>>>> object duration ${state.duration}");
 
-    Future.delayed(const Duration(milliseconds: 200), () async {
-      state.mapController?.animateCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(state.googleDirectionModel?.routes![0].bounds?.northeast?.lat ?? 0.0, state.googleDirectionModel?.routes![0].bounds?.northeast?.lng ?? 0.0),
-            southwest: LatLng(state.googleDirectionModel?.routes![0].bounds?.southwest?.lat! ?? 0.0, state.googleDirectionModel?.routes![0].bounds?.southwest?.lng ?? 0.0),
-          ),
-          10,
-        ),
-      );
-    });
 
     state.polyLines.add(Polyline(
       polylineId: polylineId,
@@ -164,13 +157,86 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     emit(state.copy());
   }
 
-   getUsers() async{
+  getStartRideLocation(userLatFrom, userLongFrom, userLatTo, userLongTo) async {
+    state.googleDirectionModelTwo = await googleWebService.getTransaction(userLatFrom, userLongFrom, userLatTo, userLongTo).then((value){
+      state.googleDirectionModelTwo = value;
+      addMarker();
+      return value;
+    });
+    state.distance = state.googleDirectionModelTwo?.routes?[0].legs?[0].distance?.text ?? '';
+    state.duration = state.googleDirectionModelTwo?.routes?[0].legs?[0].duration?.text ?? '';
+    debugPrint("=============================>>>>>>>>>> object in real time distance ${state.distance}");
+    debugPrint("=============================>>>>>>>>>> object in real time duration ${state.duration}");
+  }
 
-    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request').doc('OG6839').snapshots();
+   getUsers() async{
+     FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
+    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging').doc(state.rideRequestModel?.driverId.toString()).snapshots();
     rideRequestStream.listen((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
-        print("objectobject ${state.fireStoreModel?.driverID}");
+        // if(state.fireStoreModel?.confirmTrip == true){
+        //
+        //   objectBoxRepository.updateRideType('CONFIRM_RIDE');
+        //
+        // }else if(state.fireStoreModel?.deleteTrip == true) {
+        //
+        //   objectBoxRepository.deleteRide();
+        //
+        // }else if(state.fireStoreModel?.startTrip == true) {
+        //
+        //   objectBoxRepository.updateRideType('START_TRIP');
+        //
+        // }else if(state.fireStoreModel?.endTrip == true) {
+        //
+        //   objectBoxRepository.deleteRide();
+        // }
+        emit(state.copy());
+      }
+    });
+     getDriverLocation();
+  }
+
+
+  getDriverLocation() async{
+    FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
+    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging_location').doc(state.rideRequestModel?.rideId.toString()).snapshots();
+    rideRequestStream.listen((DocumentSnapshot documentSnapshot) {
+      if (documentSnapshot.exists) {
+        state.fireStoreLocationModel = FireStoreLocationModel.fromJson(documentSnapshot.data()!);
+        state.streamLatLng = LatLng(state.fireStoreLocationModel?.suppliedLatitude ?? 0.0, state.fireStoreLocationModel?.suppliedLongitude ?? 0.0);
+        CameraPosition cPosition = CameraPosition(
+          zoom: CAMERA_ZOOM,
+          tilt: CAMERA_TILT,
+          bearing: 180,
+          target: state.streamLatLng!,
+        );
+        Future.delayed(const Duration(milliseconds: 200), () async {
+          state.mapController?.animateCamera(
+            CameraUpdate?.newCameraPosition(
+              cPosition,
+            ),
+          );
+        });
+        if(state.fireStoreModel?.confirmTrip == false){
+          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+                               state.fireStoreLocationModel?.suppliedLongitude.toString(),
+                               state.rideRequestModel?.passengerPickupLatitude.toString(),
+                               state.rideRequestModel?.passengerPickupLongitude.toString()
+          );
+        }else if(state.fireStoreModel?.confirmTrip == true){
+          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+                              state.fireStoreLocationModel?.suppliedLongitude.toString(),
+                              state.rideRequestModel?.passengerPickupLatitude.toString(),
+                              state.rideRequestModel?.passengerPickupLongitude.toString()
+          );
+        }else if(state.fireStoreModel?.startTrip == true){
+          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+                              state.fireStoreLocationModel?.suppliedLongitude.toString(),
+                              state.rideRequestModel?.passengerDestinationLatitude.toString(),
+                              state.rideRequestModel?.passengerDestinationLongitude.toString()
+          );
+        }
         emit(state.copy());
       }
     });

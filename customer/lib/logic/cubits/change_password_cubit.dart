@@ -1,6 +1,6 @@
 import 'package:acoride/logic/states/change_password_state.dart';
-import 'package:acoride/logic/states/profile_state.dart';
 import 'package:bloc/bloc.dart';
+
 import '../../data/repositories/user_repository.dart';
 
 class ChangePasswordCubit extends Cubit<ChangePasswordState>{

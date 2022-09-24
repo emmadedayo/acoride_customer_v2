@@ -1,7 +1,5 @@
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
-import 'package:acoride/presentation/debit_card/debit_card_screen.dart';
-import 'package:acoride/presentation/profile/security/change_password.dart';
 import 'package:acoride/presentation/profile/web_view/urlScreenController.dart';
 import 'package:acoride/utils/profile_widget_one.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
 import '../router/router_constant.dart';

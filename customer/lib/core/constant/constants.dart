@@ -21,3 +21,8 @@ const settingsTokenPushed = 'token_pushed';
 ///SHARED PREFERENCES
 const prefSettings = 'settings';
 const PREF_CURRENT_USER = 'current_user';
+
+///MAP PREFERENCES
+const double CAMERA_TILT = 0;
+const double CAMERA_BEARING = 0;
+const double CAMERA_ZOOM = 16;

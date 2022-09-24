@@ -67,10 +67,16 @@ dependencies:
   cached_network_image: ^3.2.1
   awesome_dialog: ^3.0.0
   flutter_ringtone_player: ^3.2.0
+  carousel_slider: ^4.1.1
+  location: ^4.4.0
+  objectbox: ^1.6.2
+  objectbox_flutter_libs: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^2.0.0
+  objectbox_generator: any
   flutter_paystack:
     git:
       url: https://github.com/definitelyme/flutter_paystack.git

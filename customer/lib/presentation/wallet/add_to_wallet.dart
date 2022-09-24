@@ -9,15 +9,15 @@ import 'package:acoride/presentation/wallet/component/add_to_wallet_screen.dart'
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
 import '../../data/model/UserCard.dart';
 import '../components/buttonWidget.dart';
-import 'package:flutter_paystack/flutter_paystack.dart';
 
 class AddToWalletScreen extends StatefulWidget {
   const AddToWalletScreen({Key? key}) : super(key: key);

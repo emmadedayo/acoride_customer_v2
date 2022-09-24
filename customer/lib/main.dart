@@ -1,18 +1,23 @@
 import 'dart:io';
+
 import 'package:acoride/core/constant/enum.dart';
+import 'package:acoride/data/entities/object-box.dart';
 import 'package:acoride/data/entities/settings_item.dart';
 import 'package:acoride/data/repositories/settings_repository.dart';
 import 'package:acoride/logic/cubits/cancellation_cubit.dart';
 import 'package:acoride/logic/cubits/card_cubit.dart';
-import 'package:acoride/logic/cubits/change_password_cubit.dart';
+import 'package:acoride/logic/cubits/dashboard_cubit.dart';
 import 'package:acoride/logic/cubits/emergency_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
+import 'package:acoride/logic/cubits/rate_cubit.dart';
+import 'package:acoride/logic/cubits/ride_request_cubit.dart';
 import 'package:acoride/logic/cubits/settings_cubit.dart';
 import 'package:acoride/logic/states/cancellation_state.dart';
 import 'package:acoride/logic/states/card_state.dart';
-import 'package:acoride/logic/states/change_password_state.dart';
 import 'package:acoride/logic/states/emergency_state.dart';
 import 'package:acoride/logic/states/map_state.dart';
+import 'package:acoride/logic/states/rate_state.dart';
+import 'package:acoride/logic/states/ride_request_state.dart';
 import 'package:acoride/presentation/auth/base_auth_screen.dart';
 import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
@@ -23,15 +28,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'core/constant/constants.dart';
 import 'firebase_options.dart';
 import 'logic/cubits/app_cubit.dart';
 import 'logic/states/app_state.dart';
+import 'logic/states/dashboard_state.dart';
 import 'logic/states/settings_state.dart';
+
+late ObjectBox objectBox;
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,6 +51,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
     name: 'acoride',
   );
+  objectBox = await ObjectBox.create();
   SettingsItem settings = await SettingsRepository().getSettings();
   runApp(MainInitState(settings: settings,appRouter: AppRouter(),),);
 
@@ -82,15 +92,23 @@ class MainInitState extends StatelessWidget {
           BlocProvider<EmergencyCubit>(
               create: (context) => EmergencyCubit(EmergencyState())
           ),
+          BlocProvider<DashBoardCubit>(
+              create: (context) => DashBoardCubit(DashBoardState())
+          ),
           BlocProvider<CardCubit>(
               create: (context) => CardCubit(CardState())
           ),
           BlocProvider<MapCubit>(
               create: (context) => MapCubit(MapState())
           ),
-
           BlocProvider<CancellationCubit>(
               create: (context) => CancellationCubit(CancellationState())
+          ),
+          BlocProvider<RideRequestCubit>(
+              create: (context) => RideRequestCubit(RideRequestState())
+          ),
+          BlocProvider<RateCubit>(
+              create: (context) => RateCubit(RateState())
           ),
         ],
         child:BlocBuilder<SettingsCubit, SettingsState>(

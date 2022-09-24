@@ -4,12 +4,15 @@ import 'package:acoride/presentation/auth/registration_screen.dart';
 import 'package:acoride/presentation/auth/verify_phone_screen.dart';
 import 'package:acoride/presentation/debit_card/debit_card_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
+import 'package:acoride/presentation/order/order_rate_driver.dart';
+import 'package:acoride/presentation/order/order_trip_screen.dart';
 import 'package:acoride/presentation/profile/emergency/emergency_screen.dart';
 import 'package:acoride/presentation/profile/security/change_password.dart';
 import 'package:acoride/presentation/profile/user_profile.dart';
 import 'package:acoride/presentation/router/router_constant.dart';
 import 'package:acoride/presentation/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
+
 import '../auth/login_screen.dart';
 import '../auth/reset_account_screen.dart';
 import '../home/bottom_screen.dart';
@@ -82,6 +85,10 @@ class AppRouter {
         );
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: arguments!['user']));
+      case startTrip:
+        return MaterialPageRoute(builder: (_) => OrderTripScreen(rideRequestModel: arguments!['user']));
+      case endTrip:
+        return MaterialPageRoute(builder: (_) => OrderRateDriver(rideRequestModel: arguments!['user'],amountToPay: arguments!['amount'],));
       case verifyEmail:
         return MaterialPageRoute(builder: (_) => VerifyEmailAccountScreen(user: arguments!['user'], email: arguments['email'],));
       default:

@@ -26,7 +26,6 @@ class SettingsCubit extends Cubit<SettingsState> {
     setSettings(state.settings);
   }
 
-
   //called once user logging out
   removeToken() async {
     state.settings.tokenPushed = false;

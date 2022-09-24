@@ -1,4 +1,5 @@
 import 'package:acoride/data/provider/firebase_ride_provider.dart';
+
 import '../entities/firebase_ride_model.dart';
 
 class FirebaseRepository{

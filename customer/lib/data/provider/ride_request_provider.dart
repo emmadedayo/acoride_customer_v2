@@ -1,4 +1,5 @@
 import 'package:http/http.dart';
+
 import '../../core/constant/enum.dart';
 import '../Server/api_url.dart';
 import '../Server/http.dart';
@@ -18,9 +19,21 @@ class RideRequestProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> getTrip(rideID,token) async {
+    Response? response = await RestApi.getDataFromServer('${ApiUrl.getTrip}/?id=$rideID', {},
+        method: HttpMethod.GET_WITH_AUTH,token:token);
+    return RestApi.getMapFromResponse(response);
+  }
+
   Future<Map> cancelTrip(Map<String,dynamic> map,token) async {
     Response? response = await RestApi.getDataFromServer(ApiUrl.cancelTrip,
         map, method: HttpMethod.DELETE_WITH_AUTH,token:token);
+    return RestApi.getMapFromResponse(response);
+  }
+
+  Future<Map> rateRide(Map<String,dynamic> map,token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.rate,
+        map, method: HttpMethod.POST_WITH_AUTH,token:token);
     return RestApi.getMapFromResponse(response);
   }
 }

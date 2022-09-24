@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:acoride/data/repositories/card_repository.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:acoride/logic/states/card_state.dart';

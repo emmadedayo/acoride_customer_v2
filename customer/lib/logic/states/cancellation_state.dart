@@ -1,6 +1,7 @@
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:geolocator/geolocator.dart';
+
 import '../../data/model/cancellation_model.dart';
 
 class CancellationState{

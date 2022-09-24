@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:acoride/core/constant/enum.dart';
+
 import 'package:acoride/data/repositories/card_repository.dart';
 import 'package:acoride/data/repositories/transaction_repository.dart';
 import 'package:acoride/data/repositories/user_repository.dart';

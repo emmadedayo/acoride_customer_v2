@@ -16,8 +16,10 @@ import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+
 import '../../core/constant/enum.dart';
 import '../../core/helper/helper_style.dart';
+import '../router/router_constant.dart';
 
 class OrderAwaitScreen extends StatefulWidget {
   final RideRequestModel rideRequestModel;
@@ -51,30 +53,32 @@ class OrderAwaitScreenState extends State<OrderAwaitScreen> {
                 child: BlocListener<RideRequestCubit, RideRequestState>(
                   listener: (cubit, state) async {
                     if (mapState.fireStoreModel != null) {
-                     if(mapState.fireStoreModel!.deleteTrip!){
-                       FlutterRingtonePlayer.play(
-                         fromAsset: 'assets/sounds/beep.mp3',
-                         looping: false, // Android only - API >= 28
-                         volume: 0.1, // Android only - API >= 28
-                         asAlarm: false, // Android only - all APIs
-                       );
-                       AwesomeDialog(
-                           context: context,
-                           dialogType: DialogType.error,
-                           animType: AnimType.topSlide,
-                           title: 'Warning',
-                           desc: 'Your trip has been canceled by the driver',
-                           dismissOnBackKeyPress: false,
-                           btnOkText: 'Go Back',
-                           titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
-                           descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
-                           dismissOnTouchOutside: false,
-                           barrierColor: Colors.black.withOpacity(0.2),
-                           btnCancelColor: HelperColor.primaryColor,
-                           btnOkOnPress: () {
-                             FlutterRingtonePlayer.stop();
-                           }).show();
-                     }
+                      if (mapState.fireStoreModel!.deleteTrip!) {
+                        FlutterRingtonePlayer.play(
+                          fromAsset: 'assets/sounds/beep.mp3',
+                          looping: false, // Android only - API >= 28
+                          volume: 0.1, // Android only - API >= 28
+                          asAlarm: false, // Android only - all APIs
+                        );
+                        AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.topSlide,
+                            title: 'Warning',
+                            desc: 'Your trip has been canceled by the driver',
+                            dismissOnBackKeyPress: false,
+                            btnOkText: 'Go Back',
+                            titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
+                            descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
+                            dismissOnTouchOutside: false,
+                            barrierColor: Colors.black.withOpacity(0.2),
+                            btnCancelColor: HelperColor.primaryColor,
+                            btnOkOnPress: () {
+                              FlutterRingtonePlayer.stop();
+                            }).show();
+                      } else if (mapState.fireStoreModel!.confirmTrip!) {
+                        Navigator.of(context).pushNamedAndRemoveUntil(startTrip,(route) => false,arguments: {'user': state.rideRequestModel!});
+                      }
                     }
                   },
                   child:ListView(

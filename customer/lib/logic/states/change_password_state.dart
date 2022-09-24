@@ -1,4 +1,3 @@
-import 'package:acoride/data/model/UserModel.dart';
 import 'package:flutter/material.dart';
 
 class ChangePasswordState{

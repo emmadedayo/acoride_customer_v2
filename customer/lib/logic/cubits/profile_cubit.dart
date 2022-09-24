@@ -1,5 +1,6 @@
 import 'package:acoride/logic/states/profile_state.dart';
 import 'package:bloc/bloc.dart';
+
 import '../../data/repositories/user_repository.dart';
 
 class ProfileCubit extends Cubit<ProfileState>{

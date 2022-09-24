@@ -2,7 +2,6 @@ import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/presentation/dashbaord/dashboard.dart';
 import 'package:acoride/presentation/profile/user_profile.dart';
-import 'package:acoride/presentation/wallet/add_to_wallet.dart';
 import 'package:acoride/presentation/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

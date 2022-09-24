@@ -1,7 +1,9 @@
 import 'dart:convert';
+
 import 'package:acoride/core/constant/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+
 import '../../core/constant/enum.dart';
 
 
@@ -49,6 +51,7 @@ class RestApi {
             body: jsonEncode(params)
         );
       }else if (method == HttpMethod.GET_WITH_AUTH) {
+        print("objectobject $url");
         response = await http.get(
             Uri.parse(url),
             headers: {

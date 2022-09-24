@@ -1,10 +1,11 @@
 import 'dart:convert';
+
 import 'package:acoride/data/Server/api_url.dart';
 import 'package:acoride/data/model/UserModel.dart';
-import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../core/constant/constants.dart';
 import '../../core/constant/enum.dart';
 import '../Server/http.dart';

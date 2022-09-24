@@ -6,7 +6,8 @@ class FireStoreModel {
   String? rideID;
   bool? sendTrip;
   bool? startTrip;
-  String? amount;
+  bool? confirmTrip;
+  int? amount;
 
   FireStoreModel({
     required this.driverID,
@@ -28,6 +29,7 @@ class FireStoreModel {
     sendTrip = json['send_request'];
     startTrip = json['start_trip'];
     amount = json['trip_amount'];
+    confirmTrip = json['confirm_trip'];
   }
 
   Map<String, dynamic> toMap() {
@@ -40,6 +42,7 @@ class FireStoreModel {
       'send_request': sendTrip,
       'start_trip': startTrip,
       'trip_amount': amount,
+      'confirm_trip': confirmTrip,
     };
   }
 }
