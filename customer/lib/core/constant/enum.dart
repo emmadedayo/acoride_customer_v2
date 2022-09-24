@@ -15,6 +15,14 @@ enum CustomState {
   ERROR,
 }
 
+enum RideState {
+  NONE,
+  REQUEST_TRIP,
+  CONFIRM_RIDE,
+  START_TRIP,
+  END_TRIP,
+}
+
 enum SettingsResponse {
   dataDeleted,
   failedDeleteData,

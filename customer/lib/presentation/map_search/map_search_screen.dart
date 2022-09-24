@@ -1,10 +1,12 @@
 import 'dart:io';
+
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/Service/place_bloc_service.dart';
 import 'package:acoride/data/model/placeItem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
@@ -244,41 +246,43 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                               shrinkWrap: true,
                               itemCount: places.length,
                               itemBuilder: (context, index) {
-                                return ListTile(
-                                  title: Text(places.elementAt(index).name,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.w600)),
-                                  subtitle:
-                                  Text(places.elementAt(index).address,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal)),
-                                  onTap: () {
-                                    dataTo.clear();
-                                    Map<String, dynamic> value = {
-                                      "name": places.elementAt(index).name,
-                                      "address": places.elementAt(index).address,
-                                      "lat": places.elementAt(index).lat,
-                                      "long": places.elementAt(index).lng
-                                    };
-                                    setState(() {
-                                      valueTos = places
-                                          .elementAt(index)
-                                          .name
-                                          .toString();
-                                      addressTo = TextEditingController(
-                                          text: places
-                                              .elementAt(index)
-                                              .name
-                                              .toString());
-                                      FocusScope.of(context)
-                                          .requestFocus(FocusNode());
-                                      dataTo.add(value);
-                                      //priint(dataTo);
-                                      //directions
-                                      navigator();
-                                    });
-                                  },
+                                return Container(
+                                  margin: const EdgeInsets.only(left: 15,right: 15).r,
+                                  child: ListTile(
+                                    title: Text(places.elementAt(index).name,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.w600)),
+                                    subtitle: Text(places.elementAt(index).address,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal)),
+                                    onTap: () {
+                                      dataTo.clear();
+                                      Map<String, dynamic> value = {
+                                        "name": places.elementAt(index).name,
+                                        "address": places.elementAt(index).address,
+                                        "lat": places.elementAt(index).lat,
+                                        "long": places.elementAt(index).lng
+                                      };
+                                      setState(() {
+                                        valueTos = places
+                                            .elementAt(index)
+                                            .name
+                                            .toString();
+                                        addressTo = TextEditingController(
+                                            text: places
+                                                .elementAt(index)
+                                                .name
+                                                .toString());
+                                        FocusScope.of(context)
+                                            .requestFocus(FocusNode());
+                                        dataTo.add(value);
+                                        //priint(dataTo);
+                                        //directions
+                                        navigator();
+                                      });
+                                    },
+                                  ),
                                 );
                               },
                               separatorBuilder: (context, index) => const Divider(
                                 height: 1,
-                                color: Color(0xfff5f5f5),
+                                color: Colors.grey,
                               ),
                             );
                           } else {

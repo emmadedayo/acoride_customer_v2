@@ -1,8 +1,10 @@
 import 'dart:collection';
+
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/constant/enum.dart';
 import '../../data/model/user_ride_request.dart';
 import '../../map_component/google_direction_model.dart' as google_direction_model;
@@ -18,6 +20,7 @@ class MapState {
   Set<Polyline> polyLines = <Polyline>{};
   LatLng? sourceLatLng, destinationLatLng,currentLatLng;
   String distance = '', duration = '', pickUpAddress = 'Enter Pick Up Location', dropOffAddress = 'Enter Drop Off Location';
+  String? message = '';
   CustomState positionLoading = CustomState.LOADING;
   LocationSettings locationSettings = const LocationSettings();
   dynamic routers;
@@ -33,7 +36,8 @@ class MapState {
     this.dropOffMarker, this.positionLoading: CustomState.LOADING, this.locationSettings: const LocationSettings(),
     this.sourceLatLng, this.destinationLatLng, this.currentLatLng,this.dataFrom:const [], this.dataTo:const [],
     this.initVisible: true, this.driverFoundVisible: false, this.noDriverFound: false, this.displayDriver: false, this.rideCancelled: false,
-    this.userModel
+    this.userModel,
+    this.message,
   });
 
   MapState copy() {
@@ -53,7 +57,7 @@ class MapState {
     copy.googleDirectionModel = googleDirectionModel;
     copy.locationSettings = locationSettings;
     copy.routers = routers;
-    copy.userRideRequest = userRideRequest;
+    copy.rideRequestModel = rideRequestModel;
     copy.userRideRequest = userRideRequest;
     return copy;
   }

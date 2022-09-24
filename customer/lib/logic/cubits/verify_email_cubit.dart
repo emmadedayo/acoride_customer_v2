@@ -1,5 +1,6 @@
 import 'package:acoride/logic/states/verify_email_state.dart';
 import 'package:bloc/bloc.dart';
+
 import '../../data/repositories/user_repository.dart';
 
 class VerifyEmailCubit extends Cubit<VerifyEmailState>{

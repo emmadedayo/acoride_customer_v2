@@ -1,5 +1,6 @@
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/data/entities/ridedb_entities.dart';
 import 'package:acoride/data/repositories/google_web_service_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:acoride/logic/states/map_state.dart';
@@ -9,7 +10,9 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/helper/helper_config.dart';
+import '../../data/repositories/object_box_repository.dart';
 
 
 class MapCubit extends Cubit<MapState> {
@@ -20,6 +23,7 @@ class MapCubit extends Cubit<MapState> {
 
   GoogleWebService googleWebService = GoogleWebService();
   RideRequestRepository rideRequestRepository = RideRequestRepository();
+  ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
 
   var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
 
@@ -37,7 +41,6 @@ class MapCubit extends Cubit<MapState> {
         print("object ${state.position}");
       }
       if (state.position != null) {
-        var result = await googleGeocoding.geocoding.getReverse(LatLon(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0));
         state.mapController?.animateCamera(
           CameraUpdate?.newCameraPosition(
             CameraPosition(
@@ -59,30 +62,8 @@ class MapCubit extends Cubit<MapState> {
     emit(state.copy());
     var result = await rideRequestRepository.getDriver(
         {
-          "myLat":"7.3313237",
-          "myLon":"3.8666836"
-        }
-    );
-    if (result.errorCode! >= 400) {
-      state.positionLoading = CustomState.DONE;
-      state.initVisible = true;
-    } else {
-      state.initVisible = false;
-      state.driverFoundVisible = true;
-      state.userRideRequest = result.result;
-      state.positionLoading = CustomState.DONE;
-    }
-    state.positionLoading = CustomState.DONE;
-    emit(state.copy());
-  }
-
-
-  createTrip() async {
-    state.positionLoading = CustomState.LOADING;
-    emit(state.copy());
-    debugPrint('=========Maps : ${state.dataFrom}');
-    var result = await rideRequestRepository.createTrip(
-        {
+          "myLat":state.dataFrom[0]['lat'],
+          "myLon":state.dataFrom[0]['long'],
           "ride_id":HelperConfig.uuid(),
           "driver_id":state.userRideRequest?.user?.id,
           "passenger_id": state.userModel?.id,
@@ -103,12 +84,13 @@ class MapCubit extends Cubit<MapState> {
     );
     if (result.errorCode! >= 400) {
       state.positionLoading = CustomState.DONE;
-      state.initVisible = true;
+      state.message = result.message;
     } else {
-
       state.rideRequestModel = result.result;
+      objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
       state.positionLoading = CustomState.DONE;
     }
+
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
   }

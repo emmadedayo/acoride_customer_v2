@@ -1,6 +1,5 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/cancellation_cubit.dart';

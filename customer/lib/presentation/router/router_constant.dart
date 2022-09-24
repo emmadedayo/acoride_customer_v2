@@ -14,3 +14,5 @@ const profilePage = '/profilePage';
 const emergencyContact = '/emergencyContact';
 const card = '/card';
 const changePassword = '/changePassword';
+const startTrip = '/startTrip';
+const endTrip = '/endTrip';

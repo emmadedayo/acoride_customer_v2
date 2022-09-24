@@ -1,7 +1,6 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/TransactionModel.dart';
-import 'package:acoride/presentation/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
 
 class TransactionWalletWidget extends StatelessWidget {
@@ -12,7 +11,6 @@ class TransactionWalletWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
     return Card(
       color: Colors.white,
       elevation: 1,

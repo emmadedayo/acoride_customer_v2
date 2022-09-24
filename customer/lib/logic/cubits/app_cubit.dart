@@ -1,7 +1,9 @@
 import 'dart:async';
+
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/repositories/card_repository.dart';
+import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/data/repositories/transaction_repository.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:acoride/logic/states/app_state.dart';
@@ -12,6 +14,7 @@ class AppCubit extends Cubit<AppState> {
   UserRepository repository = UserRepository();
   TransactionRepository transactionRepository = TransactionRepository();
   CardRepository cardRepository = CardRepository();
+  ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
 
   AppCubit(AppState initialState) : super(initialState) {
     initData();
@@ -30,9 +33,7 @@ class AppCubit extends Cubit<AppState> {
    // state.user = await repository.setCurrentUser((await repository.getMe()).result!);
     state.user = await repository.getCurrentUser();
     state.token = await repository.getToken();
-    // AppTest.run();
-    // debugPrint('==${state.user?.toMap(showId: true)}');
-
+    state.rideDetails = await objectBoxRepository.readObject();
     if (state.user != null) {
       state.userInitialized = true;
       state.transactions = await transactionRepository.getTransaction();
