@@ -81,7 +81,7 @@ class AddToWalletScreenState extends State<AddToWalletScreen> {
           create: (context) => TransactionCubit(TransactionState(userModel:appState.user),),
           child: BlocListener<TransactionCubit, TransactionState>(
             listener: (contextRes, state) {
-              if (state.message != null) {
+              if (state.hasError == true) {
                 showToast(state.message,
                     context: context,
                     backgroundColor: Colors.red,
@@ -89,14 +89,17 @@ class AddToWalletScreenState extends State<AddToWalletScreen> {
                     alignment: Alignment.center,
                     position: StyledToastPosition.top);
                 contextRes.read<TransactionCubit>().state.message = null;
+                contextRes.read<TransactionCubit>().state.hasError = null;
                 Navigator.pop(context);
-              }else{
+              }else if(state.hasError == false){
                 showToast(state.message,
                     context: context,
                     backgroundColor: Colors.green,
                     axis: Axis.horizontal,
                     alignment: Alignment.center,
                     position: StyledToastPosition.top);
+                Navigator.pop(context);
+                contextRes.read<TransactionCubit>().state.hasError = null;
                 contextRes.read<TransactionCubit>().state.message = null;
               }
             },

@@ -39,14 +39,16 @@ class TransactionCubit extends Cubit<TransactionState> {
   topFromCard() async {
     state.isLoadingCard = true;
     emit(state.copy());
-    dynamic result = await transactionRepository.topUpWithCard({
+    var result = await transactionRepository.topUpWithCard({
       'amount': state.amount.text,
       'card_id': state.selectedCard.id,
     });
-    if (result?.errorCode > 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.isLoadingCard = false;
+      state.hasError = true;
       state.message = result?.message;
     } else {
+      state.hasError = false;
       state.message = result?.message;
       state.isLoadingCard = false;
     }
@@ -56,14 +58,16 @@ class TransactionCubit extends Cubit<TransactionState> {
   topFromPayStack() async {
     state.isLoadingCard = true;
     emit(state.copy());
-    dynamic result = await transactionRepository.topUpWithPayStack({
+    var result = await transactionRepository.topUpWithPayStack({
       'amount': state.amount.text,
       'payment_ref': state.response?.reference,
     });
-    if (result?.errorCode > 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.isLoadingCard = false;
+      state.hasError = true;
       state.message = result?.message;
     } else {
+      state.hasError = false;
       state.message = result?.message;
       state.isLoadingCard = false;
     }

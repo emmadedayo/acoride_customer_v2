@@ -39,13 +39,15 @@ class CardCubit extends Cubit<CardState> {
     var result = await cardRepository.saveCard({
       'reference': state.response?.reference,
     });
-    if (result?.errorCode == 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.isLoading = false;
+      state.hasError = true;
       state.message = result?.message;
     } else {
+      state.hasError = false;
       state.success == 1;
       state.message = result?.message;
-      initData();
+      await initData();
       state.isLoading = false;
     }
     state.isLoading = false;
@@ -59,10 +61,12 @@ class CardCubit extends Cubit<CardState> {
     var result = await cardRepository.deleteCard({
       'id': id,
     });
-    if (result?.errorCode == 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.isLoading = false;
+      state.hasError = true;
       state.message = result?.message;
     } else {
+      state.hasError = false;
       state.message = result?.message;
       state.isLoading = false;
       state.userCard.removeWhere((element) => element.id == id);

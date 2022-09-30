@@ -57,7 +57,7 @@ class AppRouter {
         );
       case verifyAccountScreen:
         return MaterialPageRoute(
-            builder: (_) => const VerifyAccountScreen()
+            builder: (_) => VerifyAccountScreen(phone: arguments!['phone'])
         );
       case walletScreen:
         return MaterialPageRoute(
@@ -88,7 +88,7 @@ class AppRouter {
       case startTrip:
         return MaterialPageRoute(builder: (_) => OrderTripScreen(rideRequestModel: arguments!['user']));
       case endTrip:
-        return MaterialPageRoute(builder: (_) => OrderRateDriver(rideRequestModel: arguments!['user'],amountToPay: arguments!['amount'],));
+        return MaterialPageRoute(builder: (_) => OrderRateDriver(rideRequestModel: arguments!['user'],amountToPay: arguments['amount'],));
       case verifyEmail:
         return MaterialPageRoute(builder: (_) => VerifyEmailAccountScreen(user: arguments!['user'], email: arguments['email'],));
       default:

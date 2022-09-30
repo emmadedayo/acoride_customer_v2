@@ -212,7 +212,7 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                           ),
                                         ),
                                         onTap: (){
-
+                                          Navigator.of(context).pushNamed(registrationScreenController);
                                         },
                                       ),
 

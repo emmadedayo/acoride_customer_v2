@@ -1,6 +1,7 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/presentation/dashbaord/dashboard.dart';
+import 'package:acoride/presentation/history/ride_history.dart';
 import 'package:acoride/presentation/profile/user_profile.dart';
 import 'package:acoride/presentation/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
@@ -76,7 +77,7 @@ class RootBottomStates extends State<RootBottom>
       case 0:
         return const MainHomePage();
       case 1:
-        return const Text('data');
+        return const RideHistoryScreen();
       case 2:
         return const WalletScreen();
       case 3:

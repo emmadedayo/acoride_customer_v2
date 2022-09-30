@@ -58,7 +58,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 20,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: FeatherIcons.user,
                           text: 'Personal Information',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -71,7 +71,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: FeatherIcons.shield,
                           text: 'Emergency Contact',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -85,7 +85,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: FeatherIcons.creditCard,
                           text: 'Card Information',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -98,7 +98,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: FeatherIcons.lock,
                           text: 'Change Password',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -174,7 +174,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon:Icons.emergency_rounded ,
                           text: 'Report a Problem',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -187,7 +187,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: FeatherIcons.helpCircle,
                           text: 'Help Center',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -231,7 +231,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon: Icons.privacy_tip_outlined,
                           text: 'Privacy Policy',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,
@@ -244,7 +244,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           height: 15,
                         ),
                         ProfileWidgetOne(
-                          firstIcon: FeatherIcons.info,
+                          firstIcon:Icons.privacy_tip_outlined,
                           text: 'Terms of Service',
                           lastIcon: FeatherIcons.arrowRight,
                           hasLastIcon: true,

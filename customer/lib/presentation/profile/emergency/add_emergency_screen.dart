@@ -43,23 +43,23 @@ class AddEmergencyScreenState extends State<AddEmergencyScreen> {
                   if (state.emergencyModel != null) {
                     Navigator.of(context).pop('refresh');
                   }
-                  if (state.hasError != null && state.hasError!) {
+                  if (state.hasError == true) {
                     showToast(state.message,
                         context: context,
                         backgroundColor: Colors.red,
                         axis: Axis.horizontal,
                         alignment: Alignment.center,
                         position: StyledToastPosition.top);
-                    context.read<EmergencyCubit>().state.hasError = false;
-                    context.read<EmergencyCubit>().state.message = null;
-                  }else{
+                    contextCubit.read<EmergencyCubit>().state.hasError = null;
+                    contextCubit.read<EmergencyCubit>().state.message = null;
+                  }else if(state.hasError == false){
                     showToast(state.message,
                         context: context,
                         backgroundColor: Colors.green,
                         axis: Axis.horizontal,
                         alignment: Alignment.center,
                         position: StyledToastPosition.top);
-                    contextCubit.read<EmergencyCubit>().state.hasError = false;
+                    contextCubit.read<EmergencyCubit>().state.hasError = null;
                     contextCubit.read<EmergencyCubit>().state.message = null;
                   }
                 },
@@ -133,8 +133,12 @@ class AddEmergencyScreenState extends State<AddEmergencyScreen> {
                                           hintText: 'Phone Number',
                                           textInputType: TextInputType.number,
                                           controller:state.phoneController,
+                                          maxLength: 11,
                                           validator: MultiValidator([
                                             RequiredValidator(errorText: "* Required"),
+                                            MinLengthValidator(11, errorText: 'Phone Number must be at least 10 digits long'),
+                                            MaxLengthValidator(11, errorText: 'Phone Number must not be greater than 10 digits'),
+
                                           ]),
                                           decoration:  InputDecoration(
                                             filled: true,

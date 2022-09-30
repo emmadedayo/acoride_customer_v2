@@ -29,7 +29,9 @@ class ProfileCubit extends Cubit<ProfileState>{
         state.isLoading = false;
       }
     } else {
-      //userRepository.setCurrentUser(result.result!);
+      state.message = result.message;
+      state.hasError = false;
+      state.isLoading = false;
       state.user = result.result;
     }
     state.isLoading = false;

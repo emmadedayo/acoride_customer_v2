@@ -68,7 +68,7 @@ class RideRequestModel {
         this.estimatedDistanceCovered,
         this.user});
 
-  RideRequestModel.fromMap(Map<String?, dynamic> json) {
+  RideRequestModel.fromMap(json) {
     id = json['id'];
     rideId = json['ride_id'];
     driverId = json['driver_id'];

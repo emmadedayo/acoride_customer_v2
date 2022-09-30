@@ -19,7 +19,8 @@ class FormTextPrefix extends StatelessWidget {
     this.valueChanged,
     this.obscureText = false,
     this.decoration,
-    this.onTap
+    this.onTap,
+    this.maxLength,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -33,6 +34,7 @@ class FormTextPrefix extends StatelessWidget {
   final ValueChanged? valueChanged;
   final VoidCallback? onTap;
   final InputDecoration? decoration;
+  final int? maxLength;
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +48,7 @@ class FormTextPrefix extends StatelessWidget {
         TextFormField(
           controller: controller,
           autofocus: autofocus,
+          maxLength: maxLength,
           obscureText: obscureText,
           readOnly: readOnly,
           enabled: enabled,

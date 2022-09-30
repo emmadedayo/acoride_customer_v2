@@ -84,13 +84,15 @@ class MapCubit extends Cubit<MapState> {
     );
     if (result.errorCode! >= 400) {
       state.positionLoading = CustomState.DONE;
+      state.hasError = true;
       state.message = result.message;
     } else {
+      state.hasError = false;
+      state.message = result.message;
       state.rideRequestModel = result.result;
       objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
       state.positionLoading = CustomState.DONE;
     }
-
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
   }
@@ -212,5 +214,10 @@ class MapCubit extends Cubit<MapState> {
       jointType: JointType.round,
       points: HelperConfig.convertToLatLng(HelperConfig.decodePoly(state.googleDirectionModel?.routes?[0].overviewPolyline?.points ?? '')),
     ));
+  }
+
+  updatePayment(payment) {
+    state.paymentType = payment;
+    emit(state.copy());
   }
 }

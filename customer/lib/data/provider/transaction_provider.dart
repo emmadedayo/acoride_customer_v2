@@ -24,4 +24,10 @@ class TransactionProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> buyBills(Map<String,dynamic> map, String token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.payBills,
+        map, method: HttpMethod.POST_WITH_AUTH, token: token);
+    return RestApi.getMapFromResponse(response);
+  }
+
 }

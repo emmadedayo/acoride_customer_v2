@@ -10,16 +10,17 @@ class ChangePasswordCubit extends Cubit<ChangePasswordState>{
   changePassword() async {
     state.isLoading = true;
     emit(state.copy());
-    dynamic result = await userRepository.changePasswordAuth({
+    var result = await userRepository.changePasswordAuth({
       'old_password': state.oldPassword.text,
       'password': state.newPassword.text,
       'password_confirmation': state.confirmPassword.text,
     });
-    if (result?.errorCode >= 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.message = result?.message;
       state.hasError = true;
       state.isLoading = false;
     }else{
+      state.hasError = false;
       state.message = result?.message;
     }
     state.isLoading = false;

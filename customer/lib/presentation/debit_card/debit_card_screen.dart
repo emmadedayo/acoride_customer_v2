@@ -80,7 +80,7 @@ class CardScreenIndexState extends State<CardScreenIndex> {
           create: (context) => CardCubit(CardState(),),
           child: BlocListener<CardCubit, CardState>(
             listener: (cardContext, state) {
-              if (state.hasError != null && state.hasError!) {
+              if (state.hasError == true) {
                 showToast(state.message,
                     context: context,
                     backgroundColor: Colors.red,
@@ -88,14 +88,16 @@ class CardScreenIndexState extends State<CardScreenIndex> {
                     alignment: Alignment.center,
                     position: StyledToastPosition.top);
 
-              }else{
+                cardContext.read<CardCubit>().state.hasError = null;
+                cardContext.read<CardCubit>().state.message = null;
+              }else if(state.hasError == false){
                 showToast(state.message,
                     context: context,
                     backgroundColor: Colors.green,
                     axis: Axis.horizontal,
                     alignment: Alignment.center,
                     position: StyledToastPosition.top);
-                cardContext.read<CardCubit>().state.hasError = false;
+                cardContext.read<CardCubit>().state.hasError = null;
                 cardContext.read<CardCubit>().state.message = null;
               }
             },

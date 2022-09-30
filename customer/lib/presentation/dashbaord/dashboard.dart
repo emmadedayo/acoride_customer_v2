@@ -79,8 +79,8 @@ class _MainHomePageState extends State<MainHomePage> {
                                           myLocationEnabled: true,
                                           initialCameraPosition: CameraPosition(
                                             target: LatLng(
-                                                dashboardState.position != null ? dashboardState.position!.latitude : dashboardState.lastKnownPositions!.latitude ?? dashboardState.position!.latitude,
-                                                dashboardState.position != null ? dashboardState.position!.longitude : dashboardState.lastKnownPositions!.longitude ?? dashboardState.position!.longitude),
+                                                dashboardState.position != null ? dashboardState.position!.latitude : dashboardState.lastKnownPositions!.latitude,
+                                                dashboardState.position != null ? dashboardState.position!.longitude : dashboardState.lastKnownPositions!.longitude),
                                             zoom: 17,
                                           ),
                                           onCameraMove: (CameraPosition position) {
