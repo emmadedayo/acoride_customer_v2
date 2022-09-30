@@ -20,6 +20,8 @@ class VerifyPhoneCubit extends Cubit<VerifyPhoneState>{
       state.hasError = true;
       state.isLoading = false;
     } else {
+      state.hasError = false;
+      state.isLoading = false;
       state.user = result.result;
     }
     state.isLoading = false;

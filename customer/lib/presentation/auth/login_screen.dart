@@ -133,6 +133,8 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                         controller:state.passwordController ,
                                         validator: MultiValidator([
                                           RequiredValidator(errorText: "* Required"),
+                                          MinLengthValidator(11, errorText: 'Password must be at least 11 digits long'),
+                                          MaxLengthValidator(11, errorText: 'Password must be at least 11 digits long')
                                         ]),
                                         decoration:  InputDecoration(
                                           filled: true,
@@ -171,7 +173,7 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                       ),
                                     ),
                                     onTap: (){
-
+                                      Navigator.of(context).pushNamed(resetAccountScreen);
                                     },
                                   ),
                                   const SizedBox(height: 30.0),
