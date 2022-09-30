@@ -1,6 +1,7 @@
 import 'package:acoride/presentation/auth/base_auth_screen.dart';
 import 'package:acoride/presentation/auth/change_password_screen.dart';
 import 'package:acoride/presentation/auth/registration_screen.dart';
+import 'package:acoride/presentation/auth/verify_forgot_password.dart';
 import 'package:acoride/presentation/auth/verify_phone_screen.dart';
 import 'package:acoride/presentation/debit_card/debit_card_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
@@ -45,7 +46,7 @@ class AppRouter {
         );
       case changePasswordScreen:
         return MaterialPageRoute(
-            builder: (_) => const ChangePasswordScreen()
+            builder: (_) => ChangePasswordScreen(phone: arguments!['phone'],)
         );
       case registrationScreenController:
         return MaterialPageRoute(
@@ -54,6 +55,10 @@ class AppRouter {
       case resetAccountScreen:
         return MaterialPageRoute(
             builder: (_) => const ResetAccountScreen()
+        );
+      case verifyResetPassword:
+        return MaterialPageRoute(
+            builder: (_) => VerifyForgotPassword(phone: arguments!['phone'],)
         );
       case verifyAccountScreen:
         return MaterialPageRoute(

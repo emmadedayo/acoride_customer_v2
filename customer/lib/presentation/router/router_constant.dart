@@ -5,7 +5,13 @@ const loginScreenController = '/loginScreenController';
 const changePasswordScreen = '/changePasswordScreen';
 const registrationScreenController = '/registrationScreenController';
 const resetAccountScreen = '/resetAccountScreen';
+
+//forgot password verify screen
+const verifyResetPassword = '/verifyResetPassword';
+
+
 const verifyAccountScreen = '/verifyAccountScreen';
+
 const walletScreen = '/walletScreen';
 const addToWalletScreen = '/addToWalletScreen';
 const editProfile = '/editProfile';

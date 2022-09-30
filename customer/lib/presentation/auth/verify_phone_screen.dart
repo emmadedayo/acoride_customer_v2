@@ -86,7 +86,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                       return SuccessScreen(
                           message: 'Your account has been verified successfully',
                           onPressed: (){
-                            Navigator.of(context).pushNamed(loginScreenController);
+                            Navigator.of(context).pushNamedAndRemoveUntil(baseAuthScreen, (route) => false);
                           },
                       );
                     },
@@ -136,7 +136,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                               ),
                               SizedBox(height: 40.0.h),
                               Text(
-                                'Enter the 6-digit code sent to you at +234 803 000 0000',
+                                'Enter the 6-digit code sent to you at +234${widget.phone}',
                                 textAlign: TextAlign.center,
                                 style:HelperStyle.textStyleTwo(
                                     context, HelperColor.black, 18.sp, FontWeight.normal),
@@ -185,7 +185,16 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                                 color: HelperColor.black,
                                 textColor:HelperColor.primaryColor,
                                 onTap: (){
-                                  regContext.read<VerifyPhoneCubit>().verifyAccount(widget.phone);
+                                  if(regState.otpController.text.length == 4) {
+                                    regContext.read<VerifyPhoneCubit>().verifyAccount(widget.phone);
+                                  }else{
+                                    showToast("Otp is required",
+                                        context: context,
+                                        backgroundColor: Colors.red,
+                                        axis: Axis.horizontal,
+                                        alignment: Alignment.center,
+                                        position: StyledToastPosition.top);
+                                  }
                                 }, radius: 30,
 
                               ),

@@ -61,7 +61,7 @@ class StateComponentState extends State<StateComponent> {
                                     color: Colors.grey.withOpacity(0.5),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(4.0),
+                                  borderRadius: BorderRadius.circular(15),
                                 ),
                                 margin: const EdgeInsets.all(12),
                                 child: Row(
@@ -90,11 +90,11 @@ class StateComponentState extends State<StateComponent> {
                                           contentPadding: const EdgeInsets.all(8.0),
                                           enabledBorder: OutlineInputBorder(
                                               borderRadius: BorderRadius.circular(15),
-                                              borderSide: const BorderSide(color: HelperColor.primaryLightColor, width: 1)),
+                                              borderSide: const BorderSide(color: Colors.transparent, width: 1)),
                                           focusedBorder: OutlineInputBorder(
                                             borderRadius: BorderRadius.circular(15),
                                             borderSide: const BorderSide(
-                                                color: HelperColor.primaryLightColor, width: 1.0),
+                                                color: Colors.transparent, width: 1.0),
                                           ),
                                           // contentPadding: const EdgeInsets.all(5),
                                         ),
