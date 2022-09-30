@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 
 class NotFoundCard extends StatelessWidget {
   final String? text;
+  final double height;
   const NotFoundCard(
       {Key? key,
-        this.text})
+        this.text,this.height = 200})
       : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class NotFoundCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Image.asset('assets/images/no_data_found.jpg', fit: BoxFit.fill),
+          Image.asset('assets/images/no_data_found.jpg', fit: BoxFit.fill,height: height,),
 
           Center(
             child: Text(text!),
@@ -27,6 +28,7 @@ class NotFoundCard extends StatelessWidget {
     );
   }
 }
+
 
 
 class NotFoundCardTwo extends StatelessWidget {

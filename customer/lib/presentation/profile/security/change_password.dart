@@ -42,16 +42,26 @@ class ChangePasswordScreenTwoState extends State<ChangePasswordScreenTwo> {
             dismissible: true,
             child: BlocListener<ChangePasswordCubit, ChangePasswordState>(
                 listener: (context, state) async {
-
-                  if (state.hasError != null && state.hasError!) {
+                  if (state.hasError == true) {
                     showToast(state.message,
                         context: context,
                         backgroundColor: Colors.red,
                         axis: Axis.horizontal,
                         alignment: Alignment.center,
                         position: StyledToastPosition.top);
-                    context.read<ChangePasswordCubit>().state.hasError = false;
+
+                    context.read<ChangePasswordCubit>().state.hasError = null;
                     context.read<ChangePasswordCubit>().state.message = null;
+                  }else if(state.hasError == false){
+                    showToast(state.message,
+                        context: context,
+                        backgroundColor: Colors.green,
+                        axis: Axis.horizontal,
+                        alignment: Alignment.center,
+                        position: StyledToastPosition.top);
+                    context.read<ChangePasswordCubit>().state.hasError = null;
+                    context.read<ChangePasswordCubit>().state.message = null;
+                    Navigator.pop(context);
                   }
                 },
                 child: PlatformScaffold(

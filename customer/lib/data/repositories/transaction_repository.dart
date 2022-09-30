@@ -41,6 +41,21 @@ class TransactionRepository {
     }
   }
 
+  Future<ResultItem?> buyBills(maps) async {
+    print("objectobject $maps");
+    Map map = await transactionProvider.buyBills(maps,await userRepository.getToken()).timeout(const Duration(seconds: 5));
+    try {
+      int? statusCode = map[FIELD_STATUS_CODE];
+      String message = map[FIELD_MESSAGE]?? '';
+      return ResultItem(result: null, errorCode: statusCode, message: message);
+
+    } on TimeoutException catch (e) {
+      return ResultItem(result: null, errorCode: 404, message: e.toString());
+    } catch(err) {
+      return ResultItem(result: null, errorCode: 404, message: err.toString());
+    }
+  }
+
   Future<List<TransactionModel>> getTransaction() async {
     List<TransactionModel> sites = [];
     List list = await transactionProvider.getTransaction(await userRepository.getToken());

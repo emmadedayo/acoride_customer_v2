@@ -190,7 +190,7 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                                   return ListTile(
                                     title: Text(places.elementAt(index).name,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.w600),),
                                     subtitle:
-                                    Text(places.elementAt(index).address ?? '',style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),),
+                                    Text(places.elementAt(index).address ,style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),),
                                     onTap: () {
                                       dataFrom.clear();
                                       Map<String, dynamic> value = {
@@ -305,7 +305,7 @@ class MapSearchAddressState extends State<MapSearchAddress> {
 
   getCurrentAddFrom() {
     Map<String, dynamic> value = {
-      "name": widget.nameAddressFrom ?? 'Enter Pick Up Destination',
+      "name": widget.nameAddressFrom,
       "address": "",
       "lat": widget.addressFrom.target.latitude,
       "long": widget.addressFrom.target.longitude,

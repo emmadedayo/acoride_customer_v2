@@ -1,14 +1,12 @@
 import 'package:acoride/core/constant/constants.dart';
-import 'package:acoride/core/constant/enum.dart';
 
 class SettingsItem {
 
-  String langCode,rideId;
-  RideState rideState;
-  bool isDarkMode, isFirstUse, notifications, tokenPushed,hasRide;
+  String langCode;
+  bool isDarkMode, isFirstUse, notifications, tokenPushed;
 
   SettingsItem({this.langCode: settingsLanguage, this.isDarkMode: false, this.isFirstUse: true, this.notifications: true,
-    this.tokenPushed: false,this.hasRide:false,this.rideId:'',this.rideState:RideState.NONE});
+    this.tokenPushed: false});
 
   Map<String, dynamic> toMap() {
     return {
@@ -17,9 +15,6 @@ class SettingsItem {
       settingsIsFirstUse: isFirstUse,
       settingsNotification: notifications,
       settingsTokenPushed: tokenPushed,
-      'hasRide':hasRide,
-      'rideId':rideId,
-      'rideState':rideState
     };
   }
 
@@ -30,9 +25,6 @@ class SettingsItem {
       isFirstUse: map[settingsIsFirstUse]?? true,
       notifications: map[settingsNotification]?? true,
       tokenPushed: map[settingsTokenPushed]?? false,
-      hasRide: map['hasRide'],
-      rideId: map['rideId'],
-      rideState: map['rideState'],
     );
   }
 

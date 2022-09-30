@@ -3,7 +3,7 @@ class ApiUrl {
   ApiUrl._();
 
 
-  static const String userRegistration = '${BASE_URL}api/customer/v1/registration';
+  static const String userRegistration = '${BASE_URL}api/v1/customer/registration';
   static const String verifyRegistration = '${BASE_URL}api/verify_phone';
   static const String resetAccount = '${BASE_URL}api/reset_account';
   static const String verifyResetAccount = '${BASE_URL}api/verify_reset_account';
@@ -43,4 +43,18 @@ class ApiUrl {
 
   //////////////// Rating ////////////////
   static const String rate = '${BASE_URL}api/v1/rateRide';
+
+  //////////////////// Ride History //////////////////
+  static const String getPassengerHistory = '${BASE_URL}api/v1/customer/passengerHistory';
+
+
+  //////////////// Mics ////////////////
+  static const String getState = '${BASE_URL}api/get_state';
+
+
+  ////////////////////// Get Billing ////////////////////////
+  static const String getBill = '${BASE_URL}api/v1/getBill';
+  static const String getVariation = '${BASE_URL}api/v1/getVariation';
+  static const String getSmartName = '${BASE_URL}api/v1/getSmartCardDetails';
+  static const String payBills = '${BASE_URL}api/v1/createTransaction';
 }

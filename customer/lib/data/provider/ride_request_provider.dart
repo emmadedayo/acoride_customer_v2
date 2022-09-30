@@ -36,4 +36,10 @@ class RideRequestProvider{
         map, method: HttpMethod.POST_WITH_AUTH,token:token);
     return RestApi.getMapFromResponse(response);
   }
+
+  Future<List> getRideHistory(String token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.getPassengerHistory, {}, method:
+    HttpMethod.GET_WITH_AUTH, token: token);
+    return RestApi.getListFromResponse(response);
+  }
 }

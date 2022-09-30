@@ -12,6 +12,7 @@ import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
 import '../../components/noWidgetFound.dart';
 
@@ -37,7 +38,25 @@ class EmergencyContactScreenState extends State<EmergencyContactScreen> {
           create: (context) => EmergencyCubit(EmergencyState(),),
           child: BlocListener<EmergencyCubit, EmergencyState>(
             listener: (context, state) {
-
+              if (state.hasError == true) {
+                showToast(state.message,
+                    context: context,
+                    backgroundColor: Colors.red,
+                    axis: Axis.horizontal,
+                    alignment: Alignment.center,
+                    position: StyledToastPosition.top);
+                context.read<EmergencyCubit>().state.hasError = null;
+                context.read<EmergencyCubit>().state.message = null;
+              }else if(state.hasError == false){
+                showToast(state.message,
+                    context: context,
+                    backgroundColor: Colors.green,
+                    axis: Axis.horizontal,
+                    alignment: Alignment.center,
+                    position: StyledToastPosition.top);
+                context.read<EmergencyCubit>().state.hasError = null;
+                context.read<EmergencyCubit>().state.message = null;
+              }
             },
             child: BlocBuilder<EmergencyCubit, EmergencyState>(
               builder: (contextCubit, emeState) {

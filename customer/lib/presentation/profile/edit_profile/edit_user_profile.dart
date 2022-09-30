@@ -47,14 +47,24 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 if (state.user == null) {
                   Navigator.of(context).pushNamed(verifyEmail, arguments: {'user': widget.user,'email': state.emailController.text});
                 }
-                if (state.hasError != null && state.hasError!) {
+                if (state.hasError == true) {
                   showToast(state.message,
                       context: context,
                       backgroundColor: Colors.red,
                       axis: Axis.horizontal,
                       alignment: Alignment.center,
                       position: StyledToastPosition.top);
-                  context.read<ProfileCubit>().state.hasError = false;
+                  context.read<ProfileCubit>().state.hasError = null;
+                  context.read<ProfileCubit>().state.message = null;
+                }else if(state.hasError == false){
+                  showToast(state.message,
+                      context: context,
+                      backgroundColor: Colors.green,
+                      axis: Axis.horizontal,
+                      alignment: Alignment.center,
+                      position: StyledToastPosition.top);
+                  Navigator.pop(context);
+                  context.read<ProfileCubit>().state.hasError = null;
                   context.read<ProfileCubit>().state.message = null;
                 }
               },

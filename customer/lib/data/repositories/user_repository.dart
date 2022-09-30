@@ -11,6 +11,7 @@ class UserRepository{
   UserProvider provider = UserProvider();
 
   Future<ResultItem<UserModel?>> signUp(maps) async {
+    print('============================> $maps');
     UserModel? newUser;
     Map map = await provider.signUp(maps);
     int? statusCode = map[FIELD_STATUS_CODE];

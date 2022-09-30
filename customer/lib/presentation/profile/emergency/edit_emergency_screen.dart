@@ -39,30 +39,30 @@ class UpdateEmergencyScreenState extends State<UpdateEmergencyScreen> {
       child: BlocBuilder<EmergencyCubit, EmergencyState>(
         builder: (contextCubit, state) {
           return BlurryModalProgressHUD(
-            inAsyncCall: state.addEmergency,
+            inAsyncCall: state.isLoading,
             child: BlocListener<EmergencyCubit, EmergencyState>(
                 listener: (context, state) async {
                   if (state.isUpdated) {
                     Navigator.of(context).pop('refresh');
                   }
-                  if (state.hasError != null && state.hasError!) {
+                  if (state.hasError == true) {
                     showToast(state.message,
                         context: context,
                         backgroundColor: Colors.red,
                         axis: Axis.horizontal,
                         alignment: Alignment.center,
                         position: StyledToastPosition.top);
-                    context.read<EmergencyCubit>().state.hasError = false;
+                    context.read<EmergencyCubit>().state.hasError = null;
                     context.read<EmergencyCubit>().state.message = null;
-                  }else{
+                  }else if(state.hasError == false){
                     showToast(state.message,
                         context: context,
                         backgroundColor: Colors.green,
                         axis: Axis.horizontal,
                         alignment: Alignment.center,
                         position: StyledToastPosition.top);
-                    contextCubit.read<EmergencyCubit>().state.hasError = false;
-                    contextCubit.read<EmergencyCubit>().state.message = null;
+                    context.read<EmergencyCubit>().state.hasError = null;
+                    context.read<EmergencyCubit>().state.message = null;
                   }
                 },
                 child: PlatformScaffold(
@@ -72,7 +72,7 @@ class UpdateEmergencyScreenState extends State<UpdateEmergencyScreen> {
                   appBar: PlatformAppBar(
                     backgroundColor: Colors.white,
                     title: Text(
-                      'Add Contact',
+                      'Update Contact',
                       style: HelperStyle.textStyleTwo(
                           context, HelperColor.black, 20.sp, FontWeight.normal),
                     ),
@@ -133,10 +133,14 @@ class UpdateEmergencyScreenState extends State<UpdateEmergencyScreen> {
 
                                         FormTextPrefix(
                                           hintText: 'Phone Number',
-                                          textInputType: TextInputType.number,
+                                          textInputType: TextInputType.phone,
                                           controller:state.phoneController,
+                                          maxLength: 11,
                                           validator: MultiValidator([
                                             RequiredValidator(errorText: "* Required"),
+                                            MinLengthValidator(11, errorText: 'Phone Number must be at least 10 digits long'),
+                                            MaxLengthValidator(11, errorText: 'Phone Number must not be greater than 10 digits'),
+
                                           ]),
                                           decoration:  InputDecoration(
                                             filled: true,

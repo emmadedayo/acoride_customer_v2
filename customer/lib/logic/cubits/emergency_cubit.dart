@@ -29,12 +29,13 @@ class EmergencyCubit extends Cubit<EmergencyState>{
       'emergency_phone': state.phoneController.text,
       'id': state.emergencyModel!.id
     });
-    if (result?.errorCode == 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.message = result?.message;
       state.hasError = true;
       state.isLoading = false;
       state.isUpdated = false;
     }else{
+      state.hasError = false;
       state.message = result?.message;
       state.isUpdated = true;
     }
@@ -50,12 +51,13 @@ class EmergencyCubit extends Cubit<EmergencyState>{
       'emergency_address': state.addressController.text,
       'emergency_phone': state.phoneController.text,
     });
-    if (result.errorCode == 400) {
+    if ((result.errorCode ?? 0) >= 400) {
       state.message = result.message;
       state.hasError = true;
       state.addEmergency = false;
     } else {
       state.addEmergency = false;
+      state.hasError = false;
       state.message = result.message;
       state.emergencyModel = result.result;
       state.emergency.add(result.result!);
@@ -70,10 +72,13 @@ class EmergencyCubit extends Cubit<EmergencyState>{
     var result = await emergencyRepository.deleteEmergency({
       'id': id,
     });
-    if (result?.errorCode == 400) {
+    if ((result?.errorCode ?? 0) >= 400) {
       state.message = result?.message;
       state.hasError = true;
       state.isLoading = false;
+    }else{
+      state.hasError = false;
+      state.message = result?.message;
     }
     state.emergency.removeWhere((element) => element.id == id);
     state.isLoading = false;

@@ -13,13 +13,14 @@ class TransactionState{
   bool isLoading,isLoadingCard;
   PayStackTopUpForm? payStackTopUpForm;
   CardTopUp? cardTopUpForm;
+  bool? hasError;
   TextEditingController amount = TextEditingController();
   List<TransactionModel> transactions = [];
   List<UserCard> userCard = [];
   CheckoutResponse? response;
   UserCard selectedCard = UserCard();
 
-  TransactionState({this.isLoading = false, this.isLoadingCard = false,this.userModel,this.payStackTopUpForm,this.cardTopUpForm});
+  TransactionState({this.hasError,this.isLoading = false, this.isLoadingCard = false,this.userModel,this.payStackTopUpForm,this.cardTopUpForm});
 
   TransactionState copy() {
     TransactionState copy = TransactionState(
@@ -30,6 +31,7 @@ class TransactionState{
         cardTopUpForm: cardTopUpForm,
 
     );
+    copy.hasError = hasError;
     copy.response = response;
     copy.transactions = transactions;
     copy.amount = amount;

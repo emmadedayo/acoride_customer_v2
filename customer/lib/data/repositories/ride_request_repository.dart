@@ -22,7 +22,7 @@ class RideRequestRepository {
         user = RideRequestModel.fromMap(map[FIELD_DATA]);
       }
       catch(err) {
-        return ResultItem<RideRequestModel?>(result: null, errorCode: 404, message: 'Error: $err');
+        return ResultItem<RideRequestModel?>(result: null, errorCode: 404, message: message);
       }
     }
     return ResultItem<RideRequestModel?>(result: user, errorCode: statusCode, message: message);
@@ -95,5 +95,21 @@ class RideRequestRepository {
       }
     }
     return ResultItem<RideRequestModel?>(result: user, errorCode: statusCode, message: message);
+  }
+
+
+  Future<List<RideRequestModel>> getRideHistory() async {
+    List<RideRequestModel> sites = [];
+    List list = await provider.getRideHistory(await userRepository.getToken());
+    for (int i = 0; i < list.length; i++) {
+      Map map = list[i];
+      if (map.isNotEmpty && map['id'] > 0) {
+        RideRequestModel? site = RideRequestModel.fromMap(map);
+        if (site != null) {
+          sites.add(site);
+        }
+      }
+    }
+    return sites;
   }
 }
