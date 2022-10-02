@@ -43,7 +43,7 @@ class FormTextPrefix extends StatelessWidget {
       children: [
         Text(hintText,
           style: HelperStyle.textStyleTwo(
-              context, HelperColor.kTextColor, 14.sp, FontWeight.w400,letterSpacing: -0.3),),
+              context, HelperColor.kTextColor, 12.sp, FontWeight.w400,letterSpacing: -0.3),),
         SizedBox(height: 5.h),
         TextFormField(
           controller: controller,
@@ -99,7 +99,7 @@ class FormTextPrefixWithValidation extends StatelessWidget {
       children: [
         Text(hintText,
           style: HelperStyle.textStyleTwo(
-              context, HelperColor.kTextColor, 14.sp, FontWeight.w400,letterSpacing: -0.3),),
+              context, HelperColor.kTextColor, 12.sp, FontWeight.w400,letterSpacing: -0.3),),
         SizedBox(height: 5.h),
         TextFormField(
           controller: controller,

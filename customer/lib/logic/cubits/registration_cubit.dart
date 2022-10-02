@@ -1,5 +1,6 @@
 import 'package:acoride/data/repositories/misc_repository.dart';
 import 'package:bloc/bloc.dart';
+
 import '../../data/model/state_model.dart';
 import '../../data/repositories/user_repository.dart';
 import '../states/registration_state.dart';

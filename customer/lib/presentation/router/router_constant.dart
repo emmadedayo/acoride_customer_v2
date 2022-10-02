@@ -22,3 +22,14 @@ const card = '/card';
 const changePassword = '/changePassword';
 const startTrip = '/startTrip';
 const endTrip = '/endTrip';
+
+
+/////Bills///
+const airtimeScreen = '/airtimeScreen';
+const dataScreen = '/dataScreen';
+const cableScreen = '/cableScreen';
+const electricityScreen = '/electricityScreen';
+
+
+///Success Screens///
+const successScreen = '/successScreen';

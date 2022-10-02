@@ -1,5 +1,4 @@
 import 'package:acoride/logic/cubits/forgot_password_cubit.dart';
-import 'package:acoride/logic/cubits/verify_phone_cubit.dart';
 import 'package:acoride/logic/states/forgot_password_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:pinput/pinput.dart';
+
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
 import '../router/router_constant.dart';

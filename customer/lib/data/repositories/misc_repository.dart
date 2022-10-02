@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:acoride/data/model/state_model.dart';
 import 'package:acoride/data/provider/misc_provider.dart';
 

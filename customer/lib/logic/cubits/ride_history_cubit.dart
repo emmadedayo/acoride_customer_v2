@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:acoride/logic/states/ride_history_state.dart';
