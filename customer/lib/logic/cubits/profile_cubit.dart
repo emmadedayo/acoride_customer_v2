@@ -8,7 +8,6 @@ class ProfileCubit extends Cubit<ProfileState>{
   ProfileCubit(ProfileState initialState) : super(initialState);
 
   editProfile() async {
-    emit(state.copy());
     state.isLoading = true;
     emit(state.copy());
     var result = await userRepository.updateProfile({

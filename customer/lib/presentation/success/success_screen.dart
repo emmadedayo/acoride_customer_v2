@@ -1,9 +1,9 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:lottie/lottie.dart';
+
 import '../components/buttonWidget.dart';
 
 class SuccessScreen extends StatelessWidget {

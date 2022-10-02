@@ -1,31 +1,33 @@
-import 'package:acoride/core/helper/helper_color.dart';
-import 'package:acoride/logic/cubits/registration_cubit.dart';
-import 'package:acoride/logic/states/registration_state.dart';
+import 'package:acoride/logic/cubits/variation_cubit.dart';
+import 'package:acoride/logic/states/variation_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../core/helper/helper_style.dart';
+import '../../../../core/helper/helper_color.dart';
+import '../../../../core/helper/helper_style.dart';
 
-class StateComponent extends StatefulWidget {
-  const StateComponent({Key? key}) : super(key: key);
+
+class VariationScreen extends StatefulWidget {
+  final String? type;
+  const VariationScreen({Key? key,required this.type}) : super(key: key);
 
   @override
-  StateComponentState createState() {
-    return StateComponentState();
+  VariationScreenState createState() {
+    return VariationScreenState();
   }
 
 }
 
-class StateComponentState extends State<StateComponent> {
+class VariationScreenState extends State<VariationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<RegistrationCubit>(
-      create: (context) => RegistrationCubit(RegistrationState()),
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        builder: (regCubit, regState) {
+    return BlocProvider<VariationCubit>(
+      create: (context) => VariationCubit(VariationState(message: widget.type!)),
+      child: BlocBuilder<VariationCubit, VariationState>(
+        builder: (dataCubit, dataState) {
           return SingleChildScrollView(
             child: SizedBox(
                 height: MediaQuery.of(context).size.height/1.2,
@@ -46,7 +48,7 @@ class StateComponentState extends State<StateComponent> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text('Select State', style: HelperStyle.textStyle(context, Colors.black, 18.sp, FontWeight.w500)),
+                                  Text('Select Plan', style: HelperStyle.textStyle(context, Colors.black, 18.sp, FontWeight.w500)),
                                   GestureDetector(
                                     child: const Icon(Icons.close, color: Colors.black,),
                                     onTap: (){
@@ -62,9 +64,9 @@ class StateComponentState extends State<StateComponent> {
                                     color: Colors.grey.withOpacity(0.5),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(15),
+                                  borderRadius: BorderRadius.circular(4.0),
                                 ),
-                                margin: const EdgeInsets.all(12),
+                                margin: const EdgeInsets.all(15),
                                 child: Row(
                                   children: <Widget>[
                                     const Padding(
@@ -79,13 +81,13 @@ class StateComponentState extends State<StateComponent> {
                                       child: TextField(
                                         keyboardType: TextInputType.text,
                                         onChanged: (searchText) {
-                                          regCubit.read<RegistrationCubit>().filterName(searchText);
+                                          dataCubit.read<VariationCubit>().filterName(searchText);
                                         },
 
                                         decoration:  InputDecoration(
                                           filled: true,
                                           fillColor: HelperColor.fillColor,
-                                          hintText: "Search bank",
+                                          hintText: "Search Type",
                                           isDense: true,
                                           border: const OutlineInputBorder(),
                                           contentPadding: const EdgeInsets.all(8.0),
@@ -104,7 +106,7 @@ class StateComponentState extends State<StateComponent> {
                                   ],
                                 ),
                               ),
-                              regState.stateLoading?
+                              dataState.isLoading?
                               const LinearProgressIndicator(
                                 minHeight: 1,
                                 backgroundColor: Colors.transparent,
@@ -118,18 +120,18 @@ class StateComponentState extends State<StateComponent> {
                                   itemBuilder: (BuildContext context, int index) {
                                     return GestureDetector(
                                       onTap: (){
-                                        Navigator.pop(context, regState.stateModel[index]);
+                                        Navigator.pop(context, dataState.variationModel[index]);
                                       },
                                       child:ListTile(
                                         title: Text(
-                                          regState.stateModel[index].name ?? '',
+                                          dataState.variationModel[index].name ?? '',
                                           style: HelperStyle.textStyle(context,Colors.black,14,FontWeight.bold),
                                         ),
                                         trailing: const Icon(Icons.chevron_right),
                                       ),
                                     );
                                   },
-                                  itemCount: regState.stateModel.length,
+                                  itemCount: dataState.variationModel.length,
                                 ),
                               ),
                             ]

@@ -1,5 +1,7 @@
 import 'dart:async';
-import 'package:acoride/data/model/state_model.dart';
+
+import 'package:acoride/data/model/bill_model.dart';
+import 'package:acoride/data/model/variation_model.dart';
 import 'package:acoride/data/provider/bill_provider.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 
@@ -11,13 +13,13 @@ class BillRepository {
   BillProvider billProvider = BillProvider();
   UserRepository userRepository = UserRepository();
 
-  Future<List<StateModel>> getBill(String type) async {
-    List<StateModel> sites = [];
+  Future<List<BillModel>> getBill(String type) async {
+    List<BillModel> sites = [];
     List list = await billProvider.getBills(type,await userRepository.getToken());
     for (int i = 0; i < list.length; i++) {
       Map map = list[i];
-      if (map.isNotEmpty && map['id'] > 0) {
-        StateModel? site = StateModel.fromJson(map);
+      if (map.isNotEmpty) {
+        BillModel? site = BillModel.fromJson(map);
         if (site != null) {
           sites.add(site);
         }
@@ -26,13 +28,13 @@ class BillRepository {
     return sites;
   }
 
-  Future<List<StateModel>> getVariation(String type) async {
-    List<StateModel> sites = [];
+  Future<List<VariationModel>> getVariation(String type) async {
+    List<VariationModel> sites = [];
     List list = await billProvider.getVariation(type,await userRepository.getToken());
     for (int i = 0; i < list.length; i++) {
       Map map = list[i];
-      if (map.isNotEmpty && map['id'] > 0) {
-        StateModel? site = StateModel.fromJson(map);
+      if (map.isNotEmpty) {
+        VariationModel? site = VariationModel.fromJson(map);
         if (site != null) {
           sites.add(site);
         }

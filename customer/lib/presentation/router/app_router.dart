@@ -3,6 +3,8 @@ import 'package:acoride/presentation/auth/change_password_screen.dart';
 import 'package:acoride/presentation/auth/registration_screen.dart';
 import 'package:acoride/presentation/auth/verify_forgot_password.dart';
 import 'package:acoride/presentation/auth/verify_phone_screen.dart';
+import 'package:acoride/presentation/bills/Cable/cable_screen.dart';
+import 'package:acoride/presentation/bills/Data/data_screen.dart';
 import 'package:acoride/presentation/debit_card/debit_card_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/order/order_rate_driver.dart';
@@ -16,9 +18,12 @@ import 'package:flutter/material.dart';
 
 import '../auth/login_screen.dart';
 import '../auth/reset_account_screen.dart';
+import '../bills/Airtime/airtime_screen.dart';
+import '../bills/Electricity/electricity_screen.dart';
 import '../home/bottom_screen.dart';
 import '../profile/edit_profile/edit_user_profile.dart';
 import '../profile/edit_profile/verify_email_screen.dart';
+import '../success/success_full_screen.dart';
 import '../wallet/add_to_wallet.dart';
 
 class AppRouter {
@@ -71,6 +76,26 @@ class AppRouter {
       case addToWalletScreen:
         return MaterialPageRoute(
             builder: (_) => const AddToWalletScreen()
+        );
+      case airtimeScreen:
+        return MaterialPageRoute(
+            builder: (_) => const AirtimeScreenIndex()
+        );
+      case successScreen:
+        return MaterialPageRoute(
+            builder: (_) => SuccessFullScreen(message: arguments!['message'],)
+        );
+      case dataScreen:
+        return MaterialPageRoute(
+            builder: (_) => const DataScreenIndex()
+        );
+      case cableScreen:
+        return MaterialPageRoute(
+            builder: (_) => const CableScreenIndex()
+        );
+      case electricityScreen:
+        return MaterialPageRoute(
+            builder: (_) => const ElectricityScreen()
         );
       case profilePage:
         return MaterialPageRoute(

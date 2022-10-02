@@ -16,7 +16,7 @@ class BillModel {
         this.productType,
         this.image});
 
-  BillModel.fromJson(Map<String, dynamic> json) {
+  BillModel.fromJson(json) {
     serviceID = json['serviceID'];
     name = json['name'];
     minimiumAmount = json['minimium_amount'];

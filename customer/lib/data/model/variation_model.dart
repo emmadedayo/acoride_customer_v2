@@ -7,7 +7,7 @@ class VariationModel {
   VariationModel(
       {this.variationCode, this.name, this.variationAmount, this.fixedPrice});
 
-  VariationModel.fromJson(Map<String, dynamic> json) {
+  VariationModel.fromJson(json) {
     variationCode = json['variation_code'];
     name = json['name'];
     variationAmount = json['variation_amount'];
