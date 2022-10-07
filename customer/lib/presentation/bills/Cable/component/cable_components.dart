@@ -103,7 +103,7 @@ class CableConfirmation extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text(billState.smartNumber.text ?? '',
+                                  Text(billState.smartNumber.text,
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),
@@ -119,7 +119,7 @@ class CableConfirmation extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text(billState.phone.text ?? '',
+                                  Text(billState.phone.text,
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),

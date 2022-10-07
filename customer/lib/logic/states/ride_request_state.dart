@@ -4,7 +4,6 @@ import 'package:acoride/data/entities/firebase_ride_model.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
 
 import '../../core/constant/enum.dart';
 import '../../data/model/location_model.dart';
@@ -15,7 +14,7 @@ class RideRequestState {
   GoogleMapController? mapController;
   CameraPosition? cameraPosition;
   Position? position, lastKnownPositions;
-  Marker? pickupMarker, dropOffMarker;
+  Marker? pickupMarker, dropOffMarker,driverMarker;
   Set<Marker> markers = HashSet();
   google_direction_model.GoogleDirectionModel? googleDirectionModel;
   google_direction_model.GoogleDirectionModel? googleDirectionModelTwo;
@@ -35,13 +34,14 @@ class RideRequestState {
   String? message;
   bool? hasError;
 
-  Location? location = Location();
+  BitmapDescriptor? driverMarkerIcon;
 
 
   RideRequestState({
     this.isLoading = false,
     this.hasError,
-    this.location,
+    this.driverMarkerIcon,
+    this.driverMarker,
     this.mapController, this.cameraPosition, this.position, this.lastKnownPositions,
     this.dropOffMarker, this.positionLoading: CustomState.LOADING, this.locationSettings: const LocationSettings(),
     this.sourceLatLng, this.destinationLatLng, this.currentLatLng, this.streamLatLng,
@@ -53,7 +53,8 @@ class RideRequestState {
     RideRequestState copy = RideRequestState(mapController: mapController, cameraPosition: cameraPosition, position: position, lastKnownPositions: lastKnownPositions,
         dropOffMarker: dropOffMarker, positionLoading: positionLoading, sourceLatLng: sourceLatLng, destinationLatLng: destinationLatLng,
         currentLatLng: currentLatLng, initVisible: initVisible, driverFoundVisible: driverFoundVisible, noDriverFound: noDriverFound,
-        displayDriver: displayDriver, rideCancelled: rideCancelled, rideRequestModel: rideRequestModel, isLoading: isLoading, hasError: hasError,streamLatLng:streamLatLng);
+        displayDriver: displayDriver, rideCancelled: rideCancelled, rideRequestModel: rideRequestModel, isLoading: isLoading,
+        hasError: hasError,streamLatLng:streamLatLng,driverMarker:driverMarker,driverMarkerIcon:driverMarkerIcon);
 
     copy.polyLines.addAll(polyLines);
     copy.distance = distance;
@@ -65,7 +66,6 @@ class RideRequestState {
     copy.googleDirectionModel = googleDirectionModel;
     copy.googleDirectionModelTwo = googleDirectionModelTwo;
     copy.locationSettings = locationSettings;
-    copy.location = location;
     copy.fireStoreModel = fireStoreModel;
     copy.fireStoreLocationModel = fireStoreLocationModel;
     return copy;

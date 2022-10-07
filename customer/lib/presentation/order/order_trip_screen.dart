@@ -14,6 +14,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../core/helper/helper_color.dart';
+import '../cancellation/cancellation_screen.dart';
 import 'order_rate_driver.dart';
 
 
@@ -57,7 +58,7 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                 body: BlocListener<RideRequestCubit, RideRequestState>(
                   listener: (mapContext, states) async {
                     if (mapState.fireStoreModel != null) {
-                      if (mapState.fireStoreModel!.deleteTrip!) {
+                      if (mapState.fireStoreModel!.deleteTrip == true) {
                         objectBoxRepository.deleteRide();
                         FlutterRingtonePlayer.play(
                           fromAsset: 'assets/sounds/beep.mp3',
@@ -81,10 +82,13 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                             btnOkOnPress: () {
                               FlutterRingtonePlayer.stop();
                             }).show();
-                      } else if (mapState.fireStoreModel!.endTrip!) {
-                        objectBoxRepository.deleteRide();
-                        Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: mapState.fireStoreModel?.amount ?? 0,)
+                      } else if (mapState.fireStoreModel!.endTrip == true) {
+
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (
+                                context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: 700,)
                           ),
                         );
                       }
@@ -152,7 +156,10 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                       mapState: mapState,
                       panelController: panelController,
                       onCancel: () async {
-
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => CancellationScreen(
+                          rideRequestModel: mapState.rideRequestModel!,
+                          currentPosition: mapState.position!,
+                        )));
                       },
                       rideRequestModel: widget.rideRequestModel,
                     ),

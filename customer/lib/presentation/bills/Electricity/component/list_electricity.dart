@@ -1,7 +1,7 @@
 import 'package:acoride/data/model/bill_model.dart';
-import 'package:acoride/logic/states/bills_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../../core/helper/helper_color.dart';
 import '../../../../core/helper/helper_style.dart';
 

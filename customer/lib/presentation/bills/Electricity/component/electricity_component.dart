@@ -1,7 +1,6 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/bill_model.dart';
-import 'package:acoride/logic/states/airtime_state.dart';
 import 'package:acoride/logic/states/bills_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -189,7 +188,7 @@ class ElectricityComponent extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text(billState.smartNumber.text ?? '',
+                                  Text(billState.smartNumber.text,
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),
@@ -205,7 +204,7 @@ class ElectricityComponent extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text(billState.phone.text ?? '',
+                                  Text(billState.phone.text,
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),

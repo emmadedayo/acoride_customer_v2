@@ -9,7 +9,6 @@ const resetAccountScreen = '/resetAccountScreen';
 //forgot password verify screen
 const verifyResetPassword = '/verifyResetPassword';
 
-
 const verifyAccountScreen = '/verifyAccountScreen';
 
 const walletScreen = '/walletScreen';
