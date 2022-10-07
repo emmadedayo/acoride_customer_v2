@@ -24,7 +24,7 @@ class VariationCubit extends Cubit<VariationState> {
   initState() async {
     state.isLoading = true;
     emit(state.copy());
-    state.variationModel = await repository.getVariation(state.message ?? '');
+    state.variationModel = await repository.getVariation(state.message);
     state.isLoading = false;
     emit(state.copy());
   }

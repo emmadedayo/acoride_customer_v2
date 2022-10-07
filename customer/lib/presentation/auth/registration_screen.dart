@@ -9,7 +9,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:iconsax/iconsax.dart';
-
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
 import '../components/buttonWidget.dart';
@@ -47,7 +46,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                 if (state.success==true) {
                   Navigator.of(context).pushNamedAndRemoveUntil(verifyAccountScreen, (route) => false,arguments: {'phone': state.phoneController.text});
                 }
-                if (state.hasError != null && state.hasError!) {
+                if (state.hasError == true) {
                   showToast(state.message,
                       context: context,
                       backgroundColor: Colors.red,

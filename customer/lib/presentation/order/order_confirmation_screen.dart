@@ -43,8 +43,8 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
           child: BlocBuilder<MapCubit, MapState>(
             builder: (mapContext, mapState) {
               return SlidingUpPanel(
-                minHeight:  MediaQuery.of(context).size.height * 0.47,
-                maxHeight: MediaQuery.of(context).size.height * 0.6,
+                minHeight:  MediaQuery.of(context).size.height * mapState.bottomSheetHeight,
+                maxHeight: MediaQuery.of(context).size.height * mapState.bottomSheetHeight2,
                 controller: panelController,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -53,12 +53,13 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                 body: BlocListener<MapCubit, MapState>(
                   listener: (mapContext, states) async {
                     if (states.rideRequestModel != null) {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => OrderTripScreen(
-                              rideRequestModel: states.rideRequestModel!,
-                            ),
-                          ));
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (
+                                context) => OrderTripScreen(rideRequestModel: states.rideRequestModel!,)
+                        ),
+                      );
                     }
                     if (states.hasError == true) {
                       showToast(states.message,

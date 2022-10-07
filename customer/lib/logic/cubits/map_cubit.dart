@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/data/entities/ridedb_entities.dart';
@@ -6,6 +8,7 @@ import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:acoride/logic/states/map_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
@@ -60,39 +63,51 @@ class MapCubit extends Cubit<MapState> {
   loadingAndWaitingForDriver() async {
     state.positionLoading = CustomState.LOADING;
     emit(state.copy());
-    var result = await rideRequestRepository.getDriver(
-        {
-          "myLat":state.dataFrom[0]['lat'],
-          "myLon":state.dataFrom[0]['long'],
-          "ride_id":HelperConfig.uuid(),
-          "driver_id":state.userRideRequest?.user?.id,
-          "passenger_id": state.userModel?.id,
-          "passenger_pickup_address":state.dataFrom[0]['name'],
-          "passenger_pickup_latitude":state.dataFrom[0]['lat'],
-          "passenger_pickup_longitude":state.dataFrom[0]['long'],
-          "passenger_destination_address":state.dataTo[0]['name'],
-          "passenger_destination_latitude":state.dataTo[0]['lat'],
-          "passenger_destination_longitude":state.dataTo[0]['long'],
-          "ride_type":"instant",
-          "km":"983",
-          "km_in_time":"8393",
-          "payment_type":"wallet",
-          "estimated_price":state.userRideRequest?.estimatedPrice,
-          "on_going": "1",
-          "base_fare_fee": "200"
-        }
-    );
-    if (result.errorCode! >= 400) {
-      state.positionLoading = CustomState.DONE;
-      state.hasError = true;
-      state.message = result.message;
-    } else {
-      state.hasError = false;
-      state.message = result.message;
-      state.rideRequestModel = result.result;
-      objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
-      state.positionLoading = CustomState.DONE;
-    }
+    state.bottomSheetHeight = 0.4;
+    state.bottomSheetHeight2 = 0.4;
+    state.loadingView = false;
+    state.loadingView2 = true;
+
+    Future.delayed(const Duration(seconds: 10), () async {
+      var result = await rideRequestRepository.getDriver(
+          {
+            "myLat":state.dataFrom[0]['lat'],
+            "myLon":state.dataFrom[0]['long'],
+            "ride_id":HelperConfig.uuid(),
+            "driver_id":state.userRideRequest?.user?.id,
+            "passenger_id": state.userModel?.id,
+            "passenger_pickup_address":state.dataFrom[0]['name'],
+            "passenger_pickup_latitude":state.dataFrom[0]['lat'],
+            "passenger_pickup_longitude":state.dataFrom[0]['long'],
+            "passenger_destination_address":state.dataTo[0]['name'],
+            "passenger_destination_latitude":state.dataTo[0]['lat'],
+            "passenger_destination_longitude":state.dataTo[0]['long'],
+            "ride_type":"instant",
+            "km":"983",
+            "km_in_time":"8393",
+            "payment_type":"wallet",
+            "estimated_price":state.userRideRequest?.estimatedPrice,
+            "on_going": "1",
+            "base_fare_fee": "200"
+          }
+      );
+      if (result.errorCode! >= 400) {
+        state.positionLoading = CustomState.DONE;
+        state.hasError = true;
+        state.message = result.message;
+        state.bottomSheetHeight = 0.47;
+        state.bottomSheetHeight2 = 0.46;
+        state.loadingView = true;
+        state.loadingView2 = false;
+      } else {
+        state.hasError = false;
+        state.message = result.message;
+        state.rideRequestModel = result.result;
+        objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
+        state.positionLoading = CustomState.DONE;
+      }
+      emit(state.copy());
+    });
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
   }
@@ -214,6 +229,7 @@ class MapCubit extends Cubit<MapState> {
       jointType: JointType.round,
       points: HelperConfig.convertToLatLng(HelperConfig.decodePoly(state.googleDirectionModel?.routes?[0].overviewPolyline?.points ?? '')),
     ));
+    emit(state.copy());
   }
 
   updatePayment(payment) {

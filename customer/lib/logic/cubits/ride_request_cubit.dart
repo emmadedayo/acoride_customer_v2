@@ -8,6 +8,7 @@ import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -57,6 +58,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
             ),
           ),
         );
+        await getDriverIcon();
       }
     } else {
 
@@ -130,7 +132,6 @@ class RideRequestCubit extends Cubit<RideRequestState> {
   
 
   getLocationLine(String userLatFrom , String userLongFrom, String userLatTo, String userLongTo) async {
-    emit(state.copy());
     final String polylineIdVal = 'polyline_id_${HelperConfig.getTimeStampDividedByOneThousand(DateTime.now())}';
     final PolylineId polylineId = PolylineId(polylineIdVal);
     state.polyLines.clear();
@@ -194,9 +195,15 @@ class RideRequestCubit extends Cubit<RideRequestState> {
         emit(state.copy());
       }
     });
-     getDriverLocation();
+     await getDriverLocation();
   }
 
+  getDriverIcon() async {
+    state.driverMarkerIcon = await BitmapDescriptor.fromAssetImage(
+      const ImageConfiguration(),
+      "assets/images/motorcycle.png",
+    );
+  }
 
   getDriverLocation() async{
     FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
@@ -211,6 +218,14 @@ class RideRequestCubit extends Cubit<RideRequestState> {
           bearing: 180,
           target: state.streamLatLng!,
         );
+
+        state.markers.removeWhere((m) => m.markerId.value == 'driverPin');
+        state.markers.add(Marker(
+          markerId: const MarkerId('driverPin'),
+          position: state.streamLatLng!,
+          icon: state.driverMarkerIcon!,
+        ));
+
         Future.delayed(const Duration(milliseconds: 200), () async {
           state.mapController?.animateCamera(
             CameraUpdate?.newCameraPosition(

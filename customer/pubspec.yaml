@@ -68,7 +68,6 @@ dependencies:
   awesome_dialog: ^3.0.0
   flutter_ringtone_player: ^3.2.0
   carousel_slider: ^4.1.1
-  location: ^4.4.0
   objectbox: ^1.6.2
   icons_plus: ^3.0.0
   objectbox_flutter_libs: any

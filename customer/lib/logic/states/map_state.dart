@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
+import 'package:flutter/animation.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -26,12 +27,20 @@ class MapState {
   dynamic routers;
   List<Map<String, dynamic>> dataFrom = [];
   List<Map<String, dynamic>> dataTo = [];
-  bool searchRide = true;
   bool? hasError;
   UserRideRequest? userRideRequest;
   UserModel? userModel;
   RideRequestModel? rideRequestModel;
   String? paymentType;
+
+
+  ///Animation Controller Here
+  double bottomSheetHeight;
+  double bottomSheetHeight2;
+  bool loadingView;
+  bool loadingView2;
+
+  AnimationController? controller;
 
   MapState({
     this.mapController, this.cameraPosition, this.position, this.lastKnownPositions,
@@ -39,13 +48,18 @@ class MapState {
     this.sourceLatLng, this.destinationLatLng, this.currentLatLng,this.dataFrom:const [], this.dataTo:const [],
     this.userModel,
     this.message,
-    this.searchRide = false,
+    this.loadingView: true,
+    this.loadingView2: false,
+    this.controller,
     this.hasError,
     this.paymentType,
+    this.bottomSheetHeight = 0.47,
+    this.bottomSheetHeight2 = 0.6,
   });
 
   MapState copy() {
-    MapState copy = MapState(mapController: mapController, cameraPosition: cameraPosition, position: position, lastKnownPositions: lastKnownPositions,
+    MapState copy = MapState(controller:controller,loadingView:loadingView,loadingView2:loadingView2,bottomSheetHeight2: bottomSheetHeight2,bottomSheetHeight: bottomSheetHeight,
+        mapController: mapController, cameraPosition: cameraPosition, position: position, lastKnownPositions: lastKnownPositions,
         dropOffMarker: dropOffMarker, positionLoading: positionLoading, sourceLatLng: sourceLatLng, destinationLatLng: destinationLatLng,
         currentLatLng: currentLatLng, dataFrom: dataFrom, dataTo: dataTo,userModel: userModel,paymentType: paymentType,hasError: hasError,message: message);
 
@@ -58,7 +72,6 @@ class MapState {
     copy.dropOffAddress = dropOffAddress;
     copy.markers = markers;
     copy.googleDirectionModel = googleDirectionModel;
-    copy.searchRide = searchRide;
     copy.locationSettings = locationSettings;
     copy.routers = routers;
     copy.rideRequestModel = rideRequestModel;
