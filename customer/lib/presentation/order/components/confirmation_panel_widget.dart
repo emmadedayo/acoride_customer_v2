@@ -9,7 +9,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../components/buttonWidget.dart';
 
-
 class ConfirmationWidget extends StatelessWidget {
   final MapState mapState;
   final ScrollController scrollController;
@@ -46,7 +45,7 @@ class ConfirmationWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Distance: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.w600),),
+                        Text("Estimated Distance: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.w600),),
 
                         Text(mapState.distance, style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
                       ],
@@ -60,15 +59,15 @@ class ConfirmationWidget extends StatelessWidget {
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.location_searching),
+                              Image.asset('assets/images/start_marker.png', width: 20, height: 20,),
                               const SizedBox(width: 20,),
                               Expanded(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("My Current Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
                                   const SizedBox(height: 5,),
-                                  Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
+                                  Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
                                 ],
                               ))
                             ],
@@ -76,15 +75,15 @@ class ConfirmationWidget extends StatelessWidget {
                           const SizedBox(height: 20,),
                           Row(
                             children: [
-                              const Icon(Icons.location_searching),
+                              Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
                               const SizedBox(width: 20,),
                               Expanded(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("My Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
                                   const SizedBox(height: 5,),
-                                  Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
+                                  Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
                                 ],
                               ))
                             ],
@@ -93,7 +92,7 @@ class ConfirmationWidget extends StatelessWidget {
                       ),
                     ),
                     const Divider(),
-                    const SizedBox(height: 10,),
+                    SizedBox(height: 5.h,),
                     InkWell(
                         onTap:selectPayment,
                         child: Row(
@@ -114,7 +113,7 @@ class ConfirmationWidget extends StatelessWidget {
                           ],
                         )
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 4,),
                     const Divider(),
                     const SizedBox(height: 20,),
                     ButtonWidget(
@@ -183,7 +182,7 @@ class ConfirmationWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("My Current Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
                                   const SizedBox(height: 5,),
                                   Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
                                 ],
@@ -199,7 +198,7 @@ class ConfirmationWidget extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("My Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
                                   const SizedBox(height: 5,),
                                   Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
                                 ],

@@ -156,13 +156,22 @@ class OrderTripScreenWidget extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const Divider(),
                   Padding(
-                    padding: const EdgeInsets.only(left: 5, right: 5, top: 20),
+                    padding: const EdgeInsets.all(13).r,
                     child:Row(
                       children: [
-                        const Icon(Icons.location_searching),
-                        const SizedBox(width: 16,),
-                        Expanded(child: Text("${rideRequestModel.passengerDestinationAddress}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.normal),),)
+                        Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
+                        const SizedBox(width: 10,),
+                        Expanded(
+                            child:Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("${rideRequestModel.passengerDestinationAddress}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
+                              ],
+                            )
+                        )
                       ],
                     ),
                   ),

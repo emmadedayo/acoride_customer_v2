@@ -65,7 +65,7 @@ class _OrderRateDriverState extends State<OrderRateDriver> {
                           Stack(
                             children: [
                               SizedBox(
-                                height: MediaQuery.of(context).size.height/3,
+                                height: MediaQuery.of(context).size.height * 0.4,
                                 child:Container(
                                   color: HelperColor.primaryColor,
                                   child: Center(

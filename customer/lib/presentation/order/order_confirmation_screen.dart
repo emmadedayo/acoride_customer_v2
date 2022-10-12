@@ -9,9 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../core/helper/helper_color.dart';
 import 'order_payment_screen.dart';
 import 'order_trip_screen.dart';
 
@@ -92,7 +92,7 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                         ):
                         GoogleMap(
                           onMapCreated: (GoogleMapController controller) {
-                            context.read<MapCubit>().onMapCreated(controller);
+                            mapContext.read<MapCubit>().onMapCreated(controller);
                           },
                           markers: mapState.markers,
                           compassEnabled: false,
@@ -101,6 +101,7 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           myLocationButtonEnabled: false,
                           scrollGesturesEnabled: true,
                           myLocationEnabled: true,
+                          minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
                           initialCameraPosition: CameraPosition(
                             target: LatLng(
                                 mapState.position != null ? mapState.position!.latitude : mapState.lastKnownPositions!.latitude,
@@ -117,25 +118,18 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              InkWell(
-                                onTap: () {
+                              MaterialButton(
+                                onPressed: () {
                                   Navigator.pop(context);
                                 },
-                                child: Container(
-                                  margin: EdgeInsets.only(left: 20.w),
-                                  child: const Icon(
-                                    Iconsax.arrow_left_2,
-                                    color: Colors.black,
-                                    size: 25,
-                                  ),
-                                ),
-                              ),
-                              Container(
-                                margin: EdgeInsets.only(right: 20.w),
+                                elevation: 2,
+                                color: Colors.white,
+                                padding: const EdgeInsets.all(15),
+                                shape: const CircleBorder(),
                                 child: const Icon(
-                                  Iconsax.share,
-                                  color: Colors.black,
-                                  size: 25,
+                                  Icons.arrow_back,
+                                  color: HelperColor.black,
+                                  size: 24,
                                 ),
                               ),
                             ],

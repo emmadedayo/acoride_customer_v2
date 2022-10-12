@@ -92,6 +92,18 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                                       hintText: "Your pickup location",
                                       hintStyle: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
                                       contentPadding: const EdgeInsets.all(10.0),
+                                      suffixIcon: InkWell(
+                                        child: const Icon(
+                                          Icons.cancel,
+                                          color: HelperColor.black,
+                                          size: 13,
+                                        ),
+                                        onTap: (){
+                                          setState(() {
+                                            addressFrom = TextEditingController(text: '');
+                                          });
+                                        },
+                                      ),
                                       border: const OutlineInputBorder(),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(10),
@@ -127,10 +139,22 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                                     style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
                                     decoration:  InputDecoration(
                                       filled: true,
-                                      prefixIcon: const Icon(Iconsax.global_search,color: HelperColor.black,),
+                                      prefixIcon: const Icon(Icons.location_on_outlined,color: HelperColor.primaryColor,size: 20,),
                                       fillColor:HelperColor.freyColor.withOpacity(0.1),
                                       hintText: "Your destination",
                                       hintStyle: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
+                                      suffixIcon: InkWell(
+                                        child: const Icon(
+                                          Icons.cancel,
+                                          color: HelperColor.black,
+                                          size: 13,
+                                        ),
+                                        onTap: (){
+                                          setState(() {
+                                            addressTo = TextEditingController(text: '');
+                                          });
+                                        },
+                                      ),
                                       border: const OutlineInputBorder(),
                                       contentPadding: const EdgeInsets.all(10.0),
                                       enabledBorder: OutlineInputBorder(

@@ -1,5 +1,6 @@
 import 'dart:async';
-
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/data/entities/ridedb_entities.dart';
@@ -52,6 +53,7 @@ class MapCubit extends Cubit<MapState> {
             ),
           ),
         );
+        await customPin();
       }
     } else {
 
@@ -159,18 +161,19 @@ class MapCubit extends Cubit<MapState> {
 
     state.dropOffMarker = Marker(
       markerId: MarkerId('drop_off_destination${UniqueKey()}'),
-      position: LatLng(state.dataFrom[0]['lat'] ?? 0.0 , state.dataFrom[0]['long'] ?? 0.0),
-      icon:BitmapDescriptor.defaultMarker,
+      position: LatLng(state.dataTo[0]['lat'] ?? 0.0 , state.dataTo[0]['long'] ?? 0.0),
+      icon:state.dropOffLocationIcon!
     );
 
     state.pickupMarker = Marker(
       markerId: MarkerId('pick_up_location${UniqueKey()}'),
-      position: LatLng(state.dataTo[0]['lat'] ?? 0.0, state.dataTo[0]['long'] ?? 0.0),
-      icon:BitmapDescriptor.defaultMarker
+      position: LatLng(state.dataFrom[0]['lat'] ?? 0.0, state.dataFrom[0]['long'] ?? 0.0),
+      icon:state.pickupLocationIcon!
     );
 
     double miny = (state.dataFrom[0]['lat'] <= state.dataTo[0]['lat']) ? state.dataFrom[0]['lat'] : state.dataTo[0]['lat'];
     double minx = (state.dataFrom[0]['long'] <= state.dataTo[0]['long']) ? state.dataFrom[0]['long'] : state.dataTo[0]['long'];
+
     double maxy = (state.dataFrom[0]['lat'] <= state.dataTo[0]['lat']) ? state.dataTo[0]['lat'] : state.dataFrom[0]['lat'];
     double maxx = (state.dataFrom[0]['long'] <= state.dataTo[0]['long']) ? state.dataTo[0]['long'] : state.dataFrom[0]['long'];
 
@@ -180,17 +183,15 @@ class MapCubit extends Cubit<MapState> {
     double northEastLatitude = maxy;
     double northEastLongitude = maxx;
 
-    Future.delayed(const Duration(milliseconds: 200), () async {
-      state.mapController?.animateCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(northEastLatitude, northEastLongitude),
-            southwest: LatLng(southWestLatitude, southWestLongitude),
-          ),
-          100.0,
+    state.mapController?.animateCamera(
+      CameraUpdate.newLatLngBounds(
+        LatLngBounds(
+          northeast: LatLng(northEastLatitude, northEastLongitude),
+          southwest: LatLng(southWestLatitude, southWestLongitude),
         ),
-      );
-    });
+        30.0,
+      ),
+    );
     if (state.position != null) {
       state.markers.add(state.pickupMarker!);
       state.markers.add(state.dropOffMarker!);
@@ -213,13 +214,13 @@ class MapCubit extends Cubit<MapState> {
     state.polyLines.clear();
     state.googleDirectionModel = await googleWebService.getTransaction(userLatFrom, userLongFrom, userLatTo, userLongTo).then((value){
       state.googleDirectionModel = value;
-      addMarker();
       return value;
     });
     state.distance = state.googleDirectionModel?.routes?[0].legs?[0].distance?.text ?? '';
     state.duration = state.googleDirectionModel?.routes?[0].legs?[0].duration?.text ?? '';
     debugPrint("=============================>>>>>>>>>> object distance ${state.distance}");
     debugPrint("=============================>>>>>>>>>> object duration ${state.duration}");
+    await addMarker();
     state.polyLines.add(Polyline(
       polylineId: polylineId,
       width: 3,
@@ -234,6 +235,16 @@ class MapCubit extends Cubit<MapState> {
 
   updatePayment(payment) {
     state.paymentType = payment;
+    emit(state.copy());
+  }
+
+  customPin() async {
+    state.markerIcon = await HelperConfig.getBytesFromAsset('assets/images/end_marker.png', 45);
+    state.dropOffLocationIcon = BitmapDescriptor.fromBytes(state.markerIcon!);
+
+    state.startMarkerIcon = await  HelperConfig.getBytesFromAsset('assets/images/start_marker.png', 45);
+    state.pickupLocationIcon = BitmapDescriptor.fromBytes(state.startMarkerIcon!);
+
     emit(state.copy());
   }
 }

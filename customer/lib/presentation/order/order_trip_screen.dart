@@ -1,20 +1,16 @@
-import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/logic/cubits/ride_request_cubit.dart';
 import 'package:acoride/logic/states/ride_request_state.dart';
 import 'package:acoride/presentation/order/components/order_screen_widget_trip.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_ringtone_player/flutter_ringtone_player.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import '../../core/helper/helper_color.dart';
 import '../cancellation/cancellation_screen.dart';
+import '../router/router_constant.dart';
 import 'order_rate_driver.dart';
 
 
@@ -48,7 +44,7 @@ class OrderTripScreenState extends State<OrderTripScreen> {
           child: BlocBuilder<RideRequestCubit, RideRequestState>(
             builder: (mapContext, mapState) {
               return SlidingUpPanel(
-                minHeight:  MediaQuery.of(context).size.height * 0.47,
+                minHeight: MediaQuery.of(context).size.height * 0.4,
                 maxHeight: MediaQuery.of(context).size.height * 0.6,
                 controller: panelController,
                 borderRadius: const BorderRadius.only(
@@ -57,40 +53,17 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                 ),
                 body: BlocListener<RideRequestCubit, RideRequestState>(
                   listener: (mapContext, states) async {
-                    if (mapState.fireStoreModel != null) {
-                      if (mapState.fireStoreModel!.deleteTrip == true) {
+                    if (states.fireStoreModel != null) {
+                      if (states.fireStoreModel!.deleteTrip == true) {
                         objectBoxRepository.deleteRide();
-                        FlutterRingtonePlayer.play(
-                          fromAsset: 'assets/sounds/beep.mp3',
-                          looping: false, // Android only - API >= 28
-                          volume: 0.1, // Android only - API >= 28
-                          asAlarm: false, // Android only - all APIs
-                        );
-                        AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.topSlide,
-                            title: 'Warning',
-                            desc: 'Your trip has been canceled by the driver',
-                            dismissOnBackKeyPress: false,
-                            btnOkText: 'Go Back',
-                            titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
-                            descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
-                            dismissOnTouchOutside: false,
-                            barrierColor: Colors.black.withOpacity(0.2),
-                            btnCancelColor: HelperColor.primaryColor,
-                            btnOkOnPress: () {
-                              FlutterRingtonePlayer.stop();
-                            }).show();
-                      } else if (mapState.fireStoreModel!.endTrip == true) {
-
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (
-                                context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: 700,)
-                          ),
-                        );
+                        states.userStream!.cancel();
+                        states.rideRequestStream?.cancel();
+                        Navigator.of(context).pushNamedAndRemoveUntil(tripDeleteScreen, (route) => false);
+                      } else if (states.fireStoreModel!.endTrip == true) {
+                        objectBoxRepository.deleteRide();
+                        states.userStream!.cancel();
+                        states.rideRequestStream?.cancel();
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: 700,),), (route) => false);
                       }
                     }
                   },
@@ -156,10 +129,15 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                       mapState: mapState,
                       panelController: panelController,
                       onCancel: () async {
+                        mapState.userStream!.cancel();
+                        mapState.rideRequestStream?.cancel();
                         Navigator.of(context).push(MaterialPageRoute(builder: (context) => CancellationScreen(
                           rideRequestModel: mapState.rideRequestModel!,
                           currentPosition: mapState.position!,
-                        )));
+                        ))).then((value) => {
+                            mapState.userStream!.resume(),
+                            mapState.rideRequestStream?.resume(),
+                        });
                       },
                       rideRequestModel: widget.rideRequestModel,
                     ),

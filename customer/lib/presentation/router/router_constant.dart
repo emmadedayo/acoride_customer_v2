@@ -32,3 +32,6 @@ const electricityScreen = '/electricityScreen';
 
 ///Success Screens///
 const successScreen = '/successScreen';
+
+///Trip Screens///
+const tripDeleteScreen = 'tripDeleteScreen';

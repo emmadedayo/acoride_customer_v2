@@ -23,6 +23,7 @@ import '../bills/Electricity/electricity_screen.dart';
 import '../home/bottom_screen.dart';
 import '../profile/edit_profile/edit_user_profile.dart';
 import '../profile/edit_profile/verify_email_screen.dart';
+import '../success/ride_delete_screen.dart';
 import '../success/success_full_screen.dart';
 import '../wallet/add_to_wallet.dart';
 
@@ -121,6 +122,11 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => OrderRateDriver(rideRequestModel: arguments!['user'],amountToPay: arguments['amount'],));
       case verifyEmail:
         return MaterialPageRoute(builder: (_) => VerifyEmailAccountScreen(user: arguments!['user'], email: arguments['email'],));
+    /// Trip router
+      case tripDeleteScreen:
+        return MaterialPageRoute(
+            builder: (_) => const TripDeleteScreen()
+        );
       default:
         return null;
     }

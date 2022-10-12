@@ -58,7 +58,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
             ),
           ),
         );
-        await getDriverIcon();
+        await driverMarker();
       }
     } else {
 
@@ -114,13 +114,13 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     state.dropOffMarker = Marker(
       markerId: MarkerId('drop_off_destination${UniqueKey()}'),
       position: LatLng(state.rideRequestModel?.passengerDestinationLatitude ?? 0.0 , state.rideRequestModel?.passengerDestinationLongitude ?? 0.0),
-      icon:BitmapDescriptor.defaultMarker,
+      icon:state.dropOffLocationIcon!,
     );
 
     state.pickupMarker = Marker(
         markerId: MarkerId('pick_up_location${UniqueKey()}'),
         position: LatLng(state.rideRequestModel?.passengerPickupLatitude ?? 0.0, state.rideRequestModel?.passengerPickupLongitude ?? 0.0),
-        icon:BitmapDescriptor.defaultMarker
+      icon:state.pickupLocationIcon!,
     );
 
     if (state.position != null) {
@@ -171,44 +171,19 @@ class RideRequestCubit extends Cubit<RideRequestState> {
   }
 
    getUsers() async{
-     FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
-    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging').doc(state.rideRequestModel?.driverId.toString()).snapshots();
-    rideRequestStream.listen((DocumentSnapshot documentSnapshot) {
-      if (documentSnapshot.exists) {
-        state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
-        // if(state.fireStoreModel?.confirmTrip == true){
-        //
-        //   objectBoxRepository.updateRideType('CONFIRM_RIDE');
-        //
-        // }else if(state.fireStoreModel?.deleteTrip == true) {
-        //
-        //   objectBoxRepository.deleteRide();
-        //
-        // }else if(state.fireStoreModel?.startTrip == true) {
-        //
-        //   objectBoxRepository.updateRideType('START_TRIP');
-        //
-        // }else if(state.fireStoreModel?.endTrip == true) {
-        //
-        //   objectBoxRepository.deleteRide();
-        // }
-        emit(state.copy());
-      }
-    });
-     await getDriverLocation();
+     state.userStream = FirebaseFirestore.instance.collection('ride_request_staging').doc(state.rideRequestModel?.driverId.toString()).snapshots()
+         .listen((DocumentSnapshot documentSnapshot) {
+       if (documentSnapshot.exists) {
+         state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
+         emit(state.copy());
+       }
+     });
+     getDriverLocation();
   }
 
-  getDriverIcon() async {
-    state.driverMarkerIcon = await BitmapDescriptor.fromAssetImage(
-      const ImageConfiguration(),
-      "assets/images/motorcycle.png",
-    );
-  }
-
-  getDriverLocation() async{
-    FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false);
-    final Stream<DocumentSnapshot> rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging_location').doc(state.rideRequestModel?.rideId.toString()).snapshots();
-    rideRequestStream.listen((DocumentSnapshot documentSnapshot) {
+  getDriverLocation(){
+    state.rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging_location').doc(state.rideRequestModel?.rideId.toString()).snapshots()
+        .listen((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         state.fireStoreLocationModel = FireStoreLocationModel.fromJson(documentSnapshot.data()!);
         state.streamLatLng = LatLng(state.fireStoreLocationModel?.suppliedLatitude ?? 0.0, state.fireStoreLocationModel?.suppliedLongitude ?? 0.0);
@@ -235,25 +210,46 @@ class RideRequestCubit extends Cubit<RideRequestState> {
         });
         if(state.fireStoreModel?.confirmTrip == false){
           getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-                               state.fireStoreLocationModel?.suppliedLongitude.toString(),
-                               state.rideRequestModel?.passengerPickupLatitude.toString(),
-                               state.rideRequestModel?.passengerPickupLongitude.toString()
+              state.fireStoreLocationModel?.suppliedLongitude.toString(),
+              state.rideRequestModel?.passengerPickupLatitude.toString(),
+              state.rideRequestModel?.passengerPickupLongitude.toString()
           );
         }else if(state.fireStoreModel?.confirmTrip == true){
           getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-                              state.fireStoreLocationModel?.suppliedLongitude.toString(),
-                              state.rideRequestModel?.passengerPickupLatitude.toString(),
-                              state.rideRequestModel?.passengerPickupLongitude.toString()
+              state.fireStoreLocationModel?.suppliedLongitude.toString(),
+              state.rideRequestModel?.passengerPickupLatitude.toString(),
+              state.rideRequestModel?.passengerPickupLongitude.toString()
           );
         }else if(state.fireStoreModel?.startTrip == true){
           getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-                              state.fireStoreLocationModel?.suppliedLongitude.toString(),
-                              state.rideRequestModel?.passengerDestinationLatitude.toString(),
-                              state.rideRequestModel?.passengerDestinationLongitude.toString()
+              state.fireStoreLocationModel?.suppliedLongitude.toString(),
+              state.rideRequestModel?.passengerDestinationLatitude.toString(),
+              state.rideRequestModel?.passengerDestinationLongitude.toString()
           );
         }
-        emit(state.copy());
       }
+     // emit(state.copy());
     });
+  }
+
+  driverMarker() async {
+    state.markerIcon = await  HelperConfig.getBytesFromAsset('assets/images/motorcycle.png', 45);
+    state.driverMarkerIcon = BitmapDescriptor.fromBytes(state.markerIcon!);
+
+    state.startMarkerIcon = await  HelperConfig.getBytesFromAsset('assets/images/start_marker.png', 45);
+    state.pickupLocationIcon = BitmapDescriptor.fromBytes(state.startMarkerIcon!);
+
+    state.dropOffMarkerIcon = await  HelperConfig.getBytesFromAsset('assets/images/end_marker.png', 45);
+    state.dropOffLocationIcon = BitmapDescriptor.fromBytes(state.dropOffMarkerIcon!);
+
+    emit(state.copy());
+  }
+
+  @override
+  Future<void> close() async {
+    //cancel streams
+    state.rideRequestStream?.cancel();
+    state.userStream?.cancel();
+    return super.close();
   }
 }
