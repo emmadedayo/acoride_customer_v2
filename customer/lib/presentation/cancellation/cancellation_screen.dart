@@ -8,7 +8,6 @@ import 'package:acoride/logic/states/cancellation_state.dart';
 import 'package:acoride/presentation/cancellation/component/cancellation_widget.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/router/router_constant.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -43,23 +42,7 @@ class CancellationScreenState extends State<CancellationScreen> {
           child: BlocListener<CancellationCubit, CancellationState>(
             listener: (contextCubit, stateRes) {
               if (stateRes.message != null) {
-                AwesomeDialog(
-                    context: context,
-                    dialogType: DialogType.success,
-                    animType: AnimType.topSlide,
-                    title: 'Success',
-                    desc: 'You have cancelled the ride',
-                    dismissOnBackKeyPress: false,
-                    btnOkText: 'Go Back',
-                    titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
-                    descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
-                    dismissOnTouchOutside: false,
-                    barrierColor: Colors.black.withOpacity(0.2),
-                    btnCancelColor: HelperColor.primaryColor,
-                    btnOkOnPress: () {
-                      Navigator.of(context).pushNamedAndRemoveUntil(pageHome, (route) => false);
-                      contextCubit.read<CancellationCubit>().state.message = null;
-                    }).show();
+                Navigator.of(context).pushNamedAndRemoveUntil(tripDeleteScreen, (route) => false);
               }
             },
             child: BlocBuilder<CancellationCubit, CancellationState>(

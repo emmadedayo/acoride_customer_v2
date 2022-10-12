@@ -115,5 +115,4 @@ class HelperConfig{
       throw 'Could not launch $url';
     }
   }
-
 }

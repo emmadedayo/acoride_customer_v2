@@ -1,4 +1,5 @@
 import 'dart:collection';
+import 'dart:typed_data';
 
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
@@ -32,7 +33,8 @@ class MapState {
   UserModel? userModel;
   RideRequestModel? rideRequestModel;
   String? paymentType;
-
+  BitmapDescriptor? pickupLocationIcon, dropOffLocationIcon;
+  Uint8List? markerIcon,startMarkerIcon;
 
   ///Animation Controller Here
   double bottomSheetHeight;
@@ -70,6 +72,10 @@ class MapState {
     copy.dropOffMarker = dropOffMarker;
     copy.pickUpAddress = pickUpAddress;
     copy.dropOffAddress = dropOffAddress;
+    copy.pickupLocationIcon = pickupLocationIcon;
+    copy.dropOffLocationIcon = dropOffLocationIcon;
+    copy.markerIcon = markerIcon;
+    copy.startMarkerIcon = startMarkerIcon;
     copy.markers = markers;
     copy.googleDirectionModel = googleDirectionModel;
     copy.locationSettings = locationSettings;
