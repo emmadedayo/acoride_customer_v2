@@ -7,6 +7,8 @@ import 'package:acoride/data/provider/ride_request_provider.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:flutter/foundation.dart';
 
+import '../model/user_ride_request.dart';
+
 class RideRequestRepository {
 
   UserRepository userRepository = UserRepository();
@@ -96,6 +98,26 @@ class RideRequestRepository {
     }
     return ResultItem<RideRequestModel?>(result: user, errorCode: statusCode, message: message);
   }
+
+
+  Future<ResultItem<UserRideRequest?>> getTripAmount(maps) async {
+    debugPrint("=========Map : $maps");
+    UserRideRequest? user;
+    Map map = await provider.getTripAmount(maps,await userRepository.getToken());
+    int? statusCode = map[FIELD_STATUS_CODE];
+    String message = map[FIELD_MESSAGE]?? '';
+    debugPrint("=========Map Result : $map");
+    if (map.isNotEmpty) {
+      try {
+        user = UserRideRequest.fromMap(map[FIELD_DATA]);
+      }
+      catch(err) {
+        return ResultItem<UserRideRequest?>(result: null, errorCode: 404, message: message);
+      }
+    }
+    return ResultItem<UserRideRequest?>(result: user, errorCode: statusCode, message: message);
+  }
+
 
 
   Future<List<RideRequestModel>> getRideHistory() async {

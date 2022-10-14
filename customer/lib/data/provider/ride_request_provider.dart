@@ -13,6 +13,12 @@ class RideRequestProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> getTripAmount(Map<String,dynamic> map,token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.getTripAmount,
+        map, method: HttpMethod.POST_WITH_AUTH,token:token);
+    return RestApi.getMapFromResponse(response);
+  }
+
   Future<Map> createTrip(Map<String,dynamic> map,token) async {
     Response? response = await RestApi.getDataFromServer(ApiUrl.createTrip,
         map, method: HttpMethod.POST_WITH_AUTH,token:token);

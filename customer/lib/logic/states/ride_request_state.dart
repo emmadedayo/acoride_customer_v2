@@ -52,6 +52,9 @@ class RideRequestState {
     this.initVisible: true, this.driverFoundVisible: false, this.noDriverFound: false,
     this.displayDriver: false, this.rideCancelled: false,
     this.rideRequestModel,
+    this.driverMarkerIcon = BitmapDescriptor.defaultMarker,
+    this.pickupLocationIcon = BitmapDescriptor.defaultMarker,
+    this.dropOffLocationIcon = BitmapDescriptor.defaultMarker,
   });
 
   RideRequestState copy() {

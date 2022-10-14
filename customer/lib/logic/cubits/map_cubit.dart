@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:typed_data';
-import 'dart:ui' as ui;
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/data/entities/ridedb_entities.dart';
@@ -9,12 +7,10 @@ import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:acoride/logic/states/map_state.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import '../../core/helper/helper_config.dart';
 import '../../data/repositories/object_box_repository.dart';
 
@@ -34,19 +30,19 @@ class MapCubit extends Cubit<MapState> {
   initState() async {
     state.positionLoading = CustomState.LOADING;
     state.markers.clear();
-    locationInit();
     initLastKnownLocation();
+    locationInit();
+    state.amountLoading = true;
     emit(state.copy());
     getLocationLine(state.dataFrom[0]['lat'].toString(), state.dataFrom[0]['long'].toString(), state.dataTo[0]['lat'].toString(), state.dataTo[0]['long'].toString());
-
     if (await HelperConfig.determinePosition()) {
       state.position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       if (kDebugMode) {
-        print("object ${state.position}");
+        print("map cubit ${state.position}");
       }
       if (state.position != null) {
         state.mapController?.animateCamera(
-          CameraUpdate?.newCameraPosition(
+          CameraUpdate.newCameraPosition(
             CameraPosition(
               target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
               zoom: 17.0,
@@ -84,6 +80,8 @@ class MapCubit extends Cubit<MapState> {
             "passenger_destination_address":state.dataTo[0]['name'],
             "passenger_destination_latitude":state.dataTo[0]['lat'],
             "passenger_destination_longitude":state.dataTo[0]['long'],
+            "duration": state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
+            "distance":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
             "ride_type":"instant",
             "km":"983",
             "km_in_time":"8393",
@@ -131,7 +129,7 @@ class MapCubit extends Cubit<MapState> {
         accuracy: LocationAccuracy.high,
         distanceFilter: 1,
         forceLocationManager: false,
-        intervalDuration: const Duration(seconds: 10),
+      //  intervalDuration: const Duration(seconds: 10),
       );
     } else if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
       state.locationSettings = AppleSettings(
@@ -155,7 +153,6 @@ class MapCubit extends Cubit<MapState> {
     state.mapController = mapController;
     emit(state.copy());
   }
-
 
   addMarker() async {
 
@@ -221,6 +218,7 @@ class MapCubit extends Cubit<MapState> {
     debugPrint("=============================>>>>>>>>>> object distance ${state.distance}");
     debugPrint("=============================>>>>>>>>>> object duration ${state.duration}");
     await addMarker();
+    await tripAmount();
     state.polyLines.add(Polyline(
       polylineId: polylineId,
       width: 3,
@@ -238,13 +236,34 @@ class MapCubit extends Cubit<MapState> {
     emit(state.copy());
   }
 
+  tripAmount() async {
+    var result = await rideRequestRepository.getTripAmount(
+        {
+          "myLat":state.dataTo[0]['lat'],
+          "myLon":state.dataTo[0]['long'],
+          "duration": state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
+          "distance":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
+        }
+    );
+    if(result.errorCode! >= 400){
+      state.amountLoading = true;
+      state.amountLoadingResult = true;
+      state.hasError = true;
+      state.message = result.message;
+    }else{
+      state.amountLoading = false;
+      state.amountLoadingResult = false;
+      state.userRideRequest = result.result;
+    }
+    emit(state.copy());
+  }
+
   customPin() async {
     state.markerIcon = await HelperConfig.getBytesFromAsset('assets/images/end_marker.png', 45);
     state.dropOffLocationIcon = BitmapDescriptor.fromBytes(state.markerIcon!);
 
     state.startMarkerIcon = await  HelperConfig.getBytesFromAsset('assets/images/start_marker.png', 45);
     state.pickupLocationIcon = BitmapDescriptor.fromBytes(state.startMarkerIcon!);
-
     emit(state.copy());
   }
 }

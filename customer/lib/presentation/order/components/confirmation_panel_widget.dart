@@ -1,6 +1,7 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/states/map_state.dart';
+import 'package:acoride/presentation/components/shimmerWidget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,110 +27,260 @@ class ConfirmationWidget extends StatelessWidget {
         children: [
           Visibility(
             visible: mapState.loadingView,
-            child: Container(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                padding: const EdgeInsets.all(20.0),
-                width: MediaQuery.of(context).size.width,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30),
-                    topRight: Radius.circular(30),
-                  ),
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text("Estimated Distance: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.w600),),
-
-                        Text(mapState.distance, style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
-                      ],
-                    ),
-                    const Divider(),
-                    Container(
-                      padding: const EdgeInsets.all(13).r,
+            child: Column(
+              children: [
+                Visibility(
+                  visible: mapState.amountLoading == false,
+                  child: Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      padding: const EdgeInsets.all(20.0),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Row(
-                            children: [
-                              Image.asset('assets/images/start_marker.png', width: 20, height: 20,),
-                              const SizedBox(width: 20,),
-                              Expanded(child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
-                                  const SizedBox(height: 5,),
-                                  Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
-                                ],
-                              ))
-                            ],
+                          Padding(
+                            padding:const EdgeInsets.only(left: 13,right: 13).r,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Estimated Total: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 20.sp, FontWeight.w600),),
+
+                                Text('₦${mapState.userRideRequest?.estimatedPrice}', style: HelperStyle.textStyleTwo(context, HelperColor.black, 16.sp, FontWeight.w500),),
+                              ],
+                            ),
                           ),
+                          SizedBox(height: 5.h),
+                          Padding(
+                            padding:const EdgeInsets.only(left: 13,right: 13).r,
+                            child:Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Estimated Distance: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 13.sp, FontWeight.w600),),
+
+                                Text(mapState.distance, style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                              ],
+                            ),
+                          ),
+                          const Divider(),
+                          Container(
+                            padding: const EdgeInsets.all(13).r,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/start_marker.png', width: 20, height: 20,),
+                                    const SizedBox(width: 20,),
+                                    Expanded(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                                        const SizedBox(height: 5,),
+                                        Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
+                                      ],
+                                    ))
+                                  ],
+                                ),
+                                const SizedBox(height: 20,),
+                                Row(
+                                  children: [
+                                    Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
+                                    const SizedBox(width: 20,),
+                                    Expanded(child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                                        const SizedBox(height: 5,),
+                                        Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
+                                      ],
+                                    ))
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(),
+                          SizedBox(height: 5.h,),
+                          InkWell(
+                              onTap:selectPayment,
+                              child: Padding(
+                                padding: const EdgeInsets.only(right: 13).r,
+                                child: Row(
+                                  children: [
+                                    const Icon(Iconsax.wallet_search5, color: Colors.green,),
+                                    const SizedBox(width: 30,),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Payment Type", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w600),),
+                                        const SizedBox(height: 5,),
+                                        Text(mapState.paymentType ?? 'Wallet', style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_forward_ios, color: Colors.black,),
+                                  ],
+                                ),
+                              )
+                          ),
+                          const SizedBox(height: 4,),
+                          const Divider(),
                           const SizedBox(height: 20,),
-                          Row(
-                            children: [
-                              Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
-                              const SizedBox(width: 20,),
-                              Expanded(child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
-                                  const SizedBox(height: 5,),
-                                  Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
-                                ],
-                              ))
-                            ],
+                          ButtonWidget(
+                            buttonTextSize: 20,
+                            containerHeight: 47.h,
+                            containerWidth: MediaQuery.of(context).size.width - 20,
+                            buttonText: "Continue to Order",
+                            color: HelperColor.primaryColor,
+                            textColor: HelperColor.primaryLightColor,
+                            onTap: onContinue!,
+                            radius: 30,
                           ),
                         ],
                       ),
                     ),
-                    const Divider(),
-                    SizedBox(height: 5.h,),
-                    InkWell(
-                        onTap:selectPayment,
-                        child: Row(
-                          children: [
-                            const Icon(Iconsax.money, color: Colors.green,),
-                            const SizedBox(width: 30,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text("Payment Type", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w600),),
-                                const SizedBox(height: 5,),
-                                Text(mapState.paymentType ?? 'Wallet', style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
-                              ],
-                            ),
-                            const Spacer(),
-                            const Icon(Icons.arrow_forward_ios, color: Colors.black,),
-                          ],
-                        )
-                    ),
-                    const SizedBox(height: 4,),
-                    const Divider(),
-                    const SizedBox(height: 20,),
-                    ButtonWidget(
-                      buttonTextSize: 20,
-                      containerHeight: 47.h,
-                      containerWidth: MediaQuery.of(context).size.width - 20,
-                      buttonText: "Continue to Order",
-                      color: HelperColor.primaryColor,
-                      textColor: HelperColor.primaryLightColor,
-                      onTap: onContinue!,
-                      radius: 30,
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+
+                Visibility(
+                  visible: mapState.amountLoading == true,
+                  child:Container(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      padding: const EdgeInsets.all(20.0),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
+                        ),
+                      ),
+                      child: ShimmerWidget(
+                        childWidget: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding:const EdgeInsets.only(left: 13,right: 13).r,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Estimated Total: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 20.sp, FontWeight.w600),),
+
+                                  Text('₦0000', style: HelperStyle.textStyleTwo(context, HelperColor.black, 16.sp, FontWeight.w500),),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 5.h),
+                            Padding(
+                              padding:const EdgeInsets.only(left: 13,right: 13).r,
+                              child:Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text("Estimated Distance: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 13.sp, FontWeight.w600),),
+
+                                  Text(mapState.distance, style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                                ],
+                              ),
+                            ),
+                            const Divider(),
+                            Container(
+                              padding: const EdgeInsets.all(13).r,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Image.asset('assets/images/start_marker.png', width: 20, height: 20,),
+                                      const SizedBox(width: 20,),
+                                      Expanded(child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                                          const SizedBox(height: 5,),
+                                          Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
+                                        ],
+                                      ))
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20,),
+                                  Row(
+                                    children: [
+                                      Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
+                                      const SizedBox(width: 20,),
+                                      Expanded(child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
+                                          const SizedBox(height: 5,),
+                                          Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
+                                        ],
+                                      ))
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(),
+                            SizedBox(height: 5.h,),
+                            InkWell(
+                                onTap:selectPayment,
+                                child: Row(
+                                  children: [
+                                    const Icon(Iconsax.money, color: Colors.green,),
+                                    const SizedBox(width: 30,),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text("Payment Type", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w600),),
+                                        const SizedBox(height: 5,),
+                                        Text(mapState.paymentType ?? 'Wallet', style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
+                                      ],
+                                    ),
+                                    const Spacer(),
+                                    const Icon(Icons.arrow_forward_ios, color: Colors.black,),
+                                  ],
+                                )
+                            ),
+                            const SizedBox(height: 4,),
+                            const Divider(),
+                            const SizedBox(height: 20,),
+                            ButtonWidget(
+                              buttonTextSize: 20,
+                              containerHeight: 47.h,
+                              containerWidth: MediaQuery.of(context).size.width - 20,
+                              buttonText: "Continue to Order",
+                              color: HelperColor.primaryColor,
+                              textColor: HelperColor.primaryLightColor,
+                              onTap: onContinue!,
+                              radius: 30,
+                            ),
+                          ],
+                        ),
+                      )
+                    ),
+                  ),
+                ),
+              ],
+            )
           ),
           Visibility(
             visible: mapState.loadingView2,
@@ -169,22 +320,22 @@ class ConfirmationWidget extends StatelessWidget {
                     ),
 
                     Container(
-                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                      padding: const EdgeInsets.fromLTRB(10, 20, 10, 0).r,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Row(
                             children: [
-                              const Icon(Icons.location_searching),
+                              Image.asset('assets/images/start_marker.png', width: 20, height: 20,),
                               const SizedBox(width: 20,),
                               Expanded(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Pick Up Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
                                   const SizedBox(height: 5,),
-                                  Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
+                                  Text(mapState.dataFrom[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
                                 ],
                               ))
                             ],
@@ -192,15 +343,15 @@ class ConfirmationWidget extends StatelessWidget {
                           const SizedBox(height: 20,),
                           Row(
                             children: [
-                              const Icon(Icons.location_searching),
+                              Image.asset('assets/images/end_marker.png', width: 20, height: 20,),
                               const SizedBox(width: 20,),
                               Expanded(child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12, FontWeight.normal),),
+                                  Text("Drop Off Location", style: HelperStyle.textStyleTwo(context, HelperColor.black, 12.sp, FontWeight.normal),),
                                   const SizedBox(height: 5,),
-                                  Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w500),),
+                                  Text(mapState.dataTo[0]['name'], style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
                                 ],
                               ))
                             ],
@@ -208,7 +359,6 @@ class ConfirmationWidget extends StatelessWidget {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),

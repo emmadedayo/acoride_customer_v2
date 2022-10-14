@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../../core/helper/helper_color.dart';
 import '../cancellation/cancellation_screen.dart';
 import '../router/router_constant.dart';
@@ -61,9 +62,9 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                         Navigator.of(context).pushNamedAndRemoveUntil(tripDeleteScreen, (route) => false);
                       } else if (states.fireStoreModel!.endTrip == true) {
                         objectBoxRepository.deleteRide();
-                        states.userStream!.cancel();
+                        //states.userStream!.cancel();
                         states.rideRequestStream?.cancel();
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: 700,),), (route) => false);
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: states.fireStoreModel!.amount ?? 0,),), (route) => false);
                       }
                     }
                   },

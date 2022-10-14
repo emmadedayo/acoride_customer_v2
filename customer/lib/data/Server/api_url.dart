@@ -35,6 +35,7 @@ class ApiUrl {
   static const String requestRide = '${BASE_URL}api/v1/customer/requestRide';
   static const String createTrip = '${BASE_URL}api/v1/customer/createTrip';
   static const String getTrip = '${BASE_URL}api/v1/getTrip';
+  static const String getTripAmount = '${BASE_URL}api/v1/customer/getTripAmount';
 
 
   //////////////// Cancellation ////////////////

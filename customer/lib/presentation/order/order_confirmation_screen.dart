@@ -3,6 +3,7 @@ import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/states/map_state.dart';
 import 'package:acoride/presentation/order/components/confirmation_panel_widget.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +13,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../core/helper/helper_color.dart';
+import '../../core/helper/helper_style.dart';
 import 'order_payment_screen.dart';
 import 'order_trip_screen.dart';
 
@@ -53,14 +55,27 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                 body: BlocListener<MapCubit, MapState>(
                   listener: (mapContext, states) async {
                     if (states.rideRequestModel != null) {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (
-                                context) => OrderTripScreen(rideRequestModel: states.rideRequestModel!,)
-                        ),
-                      );
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: states.rideRequestModel!,),), (route) => false);
                     }
+                    if(states.amountLoadingResult == true){
+                      AwesomeDialog(
+                          context: context,
+                          dialogType: DialogType.error,
+                          animType: AnimType.topSlide,
+                          title: 'Warning',
+                          desc: 'Unable to process your request, please try again later',
+                          dismissOnBackKeyPress: false,
+                          btnOkText: 'Go Back',
+                          titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
+                          descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
+                          dismissOnTouchOutside: false,
+                          barrierColor: Colors.black.withOpacity(0.2),
+                          btnCancelColor: HelperColor.primaryColor,
+                          btnOkOnPress: () {
+
+                          }).show();
+                    }
+
                     if (states.hasError == true) {
                       showToast(states.message,
                           context: context,
