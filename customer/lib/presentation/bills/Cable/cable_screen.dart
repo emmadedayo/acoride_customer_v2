@@ -15,6 +15,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
+import '../../../core/helper/helper_config.dart';
 import 'component/cable_components.dart';
 
 class CableScreenIndex extends StatefulWidget {
@@ -119,7 +120,7 @@ class CableScreenIndexState extends State<CableScreenIndex> {
                                       children: [
                                         Text("Balance",style: HelperStyle.textStyle(context,HelperColor.slightWhiteColor,11.sp,FontWeight.normal)),
                                         const SizedBox(height: 5,),
-                                        Text('NGN ${context.read<AppCubit>().state.user?.walletBalance}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
+                                        Text('${HelperConfig.currencyFormat(context.read<AppCubit>().state.user?.walletBalance.toString() ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
                                       ],
                                     ),
                                   ],
