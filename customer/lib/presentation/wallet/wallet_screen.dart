@@ -1,4 +1,5 @@
 import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/transaction_cubit.dart';
@@ -22,8 +23,6 @@ class WalletScreen extends StatefulWidget {
 }
 
 class WalletScreenState extends State<WalletScreen> {
-
-  final oCcy = NumberFormat("#,##0.00", "en_US");
 
   @override
   void initState() {
@@ -127,7 +126,7 @@ class WalletScreenState extends State<WalletScreen> {
                                       const SizedBox(
                                         height: 5,
                                       ),
-                                      Text('NGN ${oCcy.format(emeState.userModel?.walletBalance ?? 0)}',
+                                      Text('${HelperConfig.currencyFormat('${emeState.userModel?.walletBalance ?? 0}')}',
                                         style: HelperStyle.textStyle(
                                             context, HelperColor.slightWhiteColor, 25.sp, FontWeight.w700,letterSpacing: 0.5),
                                       ),
@@ -149,7 +148,7 @@ class WalletScreenState extends State<WalletScreen> {
                                                   ],
                                                 ),
                                                 const SizedBox(height: 2,),
-                                                Text("₦ ${oCcy.format(emeState.userModel?.bonus ?? 0)}", style: HelperStyle.textStyle(
+                                                Text("${HelperConfig.currencyFormat('${emeState.userModel?.bonus ?? 0}')}", style: HelperStyle.textStyle(
                                                     context, const Color(0xffFFFC00), 14, FontWeight.w700),)
                                               ],
                                             ),

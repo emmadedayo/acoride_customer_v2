@@ -1,4 +1,5 @@
 import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/TransactionModel.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,8 @@ class TransactionWalletWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Expanded(child: Column(
+            Expanded(
+              child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Opacity(
@@ -55,7 +57,7 @@ class TransactionWalletWidget extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Text('₦ ${transactionModel.amount}',
+                  Text('${HelperConfig.currencyFormat('${transactionModel.amount ?? 0}')}',
                       style: HelperStyle.textStyle(
                           context, HelperColor.black, 12, FontWeight.w400)),
                   const SizedBox(

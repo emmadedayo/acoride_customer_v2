@@ -79,7 +79,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                   ):
                                   GoogleMap(
                                     onMapCreated: (GoogleMapController controller) {
-                                      context.read<DashBoardCubit>().onMapCreated(controller);
+                                      dashboardContext.read<DashBoardCubit>().onMapCreated(controller);
                                     },
                                     zoomControlsEnabled: false,
                                     myLocationButtonEnabled: false,
@@ -91,9 +91,9 @@ class _MainHomePageState extends State<MainHomePage> {
                                       zoom: 17,
                                     ),
                                     onCameraMove: (CameraPosition position) {
-                                      context.read<DashBoardCubit>().onCameraMove(position);
+                                      dashboardContext.read<DashBoardCubit>().onCameraMove(position);
                                     },
-                                    onCameraIdle: () => context.read<DashBoardCubit>().getPositionName(
+                                    onCameraIdle: () => dashboardContext.read<DashBoardCubit>().getPositionName(
                                         dashboardState.cameraPosition?.target.latitude ?? dashboardState.position?.latitude,
                                         dashboardState.cameraPosition?.target.longitude ?? dashboardState.position?.longitude),
                                   ),
