@@ -28,7 +28,7 @@ class MapState {
   dynamic routers;
   List<Map<String, dynamic>> dataFrom = [];
   List<Map<String, dynamic>> dataTo = [];
-  bool? hasError;
+  bool? hasError,amountLoading,amountLoadingResult;
   UserRideRequest? userRideRequest;
   UserModel? userModel;
   RideRequestModel? rideRequestModel;
@@ -52,18 +52,22 @@ class MapState {
     this.message,
     this.loadingView: true,
     this.loadingView2: false,
+    this.amountLoading: false,
+    this.amountLoadingResult:false,
     this.controller,
     this.hasError,
     this.paymentType,
-    this.bottomSheetHeight = 0.47,
+    this.bottomSheetHeight = 0.5,
     this.bottomSheetHeight2 = 0.6,
+    this.pickupLocationIcon = BitmapDescriptor.defaultMarker,
+    this.dropOffLocationIcon = BitmapDescriptor.defaultMarker,
   });
 
   MapState copy() {
     MapState copy = MapState(controller:controller,loadingView:loadingView,loadingView2:loadingView2,bottomSheetHeight2: bottomSheetHeight2,bottomSheetHeight: bottomSheetHeight,
         mapController: mapController, cameraPosition: cameraPosition, position: position, lastKnownPositions: lastKnownPositions,
         dropOffMarker: dropOffMarker, positionLoading: positionLoading, sourceLatLng: sourceLatLng, destinationLatLng: destinationLatLng,
-        currentLatLng: currentLatLng, dataFrom: dataFrom, dataTo: dataTo,userModel: userModel,paymentType: paymentType,hasError: hasError,message: message);
+        currentLatLng: currentLatLng, dataFrom: dataFrom, dataTo: dataTo,userModel: userModel,paymentType: paymentType,hasError: hasError,message: message,amountLoading: amountLoading,amountLoadingResult:amountLoadingResult);
 
     copy.polyLines.addAll(polyLines);
     copy.distance = distance;

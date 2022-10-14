@@ -23,6 +23,7 @@ import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/router/app_router.dart';
 import 'package:acoride/presentation/styles/styles.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -51,6 +52,8 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
     name: 'acoride',
   );
+  FirebaseFirestore.instance.settings = const Settings(persistenceEnabled: false,);
+  FirebaseFirestore.instance.clearPersistence();
   objectBox = await ObjectBox.create();
   SettingsItem settings = await SettingsRepository().getSettings();
   runApp(MainInitState(settings: settings,appRouter: AppRouter(),),);

@@ -78,9 +78,6 @@ class WebViewScreenState extends State<WebViewScreen> {
         name: 'Toaster',
         onMessageReceived: (JavascriptMessage message) {
           // ignore: deprecated_member_use
-          Scaffold.of(context).showSnackBar(
-            SnackBar(content: Text(message.message)),
-          );
         });
   }
 

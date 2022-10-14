@@ -34,16 +34,17 @@ class RideRequestCubit extends Cubit<RideRequestState> {
   initState() async {
     state.positionLoading = CustomState.LOADING;
     state.markers.clear();
-    locationInit();
     initLastKnownLocation();
-    await getUsers();
     emit(state.copy());
+    locationInit();
     if (await HelperConfig.determinePosition()) {
       state.position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
       if (kDebugMode) {
         print("object ${state.position}");
       }
       if (state.position != null) {
+        await driverMarker();
+        getUsers();
         getLocationLine(
           state.position?.latitude.toString() ?? '',
           state.position?.longitude.toString() ?? '',
@@ -58,7 +59,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
             ),
           ),
         );
-        await driverMarker();
+        getDriverLocation();
       }
     } else {
 
@@ -170,15 +171,13 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     debugPrint("=============================>>>>>>>>>> object in real time duration ${state.duration}");
   }
 
-   getUsers() async{
+   getUsers(){
      state.userStream = FirebaseFirestore.instance.collection('ride_request_staging').doc(state.rideRequestModel?.driverId.toString()).snapshots()
          .listen((DocumentSnapshot documentSnapshot) {
-       if (documentSnapshot.exists) {
-         state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
-         emit(state.copy());
-       }
+       state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
+       emit(state.copy());
      });
-     getDriverLocation();
+
   }
 
   getDriverLocation(){
