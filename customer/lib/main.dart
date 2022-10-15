@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/entities/object-box.dart';
 import 'package:acoride/data/entities/settings_item.dart';
@@ -25,16 +24,20 @@ import 'package:acoride/presentation/router/app_router.dart';
 import 'package:acoride/presentation/styles/styles.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'core/constant/constants.dart';
+import 'data/Notification/firebase_notification_handler.dart';
+import 'data/model/notification_item.dart';
 import 'firebase_options.dart';
 import 'logic/cubits/app_cubit.dart';
 import 'logic/states/app_state.dart';
@@ -42,6 +45,7 @@ import 'logic/states/dashboard_state.dart';
 import 'logic/states/settings_state.dart';
 
 late ObjectBox objectBox;
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -181,10 +185,12 @@ class MainInitState extends StatelessWidget {
   appListener(BuildContext context, AppState state) async {
     //get all notifications once a user is initialized
     if (state.userInitialized) {
-
-      //state.userInitialized = false;
+      await FirebaseNotifications.initialize(flutterLocalNotificationsPlugin).then((value){
+        print("value:");
+      });
+      FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
-
+    await FirebaseNotifications.saveDeviceToken();
   }
 }
 

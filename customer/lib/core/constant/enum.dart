@@ -27,3 +27,8 @@ enum SettingsResponse {
   dataDeleted,
   failedDeleteData,
 }
+
+enum NotificationMode {
+  InApp,
+  External,
+}
