@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 
-
 class RootBottom extends StatefulWidget {
   const RootBottom({Key? key}) : super(key: key);
 

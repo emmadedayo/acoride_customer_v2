@@ -84,6 +84,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                     zoomControlsEnabled: false,
                                     myLocationButtonEnabled: false,
                                     myLocationEnabled: true,
+                                    minMaxZoomPreference: const MinMaxZoomPreference(0, 16),
                                     initialCameraPosition: CameraPosition(
                                       target: LatLng(
                                           dashboardState.position != null ? dashboardState.position!.latitude : dashboardState.lastKnownPositions!.latitude,
