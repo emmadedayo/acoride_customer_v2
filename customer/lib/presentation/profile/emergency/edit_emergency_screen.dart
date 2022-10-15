@@ -195,7 +195,7 @@ class UpdateEmergencyScreenState extends State<UpdateEmergencyScreen> {
                                           buttonTextSize: 18,
                                           containerHeight: 47.h,
                                           containerWidth: 341.w,
-                                          buttonText: "Add Contact",
+                                          buttonText: "Update Contact",
                                           color: HelperColor.black,
                                           textColor:HelperColor.primaryColor,
                                           onTap: (){

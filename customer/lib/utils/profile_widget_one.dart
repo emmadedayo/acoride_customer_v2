@@ -24,39 +24,42 @@ class ProfileWidgetOne extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: onTap,
-      child: Row(
-        children: [
-          Icon(
-            firstIcon,
-            size: 20,
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          Expanded(
-              child:Text(text,
-                style:HelperStyle.textStyleTwo(
-                    context, HelperColor.black, 15.sp, FontWeight.normal
-                ),
-              )
-          ),
-          const SizedBox(
-            width: 20,
-          ),
-          hasLastIcon ?
-          Icon(
-            lastIcon,
-            size: 20,
-          ):
-          Text(lastText,
-            style:HelperStyle.textStyleTwo(
-                context, HelperColor.black, 15.sp, FontWeight.normal
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        child: Row(
+          children: [
+            Icon(
+              firstIcon,
+              size: 20,
             ),
-          )
-        ],
-      ),
+            const SizedBox(
+              width: 20,
+            ),
+            Expanded(
+                child:Text(text,
+                  style:HelperStyle.textStyleTwo(
+                      context, HelperColor.black, 15.sp, FontWeight.normal
+                  ),
+                )
+            ),
+            const SizedBox(
+              width: 20,
+            ),
+            hasLastIcon ?
+            Icon(
+              lastIcon,
+              size: 20,
+            ):
+            Text(lastText,
+              style:HelperStyle.textStyleTwo(
+                  context, HelperColor.black, 15.sp, FontWeight.normal
+              ),
+            )
+          ],
+        ),
+      )
     );
   }
 }

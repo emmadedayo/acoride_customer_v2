@@ -49,8 +49,6 @@ class DashBoardCubit extends Cubit<DashBoardState> {
         addMarker();
         state.currentAddress = result?.results![0].formattedAddress ?? '';
       }
-    } else {
-
     }
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
