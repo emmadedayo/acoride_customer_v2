@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:firebase_messaging/firebase_messaging.dart';
 import "package:intl/intl.dart";
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -119,4 +120,11 @@ class HelperConfig{
   static currencyFormat(String amount) {
     return NumberFormat.currency(locale: 'en_US', symbol: '₦').format(double.parse(amount));
   }
+
+  static Future<String?> saveDeviceToken() async {
+    FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
+    final String? fcmToken = await firebaseMessaging.getToken();
+    return fcmToken;
+  }
+
 }

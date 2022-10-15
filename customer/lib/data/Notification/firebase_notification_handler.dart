@@ -1,9 +1,12 @@
+import 'dart:typed_data';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class FirebaseNotifications {
 
+  //
   static Future<void> initialize(FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize = const AndroidInitializationSettings('app_icon');
     var iOSInitialize = const IOSInitializationSettings();
@@ -31,9 +34,10 @@ class FirebaseNotifications {
 
   static Future<void> showTextNotification(RemoteMessage message, FlutterLocalNotificationsPlugin fln) async {
     const AndroidNotificationDetails androidPlatformChannelSpecifics = AndroidNotificationDetails(
-      'com.acoride.customer', 'Acoride', channelDescription:  'big text channel description',
-      importance: Importance.high, priority: Priority.high, enableLights: true,
+      'com.acoride.customer', 'Acoride', channelDescription:  'big text channel description',enableVibration: true,
+      importance: Importance.high, priority: Priority.high, enableLights: true,sound: RawResourceAndroidNotificationSound('system_notification')
     );
+    //const IOSNotificationDetails iOSPlatformChannelSpecifics = IOSNotificationDetails(sound: 'system_notification.aiff',presentAlert: true,presentBadge: true,presentSound: true);
     const NotificationDetails platformChannelSpecifics = NotificationDetails(android: androidPlatformChannelSpecifics);
     await fln.show(0, message.notification?.title, message.notification?.body, platformChannelSpecifics, payload: "1");
   }
