@@ -1,5 +1,6 @@
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
+import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/profile/web_view/urlScreenController.dart';
 import 'package:acoride/utils/profile_widget_one.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +35,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
       iosContentBottomPadding: false,
       backgroundColor: Colors.white,
       body: BlocBuilder<AppCubit,AppState>(
-        builder: (context,state){
+        builder: (appContext,state){
           return SafeArea(
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 20),
@@ -254,6 +255,99 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                           },
                         ),
 
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        ProfileWidgetOne(
+                          firstIcon:Icons.power_settings_new_sharp,
+                          text: 'Log Out',
+                          lastIcon: FeatherIcons.arrowRight,
+                          hasLastIcon: true,
+                          lastText: 'English',
+                          onTap: () async {
+                            showModalBottomSheet(
+                              enableDrag: true,
+                              isDismissible: false,
+                              isScrollControlled: false,
+                              shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                  )),
+                              context: context,
+                              builder: (BuildContext bc) {
+                                return SingleChildScrollView(
+                                    child: Padding(
+                                      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                                      child: Container(
+                                          margin: const EdgeInsets.only(top: 6, left: 5, right: 5),
+                                          padding: const EdgeInsets.all(15.0),
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(13)),
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              Center(
+                                                child: Text(
+                                                    'Leaving us so soon ? 😢',
+                                                    style: HelperStyle.textStyle(context, Colors.black, 18.sp, FontWeight.w500)),
+                                              ),
+                                              const SizedBox(
+                                                height: 10,
+                                              ),
+                                              Center(
+                                                child: Text(
+                                                    'Are you sure you want to exit the app ?',
+                                                    style: HelperStyle.textStyle(context, const Color(0xff696F79), 14.sp, FontWeight.w300)),
+                                              ),
+                                              const SizedBox(
+                                                height: 45,
+                                              ),
+                                              Column(
+                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                children: <Widget>[
+                                                  ButtonWidget(
+                                                    buttonTextSize: 16,
+                                                    containerHeight: 50.h,
+                                                    containerWidth: 341.w,
+                                                    buttonText: "Confirm",
+                                                    color: HelperColor.primaryColor,
+                                                    textColor: Colors.white,
+                                                    radius: 20,
+                                                    onTap: () async {
+                                                      await appContext.read<AppCubit>().logout().then((value) => {
+                                                        print("logoutlogout $value"),
+                                                          Navigator.of(context).pushNamedAndRemoveUntil(baseAuthScreen, (route) => false)
+                                                      });
+                                                    },
+
+                                                  ),
+                                                  SizedBox(height: 20.sp),
+
+                                                  ButtonWidget(
+                                                    buttonTextSize: 16,
+                                                    containerHeight: 50.h,
+                                                    containerWidth: 341.w,
+                                                    buttonText: "Cancel",
+                                                    color: const Color(0xffe7f2de),
+                                                    textColor:HelperColor.primaryColor,
+                                                    onTap: (){
+                                                      Navigator.pop(context);
+                                                    },
+                                                    radius: 20,
+
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          )),
+                                    ));
+                              },
+                            );
+                            //
+                          },
+                        ),
                       ],
                     ),
                   ],

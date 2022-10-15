@@ -92,6 +92,7 @@ class UserRepository{
   }
 
   Future<ResultItem<UserModel?>> auth(maps) async {
+    debugPrint('============================> $maps');
     UserModel? user;
     Map map = await provider.login(maps);
     int? statusCode = map[FIELD_STATUS_CODE];

@@ -33,7 +33,7 @@ class UserModel {
   bool? accountIsDriver;
   bool? userHasLoan;
   String? deviceId;
-  String? fmsToken;
+  String? deviceToken;
   bool? hasPin;
   int? bonus;
   int? rate;
@@ -52,7 +52,7 @@ class UserModel {
     this.accountIsDriver = false,
     this.userHasLoan = false,
     this.deviceId = '',
-    this.fmsToken = '',
+    this.deviceToken = '',
     this.hasPin = false,
     this.bonus = 0,
     this.rate = 0,
@@ -72,7 +72,7 @@ class UserModel {
     accountIsDriver = json['account_is_driver'] ?? false;
     userHasLoan = json['user_has_loan'] ?? false;
     deviceId = json['device_id'] ?? '';
-    fmsToken = json['fms_token'] ?? '';
+    deviceToken = json['device_token'] ?? '';
     hasPin = json['has_pin'] ?? false;
     bonus = json['bonus']  ?? 0;
     rate = json['rate']  ?? 0;
@@ -94,7 +94,7 @@ class UserModel {
     data['account_is_driver'] = accountIsDriver;
     data['user_has_loan'] = userHasLoan;
     data['device_id'] = deviceId;
-    data['fms_token'] = fmsToken;
+    data['device_token'] = deviceToken;
     data['has_pin'] = hasPin;
     data['bonus'] = bonus;
     data['rate'] = rate;

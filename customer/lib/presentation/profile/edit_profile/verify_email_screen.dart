@@ -164,8 +164,8 @@ class VerifyEmailAccountScreenState extends State<VerifyEmailAccountScreen> {
                               containerHeight: 47.h,
                               containerWidth: 341.w,
                               buttonText: "Verify Me",
-                              color: HelperColor.black,
-                              textColor:HelperColor.primaryColor,
+                              color: HelperColor.primaryColor,
+                              textColor:HelperColor.slightWhiteColor,
                               onTap: (){
                                 context.read<VerifyEmailCubit>().verifyEditProfile();
                               }, radius: 30,

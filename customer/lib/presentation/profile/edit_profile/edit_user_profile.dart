@@ -195,8 +195,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                         containerHeight: 47.h,
                                         containerWidth: 341.w,
                                         buttonText: "Update Account",
-                                        color: HelperColor.black,
-                                        textColor:HelperColor.primaryColor,
+                                        color: HelperColor.primaryColor,
+                                        textColor:HelperColor.slightWhiteColor,
                                         onTap: (){
                                           FocusManager.instance.primaryFocus?.unfocus();
                                           if (_formKey.currentState!.validate()) {
