@@ -196,8 +196,8 @@ class UpdateEmergencyScreenState extends State<UpdateEmergencyScreen> {
                                           containerHeight: 47.h,
                                           containerWidth: 341.w,
                                           buttonText: "Update Contact",
-                                          color: HelperColor.black,
-                                          textColor:HelperColor.primaryColor,
+                                          color: HelperColor.primaryColor,
+                                          textColor:HelperColor.slightWhiteColor,
                                           onTap: (){
                                             FocusManager.instance.primaryFocus?.unfocus();
                                             if (_formKey.currentState!.validate()) {
