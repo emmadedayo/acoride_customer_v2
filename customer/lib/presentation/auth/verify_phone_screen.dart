@@ -74,7 +74,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
               listener: (context, state) async {
                 if (state.user!= null) {
                   showModalBottomSheet(
-                    enableDrag: true,
+                    enableDrag: false,
                     isDismissible: false,
                     isScrollControlled: true,
                     shape: const RoundedRectangleBorder(

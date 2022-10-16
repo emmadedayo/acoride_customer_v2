@@ -2,6 +2,7 @@ import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/logic/states/login_state.dart';
 import 'package:bloc/bloc.dart';
 
+import '../../core/helper/helper_config.dart';
 import '../../data/repositories/user_repository.dart';
 
 class LoginCubit extends Cubit<LoginState>{
