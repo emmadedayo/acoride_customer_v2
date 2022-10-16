@@ -1,6 +1,7 @@
 import 'package:acoride/logic/states/login_state.dart';
 import 'package:bloc/bloc.dart';
 
+import '../../core/helper/helper_config.dart';
 import '../../data/repositories/user_repository.dart';
 
 class LoginCubit extends Cubit<LoginState>{
@@ -14,6 +15,7 @@ class LoginCubit extends Cubit<LoginState>{
     var result = await userRepository.auth({
       'phone_number': state.phoneController.text,
       'password': state.passwordController.text,
+      "device_token": await HelperConfig.saveDeviceToken(),
     });
     if (result.errorCode! >= 400) {
       state.message = result.message;

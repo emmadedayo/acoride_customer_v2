@@ -85,7 +85,7 @@ class StateComponentState extends State<StateComponent> {
                                         decoration:  InputDecoration(
                                           filled: true,
                                           fillColor: HelperColor.fillColor,
-                                          hintText: "Search bank",
+                                          hintText: "Search State",
                                           isDense: true,
                                           border: const OutlineInputBorder(),
                                           contentPadding: const EdgeInsets.all(8.0),
