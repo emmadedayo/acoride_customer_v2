@@ -20,7 +20,9 @@ import '../auth/login_screen.dart';
 import '../auth/reset_account_screen.dart';
 import '../bills/Airtime/airtime_screen.dart';
 import '../bills/Electricity/electricity_screen.dart';
+import '../history/history_details.dart';
 import '../home/bottom_screen.dart';
+import '../location_permission/location_permission.dart';
 import '../profile/edit_profile/edit_user_profile.dart';
 import '../profile/edit_profile/verify_email_screen.dart';
 import '../success/ride_delete_screen.dart';
@@ -106,6 +108,10 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const EmergencyContactScreen()
         );
+      case tripHistoryScreen:
+        return MaterialPageRoute(
+            builder: (_) => HistoryDetailsScreen(rideRequestModel: arguments!['data'])
+        );
       case card:
         return MaterialPageRoute(
             builder: (_) => const CardScreenIndex()
@@ -114,6 +120,8 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => const ChangePasswordScreenTwo()
         );
+      case locationPermissionScreen:
+        return MaterialPageRoute(builder: (_) => const LocationPermission());
       case editProfile:
         return MaterialPageRoute(builder: (_) => EditProfileScreen(user: arguments!['user']));
       case startTrip:

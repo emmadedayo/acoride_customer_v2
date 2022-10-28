@@ -10,15 +10,18 @@ import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/helper/helper_config.dart';
+import '../../data/repositories/user_repository.dart';
 
 class DashBoardCubit extends Cubit<DashBoardState> {
 
   DashBoardCubit(DashBoardState initialState) : super(initialState) {
     initState();
+    getMe();
   }
 
   var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
   RideRequestRepository rideRequestRepository = RideRequestRepository();
+  UserRepository userRepository = UserRepository();
   ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
 
   initState() async {
@@ -32,6 +35,13 @@ class DashBoardCubit extends Cubit<DashBoardState> {
       if (kDebugMode) {
         print("object ${state.position}");
       }
+      if(state.position == null){
+        Geolocator.getPositionStream(locationSettings: state.locationSettings).listen((Position position) {
+          state.position = position;
+          emit(state.copy());
+        });
+      }
+
       if (state.position != null) {
         var result = await googleGeocoding.geocoding.getReverse(LatLon(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0));
         state.mapController?.animateCamera(
@@ -51,6 +61,17 @@ class DashBoardCubit extends Cubit<DashBoardState> {
       }
     }
     state.positionLoading = CustomState.DONE;
+    emit(state.copy());
+  }
+
+  getMe() async {
+    state.userLoading = true;
+    emit(state.copy());
+    var result = await userRepository.getMe();
+    if (result.errorCode != 400) {
+      state.userModel = result.result;
+    }
+    state.userLoading = false;
     emit(state.copy());
   }
 

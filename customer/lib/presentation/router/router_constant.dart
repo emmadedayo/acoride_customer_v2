@@ -22,6 +22,8 @@ const changePassword = '/changePassword';
 const startTrip = '/startTrip';
 const endTrip = '/endTrip';
 
+/// Permission
+const locationPermissionScreen = '/permissionScreen';
 
 /////Bills///
 const airtimeScreen = '/airtimeScreen';
@@ -35,3 +37,6 @@ const successScreen = '/successScreen';
 
 ///Trip Screens///
 const tripDeleteScreen = 'tripDeleteScreen';
+
+///Trip History Screens///
+const tripHistoryScreen = 'tripHistoryScreen';
