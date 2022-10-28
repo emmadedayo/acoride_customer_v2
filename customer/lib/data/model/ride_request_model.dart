@@ -30,6 +30,8 @@ class RideRequestModel {
   String? cancelledBy;
   String? onGoing;
   String? baseFareFee;
+  String? deletedAt;
+  String? createdAt;
   String? distanceCovered;
   String? estimatedDistanceCovered;
   UserModel? user;
@@ -66,6 +68,8 @@ class RideRequestModel {
         this.baseFareFee,
         this.distanceCovered,
         this.estimatedDistanceCovered,
+        this.deletedAt,
+        this.createdAt,
         this.user});
 
   RideRequestModel.fromMap(json) {
@@ -98,6 +102,8 @@ class RideRequestModel {
     onGoing = json['on_going'];
     baseFareFee = json['base_fare_fee'];
     distanceCovered = json['distance_covered'];
+    deletedAt = json['deleted_at'];
+    createdAt = json['created_at'];
     estimatedDistanceCovered = json['estimated_distance_covered'];
     user = json['user'] != null ? UserModel.fromMap(json['user']) : null;
     tripAmountRequest = json['trip_amount'] != null ? TripAmountRequest.fromMap(json['trip_amount']) : null;
@@ -134,6 +140,8 @@ class RideRequestModel {
     data['cancelled_by'] = cancelledBy;
     data['on_going'] = onGoing;
     data['base_fare_fee'] = baseFareFee;
+    data['deleted_at'] = deletedAt;
+    data['created_at'] = createdAt;
     data['distance_covered'] = distanceCovered;
     data['estimated_distance_covered'] = estimatedDistanceCovered;
     if (user != null) {

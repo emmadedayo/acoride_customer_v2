@@ -51,14 +51,14 @@ class OnBoardingPageState extends State<OnBoardingPage> {
           SettingsItem settings = context.read<SettingsCubit>().state.settings;
           settings.isFirstUse = false;
           context.read<SettingsCubit>().setSettings(settings);
-          Navigator.of(context).pushNamed(baseAuthScreen);
+          Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
         },
         // Either Provide onDone Callback or nextButton Widget to handle done state
         onDone: () {
           SettingsItem settings = context.read<SettingsCubit>().state.settings;
           settings.isFirstUse = false;
           context.read<SettingsCubit>().setSettings(settings);
-          Navigator.of(context).pushNamed(baseAuthScreen);
+          Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
         },
         onBoardData: onBoardData,
         descriptionStyles: HelperStyle.textStyle(
@@ -76,7 +76,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
             SettingsItem settings = context.read<SettingsCubit>().state.settings;
             settings.isFirstUse = false;
             context.read<SettingsCubit>().setSettings(settings);
-            Navigator.of(context).pushNamed(baseAuthScreen);
+            Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
           },
           child: Text(
             "Skip",
@@ -125,7 +125,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
       SettingsItem settings = context.read<SettingsCubit>().state.settings;
       settings.isFirstUse = false;
       context.read<SettingsCubit>().setSettings(settings);
-      Navigator.of(context).pushNamed(baseAuthScreen);
+      Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
     }
   }
 }

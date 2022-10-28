@@ -60,7 +60,7 @@ class HelperConfig{
     return doubleToInt;
   }
 
-  static const String apiKey = 'AIzaSyDsA3mNfc1hvz1ThjAj6z0qehiCpoQCQj4';
+  static const String apiKey = 'AIzaSyCmBgWETLm4Ol9frxnnqXW40G2_lc1B558';
 
   static const String payStackPublicKey = 'pk_test_0263338ba4246920824bd81ea2315ee3bcadb53a';
 
@@ -117,6 +117,11 @@ class HelperConfig{
     }
   }
 
+  static String shortHistory(String dateTime){
+    final DateTime date = DateTime.parse(dateTime).toLocal();
+    return DateFormat('MMM d, h:mm a').format(date);
+  }
+
   static currencyFormat(String amount) {
     return NumberFormat.currency(locale: 'en_US', symbol: '₦').format(double.parse(amount));
   }
@@ -126,5 +131,4 @@ class HelperConfig{
     final String? fcmToken = await firebaseMessaging.getToken();
     return fcmToken;
   }
-
 }

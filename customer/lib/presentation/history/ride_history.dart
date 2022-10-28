@@ -11,6 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 
+import '../router/router_constant.dart';
 import 'components/calendar.dart';
 
 
@@ -144,7 +145,9 @@ class RideHistoryScreenState extends State<RideHistoryScreen> {
                                     return RideRequestWidget(
                                       rideRequestModel: emeState.history[index],
                                       onTap: () async {
-
+                                        Navigator.of(context).pushNamed(
+                                            tripHistoryScreen,
+                                            arguments: {'data':emeState.history[index]});
                                       },
                                     );
                                   },
