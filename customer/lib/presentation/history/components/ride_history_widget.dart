@@ -22,9 +22,9 @@ class RideRequestWidget extends StatelessWidget {
           if(rideRequestModel?.deletedAt != null){
             return Container(
               width: double.infinity,
-              margin: const EdgeInsets.only(left: 15, right: 15, top: 7, bottom: 7).r,
+              margin: const EdgeInsets.only(left: 15, right: 15, top: 7, bottom: 4).r,
               decoration: BoxDecoration(
-                  color: HelperColor.fillColor,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12)
               ),
               padding: const EdgeInsets.all(15),
@@ -82,9 +82,9 @@ class RideRequestWidget extends StatelessWidget {
           }else{
             return Container(
               width: double.infinity,
-              margin: const EdgeInsets.only(left: 15, right: 15, top: 7, bottom: 7).r,
+              margin: const EdgeInsets.only(left: 15, right: 15, top: 7, bottom: 4).r,
               decoration: BoxDecoration(
-                  color: HelperColor.fillColor,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(12)
               ),
               padding: const EdgeInsets.all(15),
@@ -93,7 +93,7 @@ class RideRequestWidget extends StatelessWidget {
                   ClipOval(
                     child: Material(
                       color: HelperColor.black.withOpacity(0.03), // Bu
-                      elevation: 0,// tton color
+                      elevation: 0,
                       child: const SizedBox(width: 40, height: 40, child: Icon(Icons.directions_bike_rounded, color: HelperColor.black,),
                       ),
                     ),
