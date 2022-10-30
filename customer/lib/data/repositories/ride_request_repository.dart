@@ -15,6 +15,7 @@ class RideRequestRepository {
   RideRequestProvider provider = RideRequestProvider();
 
   Future<ResultItem<RideRequestModel?>> getDriver(maps) async {
+    debugPrint('==================Get Ride Request Map ${maps}==================');
     RideRequestModel? user;
     Map map = await provider.getDriver(maps,await userRepository.getToken());
     int? statusCode = map[FIELD_STATUS_CODE];
