@@ -163,7 +163,7 @@ class AddToWalletScreenState extends State<AddToWalletScreen> {
                                                 borderSide: const BorderSide(
                                                     color: HelperColor.primaryLightColor, width: 1.0),
                                               ),
-                                              // contentPadding: const EdgeInsets.all(5),
+                                              contentPadding: const EdgeInsets.all(5),
                                             ),
                                           ),
                                           SizedBox(height: 20.0.h),

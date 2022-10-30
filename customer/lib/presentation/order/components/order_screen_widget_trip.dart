@@ -8,6 +8,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../components/buttonWidget.dart';
@@ -48,8 +50,22 @@ class OrderTripScreenWidget extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Arriving in ${mapState.duration}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 18.sp, FontWeight.w600),),
-                      SizedBox(height: 10.h,),
+                      Row(
+                        children: [
+                          Text("Arriving in ${mapState.duration}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 18.sp, FontWeight.w600),),
+                          const Spacer(),
+                          GestureDetector(
+                            child: const Icon(LineAwesomeIcons.share, color: HelperColor.black,),
+                            onTap: (){
+                              String googleUrl = 'https://www.google.com/maps/dir/?api=1&origin=${mapState.rideRequestModel?.passengerPickupLatitude},${mapState.rideRequestModel?.passengerPickupLongitude}'
+                                  '&destination=${mapState.rideRequestModel?.passengerDestinationLatitude},${mapState.rideRequestModel?.passengerDestinationLongitude}&mode=driving';
+                              Share.share("I'm currently having a ride with ${mapState.rideRequestModel?.user?.name} with acoride ID(${mapState.rideRequestModel?.user?.acorideId}) , kindly click here to view my current location ${googleUrl}");
+
+                            },
+                          )
+                        ],
+                      ),
+                     // SizedBox(height: 5.h,),
                       Text(rideRequestModel.user?.acorideId ?? '', style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
                     ],
                   ),
@@ -148,7 +164,7 @@ class OrderTripScreenWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Text("₦ ${rideRequestModel.estimatedPrice}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w600),),
+                            Text("${HelperConfig.currencyFormat(rideRequestModel.estimatedPrice ?? '')}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 15, FontWeight.w600),),
                             const SizedBox(height: 5,),
                             Text("", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14, FontWeight.normal),),
                           ],
@@ -171,7 +187,7 @@ class OrderTripScreenWidget extends StatelessWidget {
                                 Text("${rideRequestModel.passengerDestinationAddress}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 14.sp, FontWeight.w500),),
                               ],
                             )
-                        )
+                        ),
                       ],
                     ),
                   ),

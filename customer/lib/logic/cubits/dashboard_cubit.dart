@@ -57,6 +57,24 @@ class DashBoardCubit extends Cubit<DashBoardState> {
           zoom: 17.0,
         );
         addMarker();
+        state.mapController?.setMapStyle('''[
+        {
+          "elementType": "labels.icon",
+          "stylers": [
+            {
+              "color": "#2ea445"
+            }
+          ]
+        },
+        {
+          "elementType": "labels.text.fill",
+          "stylers": [
+            {
+              "color": "#2ea445"
+            }
+          ]
+        }
+      ]''');
         state.currentAddress = result?.results![0].formattedAddress ?? '';
       }
     }

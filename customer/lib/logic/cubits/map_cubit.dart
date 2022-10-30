@@ -72,8 +72,8 @@ class MapCubit extends Cubit<MapState> {
             "myLat":state.dataFrom[0]['lat'],
             "myLon":state.dataFrom[0]['long'],
             "ride_id":HelperConfig.uuid(),
-            "driver_id":state.userRideRequest?.user?.id,
-            "passenger_id": state.userModel?.id,
+            "driver_id":state.userRideRequest?.user?.userID.toString(),
+            "passenger_id": state.userModel?.userID.toString(),
             "passenger_pickup_address":state.dataFrom[0]['name'],
             "passenger_pickup_latitude":state.dataFrom[0]['lat'],
             "passenger_pickup_longitude":state.dataFrom[0]['long'],
@@ -83,12 +83,11 @@ class MapCubit extends Cubit<MapState> {
             "duration": state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
             "distance":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
             "ride_type":"instant",
-            "km":"983",
-            "km_in_time":"8393",
+            "km":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
+            "km_in_time":state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
             "payment_type":"wallet",
             "estimated_price":state.userRideRequest?.estimatedPrice,
             "on_going": "1",
-            "base_fare_fee": "200"
           }
       );
       if (result.errorCode! >= 400) {

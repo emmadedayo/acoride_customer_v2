@@ -1,24 +1,41 @@
-class DashBoardModel {
-  const DashBoardModel({this.image,this.text});
+class HistoryModel {
+  const HistoryModel({this.image,this.text,this.latitude,this.longitude});
   final String? image;
+  final double? latitude;
+  final double? longitude;
   final String? text;
 }
 
-const List<DashBoardModel> dashboardNotification = <DashBoardModel>[
-  DashBoardModel(image: 'assets/images/van.png',text:'Deliver a package',),
-  DashBoardModel(image: 'assets/images/star.png',text:"Choose a safe place",),
+const List<HistoryModel> historyModel = <HistoryModel>[
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
+  HistoryModel(text:"Elebu Fish Depot, 20993, Ibadan",latitude: 37.4219983,longitude: -122.084),
 ];
 
 
-class BillsModel {
-  const BillsModel({this.image,this.text});
-  final String? image;
+class AirtimeModel {
+  const AirtimeModel({this.text});
   final String? text;
 }
 
-const List<BillsModel> billModel = <BillsModel>[
-  BillsModel(image: 'assets/images/no-conexion.png',text:'Airtime',),
-  BillsModel(image: 'assets/images/smartphone.png',text:"Data",),
-  BillsModel(image: 'assets/images/tv.png',text:'Cable Tv',),
-  BillsModel(image: 'assets/images/electrical-energy.png',text:"Power",),
+const List<AirtimeModel> billModel = <AirtimeModel>[
+  AirtimeModel(text:'Airtime',),
+  AirtimeModel(text:"Data",),
+];
+
+class DataModel {
+  const DataModel({this.text});
+  final String? text;
+}
+
+const List<DataModel> dataModel = <DataModel>[
+  DataModel(text:'Cable Tv',),
+  DataModel(text:"Power",),
 ];
