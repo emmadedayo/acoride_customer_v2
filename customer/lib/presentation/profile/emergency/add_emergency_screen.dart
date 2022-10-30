@@ -123,7 +123,7 @@ class AddEmergencyScreenState extends State<AddEmergencyScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                            contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
 
@@ -153,7 +153,7 @@ class AddEmergencyScreenState extends State<AddEmergencyScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                             contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
 
@@ -179,12 +179,12 @@ class AddEmergencyScreenState extends State<AddEmergencyScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                             contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
                                       ],
                                     ),
-                                    const SizedBox(height: 50.0),
+                                    const SizedBox(height: 20.0),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
