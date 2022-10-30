@@ -40,101 +40,21 @@ class RideHistoryScreenState extends State<RideHistoryScreen> {
           builder: (contextCubit, emeState) {
 
             return Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor: HelperColor.slightWhiteColor,
+                appBar: AppBar(
+                  backgroundColor: Colors.white,
+                  elevation: 0,
+                  title: Text("Ride History",style: HelperStyle.textStyle(context,Colors.black,20.sp,FontWeight.w500),),
+                ),
                 body:SafeArea(
                     child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            Container(
-                              padding: const EdgeInsets.only(bottom: 10).r,
-                              width: MediaQuery.of(context).size.width,
-                              color: HelperColor.primaryColor,
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                      padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 7).r,
-                                      child:Text("Ride History",style: HelperStyle.textStyle(context,Colors.white,25.sp,FontWeight.w500),)
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: const EdgeInsets.only(left: 20,right: 20,top: 7,bottom: 7).r,
-                                    height: 60,
-                                    padding: const EdgeInsets.only(left: 20,right: 20,top: 7,bottom: 7).r,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(5),
-                                        color: HelperColor.slightWhiteColor
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        InkWell(
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              const Icon(Bootstrap.calendar2,color: HelperColor.black,),
-                                              const SizedBox(width: 10,),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text("From",style: HelperStyle.textStyle(context,HelperColor.black,13.sp,FontWeight.w200)),
-
-                                                  Text(emeState.dateFrom,style: HelperStyle.textStyle(context,HelperColor.black,13.sp,FontWeight.normal)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          onTap: (){
-                                            CalendarShift().calender(context).then((value) {
-                                              if(value != null){
-                                                contextCubit.read<RideHistoryCubit>().startDate(value);
-                                                print("objectobject ${value}");
-                                              }
-                                            });
-                                          },
-                                        ),
-                                        const VerticalDivider(
-                                          color: Colors.black,
-                                        ),
-                                        InkWell(
-                                          onTap: (){
-                                            CalendarShift().calender(context).then((value) {
-                                              if(value != null){
-                                                contextCubit.read<RideHistoryCubit>().endDate(value);
-                                                print("objectobject ${value}");
-                                              }
-                                            });
-                                          },
-                                          child: Row(
-                                            mainAxisAlignment: MainAxisAlignment.start,
-                                            children: [
-                                              const Icon(Bootstrap.calendar2,color: HelperColor.black,),
-                                              const SizedBox(width: 10,),
-                                              Column(
-                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                crossAxisAlignment: CrossAxisAlignment.start,
-                                                children: [
-                                                  Text("To",style: HelperStyle.textStyle(context,HelperColor.black,13.sp,FontWeight.w200)),
-
-                                                  Text(emeState.dateTo,style: HelperStyle.textStyle(context,HelperColor.black,13.sp,FontWeight.normal)),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
+                            emeState.isLoading?
                             ProgressiveLoading(
                               color: HelperColor.black,
                               inAsyncCall: emeState.isLoading,
-                            ),
+                            ):
                             emeState.history.isEmpty ?
                             const NotFoundCard(text: 'No Order Found',height: 100,)
                                 : ListView.builder(

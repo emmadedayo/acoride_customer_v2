@@ -7,6 +7,7 @@ import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
 import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
@@ -120,7 +121,16 @@ class _OrderRateDriverState extends State<OrderRateDriver> {
                                       padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
                                       child: Row(
                                         children: [
-
+                                          ClipOval(
+                                              child: SizedBox(
+                                                height: 50,
+                                                child: CachedNetworkImage(
+                                                  imageUrl: rateState.rideRequestModel?.user?.name ?? '',
+                                                  placeholder: (context, url) => const CircularProgressIndicator(),
+                                                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                                                ),
+                                              )
+                                          ),
                                           const CircleAvatar(
                                             radius: 25.0,
                                             backgroundImage: AssetImage('assets/images/passport.jpg'),
