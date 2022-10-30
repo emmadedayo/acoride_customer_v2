@@ -1,3 +1,4 @@
+import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/states/bills_state.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class DataConfirmation extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text("₦ ${billState.amount.text}",
+                                  Text("${HelperConfig.currencyFormat(billState.amount.text.toString())}",
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),

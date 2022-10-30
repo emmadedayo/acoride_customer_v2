@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
+import '../../../core/helper/helper_config.dart';
 import '../../components/buttonWidget.dart';
 
 class ConfirmationWidget extends StatelessWidget {
@@ -54,7 +55,7 @@ class ConfirmationWidget extends StatelessWidget {
                               children: [
                                 Text("Estimated Total: ", style: HelperStyle.textStyleTwo(context, HelperColor.black, 20.sp, FontWeight.w600),),
 
-                                Text('₦${mapState.userRideRequest?.estimatedPrice}', style: HelperStyle.textStyleTwo(context, HelperColor.black, 16.sp, FontWeight.w500),),
+                                Text('${HelperConfig.currencyFormat(mapState.userRideRequest?.estimatedPrice.toString() ?? '000')}', style: HelperStyle.textStyleTwo(context, HelperColor.black, 16.sp, FontWeight.w500),),
                               ],
                             ),
                           ),
