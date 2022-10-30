@@ -12,6 +12,8 @@ import 'package:acoride/presentation/wallet/component/wallet_screen_component.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:icons_plus/icons_plus.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:intl/intl.dart';
 
 
@@ -50,9 +52,9 @@ class WalletScreenState extends State<WalletScreen> {
               builder: (contextCubit, emeState) {
 
                 return Scaffold(
-                  backgroundColor: Colors.white,
+                  backgroundColor: HelperColor.slightWhiteColor,
                   appBar: AppBar(
-                    backgroundColor: Colors.white,
+                    backgroundColor: HelperColor.slightWhiteColor,
                     title: Text(
                       'Wallet',
                       style: HelperStyle.textStyleTwo(
@@ -65,34 +67,6 @@ class WalletScreenState extends State<WalletScreen> {
                       color: Colors.black, //change your color here
                     ),
                   ),
-                  bottomNavigationBar:Padding(
-                    padding: const EdgeInsets.only(bottom: 10, top: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ButtonWidget(
-                          buttonTextSize: 20,
-                          containerHeight: 50.h,
-                          containerWidth: 341.w,
-                          buttonText: "Fund Wallet",
-                          color: HelperColor.primaryColor,
-                          textColor: HelperColor.primaryLightColor,
-                          onTap: () async {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const AddToWalletScreen(),
-                              ),
-                            ).then((value) =>{
-                              contextCubit.read<TransactionCubit>().initData(),
-                            });
-                          },
-                          radius: 8,
-
-                        ),
-                      ],
-                    ),
-                  ),
                   body: SafeArea(
                     child: SingleChildScrollView(
                       child:Column(
@@ -100,7 +74,7 @@ class WalletScreenState extends State<WalletScreen> {
                         children: <Widget>[
 
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             //margin: EdgeInsets.only(left: 5.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,33 +104,31 @@ class WalletScreenState extends State<WalletScreen> {
                                         style: HelperStyle.textStyle(
                                             context, HelperColor.slightWhiteColor, 25.sp, FontWeight.w700,letterSpacing: 0.5),
                                       ),
-                                      const SizedBox(
-                                        height: 20,
+
+                                      Padding(
+                                          padding: const EdgeInsets.only(top: 20,bottom: 7).r,
+                                          child: ButtonWidget(
+                                            buttonTextSize: 18.sp,
+                                            containerHeight: 37.h,
+                                            containerWidth: 20.w,
+                                            buttonText: "Top Up",
+                                            color: HelperColor.primaryColor,
+                                            textColor: HelperColor.primaryLightColor,
+                                            onTap: () async {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => const AddToWalletScreen(),
+                                                ),
+                                              ).then((value) =>{
+                                                contextCubit.read<TransactionCubit>().initData(),
+                                              });
+                                            },
+                                            radius: 8,
+
+                                          ),
                                       ),
 
-                                      Container(
-                                        padding: const EdgeInsets.only(left: 15,right: 15),
-                                        child: Row(
-                                          children: <Widget>[
-                                            Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Row(
-                                                  children: [
-                                                    Text("Bonus Balance", style: HelperStyle.textStyle(
-                                                        context, const Color(0xffFFFC00), 12, FontWeight.w400),),
-                                                  ],
-                                                ),
-                                                const SizedBox(height: 2,),
-                                                Text("${HelperConfig.currencyFormat('${emeState.userModel?.bonus ?? 0}')}", style: HelperStyle.textStyle(
-                                                    context, const Color(0xffFFFC00), 14, FontWeight.w700),)
-                                              ],
-                                            ),
-                                            const Spacer(),
-                                            //
-                                          ],
-                                        ),
-                                      ),
                                     ],
                                   ),
                                 ),
