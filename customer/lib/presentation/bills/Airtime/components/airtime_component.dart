@@ -9,6 +9,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../../core/helper/helper_config.dart';
+
 class ShimmersWidget extends StatelessWidget {
   const ShimmersWidget({
     Key? key,
@@ -188,7 +190,7 @@ class AirtimeConfirmation extends StatelessWidget {
                                         context, const Color(0xff696F79), 14.sp, FontWeight.w400),
                                   ),
 
-                                  Text("₦ ${airtimeState.amount.text}",
+                                  Text("${HelperConfig.currencyFormat(airtimeState.amount.text.toString())}",
                                     style: HelperStyle.textStyle(
                                         context, const Color(0xff3F4B69), 12, FontWeight.w400),
                                   ),

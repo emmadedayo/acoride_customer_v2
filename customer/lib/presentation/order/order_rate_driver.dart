@@ -1,4 +1,5 @@
 import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/cubits/rate_cubit.dart';
 import 'package:acoride/logic/states/rate_state.dart';
@@ -107,7 +108,7 @@ class _OrderRateDriverState extends State<OrderRateDriver> {
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
                                                 Text("Amount", style: HelperStyle.textStyleTwo(context, HelperColor.black, 16, FontWeight.w600),),
-                                                Text("NGN ${widget.amountToPay}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 20, FontWeight.w600),),
+                                                Text("${HelperConfig.currencyFormat(widget.amountToPay.toString())}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 20, FontWeight.w600),),
                                               ],
                                             ),
                                           ],
