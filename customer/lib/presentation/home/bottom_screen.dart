@@ -7,6 +7,7 @@ import 'package:acoride/presentation/wallet/wallet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class RootBottom extends StatefulWidget {
   const RootBottom({Key? key}) : super(key: key);
@@ -47,19 +48,19 @@ class RootBottomStates extends State<RootBottom>
           },
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Iconsax.home, color: _selectedTabIndex == 0? HelperColor.primaryColor: HelperColor.freyColor,),
+                icon: Icon(LineAwesomeIcons.home, color: _selectedTabIndex == 0? HelperColor.primaryColor: HelperColor.freyColor,),
                 label: 'Home'
             ),
             BottomNavigationBarItem(
-                icon: Icon(Iconsax.book, color: _selectedTabIndex == 1? HelperColor.primaryColor: HelperColor.freyColor,),
+                icon: Icon(LineAwesomeIcons.book, color: _selectedTabIndex == 1? HelperColor.primaryColor: HelperColor.freyColor,),
                 label: 'Bookings'
             ),
             BottomNavigationBarItem(
-              icon: Icon(Iconsax.wallet, color: _selectedTabIndex == 2? HelperColor.primaryColor: HelperColor.freyColor,),
+              icon: Icon(LineAwesomeIcons.wallet, color: _selectedTabIndex == 2? HelperColor.primaryColor: HelperColor.freyColor,),
               label: 'Wallet',
             ),
             BottomNavigationBarItem(
-                icon: Icon(Iconsax.user, color: _selectedTabIndex == 3? HelperColor.primaryColor: HelperColor.freyColor,),
+                icon: Icon(LineAwesomeIcons.user, color: _selectedTabIndex == 3? HelperColor.primaryColor: HelperColor.freyColor,),
                 label: 'Profile'
             ),
           ]),

@@ -103,7 +103,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                               key: _formKey,
                               child:Column(
                                 children: <Widget>[
-                                  SizedBox(height: 30.0.h),
+                                  SizedBox(height: 25.0.h),
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -128,11 +128,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                             borderSide: const BorderSide(
                                                 color: HelperColor.primaryLightColor, width: 1.0),
                                           ),
-                                          // contentPadding: const EdgeInsets.all(5),
+                                          contentPadding: const EdgeInsets.all(5),
                                         ),
                                       ),
 
-                                      const SizedBox(height: 30.0),
+                                      const SizedBox(height: 20.0),
 
                                       FormTextPrefix(
                                         hintText: 'Phone Number',
@@ -154,11 +154,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                             borderSide: const BorderSide(
                                                 color: HelperColor.primaryLightColor, width: 1.0),
                                           ),
-                                          // contentPadding: const EdgeInsets.all(5),
+                                           contentPadding: const EdgeInsets.all(5),
                                         ),
                                       ),
 
-                                      const SizedBox(height: 30.0),
+                                      const SizedBox(height: 20.0),
 
                                       FormTextPrefix(
                                         hintText: 'Email Address',
@@ -180,12 +180,12 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                             borderSide: const BorderSide(
                                                 color: HelperColor.primaryLightColor, width: 1.0),
                                           ),
-                                          // contentPadding: const EdgeInsets.all(5),
+                                          contentPadding: const EdgeInsets.all(5),
                                         ),
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 50.0),
+                                  SizedBox(height: 30.0.h),
                                   Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,7 +210,6 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(height: 24.0),
 
                                 ],
                               ),

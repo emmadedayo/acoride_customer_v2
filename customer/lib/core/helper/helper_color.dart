@@ -12,6 +12,9 @@ class HelperColor {
 
   static const Color textFieldColor = Color.fromRGBO(168, 160, 149, 0.6);
   static const Color primaryColor = Color(0xFF2EA445);
+  static const Color primaryColorLight = Color(0xFFEAF5EC);
+  static const Color secondaryColor = Color(0xFFFECC18);
+  static const Color secondaryColorLight = Color(0xFFEAF5EC);
   static const Color primaryColorTwo = Color(0xFF24314E);
   static const Color primaryLightColor = Color(0xFFE2F1F4);
   static const Color redColor = Colors.red;
