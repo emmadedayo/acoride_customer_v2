@@ -31,6 +31,7 @@ const dataScreen = '/dataScreen';
 const cableScreen = '/cableScreen';
 const electricityScreen = '/electricityScreen';
 
+const mainMapScreen = '/mainMapScreen';
 
 ///Success Screens///
 const successScreen = '/successScreen';

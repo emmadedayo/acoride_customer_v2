@@ -126,6 +126,26 @@ class HelperConfig{
     return NumberFormat.currency(locale: 'en_US', symbol: '₦').format(double.parse(amount));
   }
 
+  static paymentReformat(String paymentFor){
+    if(paymentFor == "bills"){
+      return "Bills Payment";
+    }else if(paymentFor == "wallet") {
+      return "Wallet Top Up";
+    }else if(paymentFor == "bike") {
+      return "Ride Payment";
+    }else if(paymentFor == "withdrawal") {
+      return "Withdrawal Payment";
+    }else if(paymentFor == "transfer") {
+      return "Transfer Payment";
+    }else if(paymentFor == "loan") {
+      return "Acoride Loan";
+    }else if(paymentFor == "dues") {
+      return "Acoride Dues";
+    }else{
+      return "Acoride Payment";
+    }
+  }
+
   static Future<String?> saveDeviceToken() async {
     FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     final String? fcmToken = await firebaseMessaging.getToken();

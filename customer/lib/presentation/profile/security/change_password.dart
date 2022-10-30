@@ -127,7 +127,7 @@ class ChangePasswordScreenTwoState extends State<ChangePasswordScreenTwo> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                             contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
                                         SizedBox(height: 20.0.h),
@@ -152,7 +152,7 @@ class ChangePasswordScreenTwoState extends State<ChangePasswordScreenTwo> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                            contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
                                         SizedBox(height: 20.0.h),
@@ -177,13 +177,12 @@ class ChangePasswordScreenTwoState extends State<ChangePasswordScreenTwo> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                             contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
 
                                       ],
                                     ),
-                                    const SizedBox(height: 20.0),
                                     const SizedBox(height: 30.0),
                                     Column(
                                       mainAxisSize: MainAxisSize.max,

@@ -20,6 +20,7 @@ import '../auth/login_screen.dart';
 import '../auth/reset_account_screen.dart';
 import '../bills/Airtime/airtime_screen.dart';
 import '../bills/Electricity/electricity_screen.dart';
+import '../dashbaord/map_dashboard.dart';
 import '../history/history_details.dart';
 import '../home/bottom_screen.dart';
 import '../location_permission/location_permission.dart';
@@ -119,6 +120,10 @@ class AppRouter {
       case changePassword:
         return MaterialPageRoute(
             builder: (_) => const ChangePasswordScreenTwo()
+        );
+      case mainMapScreen:
+        return MaterialPageRoute(
+            builder: (_) => const MapMainHomePage()
         );
       case locationPermissionScreen:
         return MaterialPageRoute(builder: (_) => const LocationPermission());

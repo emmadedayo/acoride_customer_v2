@@ -24,6 +24,7 @@ class UserModel {
 */
 
   int? id;
+  int? userID;
   String? acorideId;
   String? name;
   String? email;
@@ -43,6 +44,7 @@ class UserModel {
 
   UserModel({
     this.id =0,
+    this.userID =0,
     this.acorideId = '',
     this.name = '',
     this.email = '',
@@ -63,6 +65,7 @@ class UserModel {
 
   UserModel.fromMap(Map json) {
     id = json['id'] ?? 0;
+    userID = json['user_id'] ?? 0;
     acorideId = json['acoride_id'] ?? '';
     name = json['name'] ?? '';
     email = json['email'] ?? '';
@@ -85,6 +88,7 @@ class UserModel {
   Map<String, dynamic> toMap() {
     final data = <String, dynamic>{};
     data['id'] = id;
+    data['user_id'] = userID;
     data['acoride_id'] = acorideId;
     data['name'] = name;
     data['email'] = email;
