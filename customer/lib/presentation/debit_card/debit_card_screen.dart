@@ -8,7 +8,7 @@ import 'package:acoride/logic/states/card_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/noWidgetFound.dart';
 import 'package:acoride/presentation/debit_card/component/debit_card_widget.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paystack/flutter_paystack.dart';

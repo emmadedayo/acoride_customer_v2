@@ -8,7 +8,7 @@ import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
 import 'package:acoride/presentation/router/router_constant.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -170,7 +170,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
                                                 borderSide: const BorderSide(
                                                     color: HelperColor.primaryLightColor, width: 1.0),
                                               ),
-                                              // contentPadding: const EdgeInsets.all(5),
+                                              contentPadding: const EdgeInsets.all(7),
                                             ),
                                           ),
                                           SizedBox(height: 10.h,),
@@ -193,7 +193,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
                                                 borderSide: const BorderSide(
                                                     color: HelperColor.primaryLightColor, width: 1.0),
                                               ),
-                                              // contentPadding: const EdgeInsets.all(5),
+                                              contentPadding: const EdgeInsets.all(7),
                                             ),
                                           ),
                                           SizedBox(height: 10.h,),

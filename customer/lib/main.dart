@@ -138,7 +138,7 @@ class MainInitState extends StatelessWidget {
                                       if (state.customState == CustomState.LOADING) {
                                         return const Scaffold(
                                           body: Center(
-                                            child: ProgressWithIcon(),
+                                            child: LoadingWidget(),
                                           ),
                                         );
                                       }

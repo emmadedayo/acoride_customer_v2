@@ -1,6 +1,6 @@
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

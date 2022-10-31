@@ -49,7 +49,7 @@ class RideHistoryScreenState extends State<RideHistoryScreen> {
                         builder: (context, key){
                           if(emeState.isLoading){
                             return const Center(
-                              child: ProgressWithIcon(),
+                              child: LoadingWidget(),
                             );
                           }else if(emeState.history.isEmpty){
                             return const Center(

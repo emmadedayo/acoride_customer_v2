@@ -1,6 +1,6 @@
 import 'package:acoride/logic/cubits/forgot_password_cubit.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
