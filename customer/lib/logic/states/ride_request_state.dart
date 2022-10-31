@@ -1,11 +1,13 @@
 import 'dart:async';
 import 'dart:collection';
 import 'dart:typed_data';
+
 import 'package:acoride/data/entities/firebase_ride_model.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/constant/enum.dart';
 import '../../data/model/location_model.dart';
 import '../../map_component/google_direction_model.dart' as google_direction_model;

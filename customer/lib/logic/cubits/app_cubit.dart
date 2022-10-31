@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/repositories/card_repository.dart';
@@ -7,10 +8,7 @@ import 'package:acoride/data/repositories/transaction_repository.dart';
 import 'package:acoride/data/repositories/user_repository.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import '../../data/model/notification_item.dart';
 
 class AppCubit extends Cubit<AppState> {
 

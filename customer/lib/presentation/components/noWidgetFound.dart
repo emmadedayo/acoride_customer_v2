@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../core/helper/helper_color.dart';
 
 class NotFoundCard extends StatelessWidget {
   final String? text;
@@ -29,8 +32,6 @@ class NotFoundCard extends StatelessWidget {
   }
 }
 
-
-
 class NotFoundCardTwo extends StatelessWidget {
   final String? text;
   const NotFoundCardTwo(
@@ -41,7 +42,7 @@ class NotFoundCardTwo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: HelperColor.slightWhiteColor,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10),
       child: Column(
@@ -55,6 +56,26 @@ class NotFoundCardTwo extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+
+class NotFoundLottie extends StatelessWidget {
+  const NotFoundLottie(
+      {Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: HelperColor.slightWhiteColor,
+      alignment: Alignment.center,
+      padding: const EdgeInsets.all(10),
+      child: Lottie.asset('assets/json/no-data-preview.json',
+        height: 250,
+        width: 300,
+      )
     );
   }
 }

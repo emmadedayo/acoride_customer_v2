@@ -61,6 +61,12 @@ class UserProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> getDashboard(token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.getDashboard,
+        {}, method: HttpMethod.GET_WITH_AUTH,token:token);
+    return RestApi.getMapFromResponse(response);
+  }
+
   ////////////////////////////////////////////////////////////////Session Here \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 

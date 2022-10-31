@@ -44,6 +44,13 @@
             </list>
           </value>
         </entry>
+        <entry key="badges">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/badges-2.0.3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="bloc">
           <value>
             <list>
@@ -758,6 +765,13 @@
             </list>
           </value>
         </entry>
+        <entry key="loading_animation_widget">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/loading_animation_widget-1.2.0+3/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="logging">
           <value>
             <list>
@@ -1412,6 +1426,7 @@
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.1/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/awesome_dialog-3.0.0/lib" />
+      <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/badges-2.0.3/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/bloc-8.1.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/blurry_modal_progress_hud-1.0.3/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/boolean_selector-2.1.0/lib" />
@@ -1509,6 +1524,7 @@
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.6.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/line_awesome_flutter-2.0.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
+      <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/loading_animation_widget-1.2.0+3/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/logging-1.0.2/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/lottie-1.4.2/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/matcher-0.12.12/lib" />

@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/entities/object-box.dart';
 import 'package:acoride/data/entities/settings_item.dart';
@@ -22,6 +23,7 @@ import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/router/app_router.dart';
 import 'package:acoride/presentation/styles/styles.dart';
+import 'package:acoride/utils/loadingImage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -37,7 +39,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import 'core/constant/constants.dart';
 import 'data/Notification/firebase_notification_handler.dart';
-import 'data/model/notification_item.dart';
 import 'firebase_options.dart';
 import 'logic/cubits/app_cubit.dart';
 import 'logic/states/app_state.dart';
@@ -137,7 +138,7 @@ class MainInitState extends StatelessWidget {
                                       if (state.customState == CustomState.LOADING) {
                                         return const Scaffold(
                                           body: Center(
-                                            child: CircularProgressIndicator(),
+                                            child: ProgressWithIcon(),
                                           ),
                                         );
                                       }
