@@ -1,23 +1,19 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/logic/states/dashboard_state.dart';
-import 'package:acoride/logic/states/map_state.dart';
-import 'package:acoride/presentation/components/shimmerWidget.dart';
+import 'package:acoride/logic/states/dashboard_map_state.dart';
 import 'package:acoride/presentation/dashbaord/mapcomponents/panel_list_view.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../core/constant/dashboard_constant.dart';
-import '../../components/buttonWidget.dart';
 import '../../map_search/map_search_screen.dart';
 
 class MapSearchPanelWidget extends StatelessWidget {
-  final DashBoardState? dashBoardState;
+  final DashBoardMapState? dashBoardState;
   final ScrollController scrollController;
   final PanelController? panelController;
   final VoidCallback? onSearch,onSelect;

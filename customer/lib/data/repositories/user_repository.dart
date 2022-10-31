@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:acoride/data/model/dashboard_model.dart';
 import 'package:acoride/data/provider/user_provider.dart';
 import 'package:flutter/foundation.dart';
 
@@ -178,6 +179,23 @@ class UserRepository{
     } catch(err) {
       return ResultItem(result: null, errorCode: 404, message: err.toString());
     }
+  }
+
+  Future<ResultItem<DashBoardModel?>> getDashboard() async {
+    DashBoardModel? dashBoardModel;
+    Map map = await provider.getDashboard(await getToken());
+    print("object $map");
+    int? statusCode = map[FIELD_STATUS_CODE];
+    String message = map[FIELD_MESSAGE]?? '';
+    if (map.isNotEmpty && map[FIELD_DATA] != null) {
+      try {
+        dashBoardModel = DashBoardModel.fromMap(map[FIELD_DATA]);
+      }
+      catch(err) {
+        return ResultItem<DashBoardModel?>(result: null, errorCode: 404, message: 'Error: $err');
+      }
+    }
+    return ResultItem<DashBoardModel?>(result: dashBoardModel, errorCode: statusCode, message: message);
   }
 
   Future<ResultItem<UserModel?>> getMe() async {

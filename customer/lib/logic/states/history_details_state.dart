@@ -1,6 +1,8 @@
 import 'dart:collection';
 import 'dart:typed_data';
+
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/constant/enum.dart';
 import '../../data/model/ride_request_model.dart';
 import '../../map_component/google_direction_model.dart' as google_direction_model;

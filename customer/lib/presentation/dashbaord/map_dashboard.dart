@@ -1,5 +1,4 @@
 import 'package:acoride/logic/cubits/app_cubit.dart';
-import 'package:acoride/logic/cubits/dashboard_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-import '../../logic/states/dashboard_state.dart';
+
+import '../../logic/cubits/dashboard_map_cubit.dart';
+import '../../logic/states/dashboard_map_state.dart';
 import '../order/order_trip_screen.dart';
 import 'mapcomponents/panelwidget.dart';
 
@@ -26,15 +27,15 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
   Widget build(BuildContext context) {
     return BlocBuilder<AppCubit,AppState>(
         builder: (appContext,appState){
-          return BlocProvider<DashBoardCubit>(
-            create: (context) => DashBoardCubit(DashBoardState(rideDetails: appState.rideDetails)),
+          return BlocProvider<DashBoardMapCubit>(
+            create: (context) => DashBoardMapCubit(DashBoardMapState(rideDetails: appState.rideDetails)),
             child: Scaffold(
               body: SafeArea(
-                child: BlocBuilder<DashBoardCubit, DashBoardState>(
+                child: BlocBuilder<DashBoardMapCubit, DashBoardMapState>(
                   builder: (dashboardContext, dashboardState) {
                     return BlurryModalProgressHUD(
                       inAsyncCall: dashboardState.isLoading,
-                      child: BlocListener<DashBoardCubit, DashBoardState>(
+                      child: BlocListener<DashBoardMapCubit, DashBoardMapState>(
                           listener: (context, state) async {
                             if (state.rideRequestModel != null) {
                               if(appState.rideDetails?.rideType == "CREATE_RIDE"){
@@ -74,7 +75,7 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
                                     ):
                                     GoogleMap(
                                       onMapCreated: (GoogleMapController controller) {
-                                        dashboardContext.read<DashBoardCubit>().onMapCreated(controller);
+                                        dashboardContext.read<DashBoardMapCubit>().onMapCreated(controller);
                                       },
                                       zoomControlsEnabled: false,
                                       myLocationButtonEnabled: false,
@@ -87,9 +88,9 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
                                         zoom: 17,
                                       ),
                                       onCameraMove: (CameraPosition position) {
-                                        dashboardContext.read<DashBoardCubit>().onCameraMove(position);
+                                        dashboardContext.read<DashBoardMapCubit>().onCameraMove(position);
                                       },
-                                      onCameraIdle: () => dashboardContext.read<DashBoardCubit>().getPositionName(
+                                      onCameraIdle: () => dashboardContext.read<DashBoardMapCubit>().getPositionName(
                                           dashboardState.cameraPosition?.target.latitude ?? dashboardState.position?.latitude,
                                           dashboardState.cameraPosition?.target.longitude ?? dashboardState.position?.longitude),
                                     ),

@@ -1,8 +1,9 @@
 import 'package:acoride/core/constant/dashboard_constant.dart';
-import 'package:acoride/logic/states/dashboard_state.dart';
+import 'package:acoride/logic/states/dashboard_map_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+
 import '../../../core/helper/helper_color.dart';
 import '../../../core/helper/helper_style.dart';
 
@@ -13,7 +14,7 @@ class PanelListView extends StatelessWidget {
     this.onTap,
   }) : super(key: key);
 
-  final DashBoardState? dashBoardState;
+  final DashBoardMapState? dashBoardState;
   final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {

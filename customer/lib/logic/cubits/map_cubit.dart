@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/data/entities/ridedb_entities.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 import '../../core/helper/helper_config.dart';
 import '../../data/repositories/object_box_repository.dart';
 

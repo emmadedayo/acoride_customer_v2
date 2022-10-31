@@ -77,6 +77,8 @@ dependencies:
   lottie: ^1.4.2
   line_awesome_flutter: ^2.0.0
   material_design_icons_flutter: ^5.0.6996
+  loading_animation_widget: ^1.2.0+3
+  badges: ^2.0.3
 
 dev_dependencies:
   flutter_test:

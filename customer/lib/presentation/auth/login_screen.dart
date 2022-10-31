@@ -121,7 +121,7 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                             borderSide: const BorderSide(
                                                 color: HelperColor.primaryLightColor, width: 1.0),
                                           ),
-                                          // contentPadding: const EdgeInsets.all(5),
+                                          contentPadding: const EdgeInsets.all(6),
                                         ),
                                       ),
 
@@ -147,7 +147,7 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                             borderSide: const BorderSide(
                                                 color: HelperColor.primaryLightColor, width: 1.0),
                                           ),
-                                          // contentPadding: const EdgeInsets.all(5),
+                                          contentPadding: const EdgeInsets.all(6),
                                         ),
                                       ),
                                     ],
