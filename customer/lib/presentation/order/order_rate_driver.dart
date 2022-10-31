@@ -6,7 +6,7 @@ import 'package:acoride/logic/states/rate_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
 import 'package:acoride/presentation/home/bottom_screen.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

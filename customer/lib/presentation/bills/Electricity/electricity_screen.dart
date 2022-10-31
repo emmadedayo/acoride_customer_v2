@@ -7,7 +7,7 @@ import 'package:acoride/presentation/bills/Data/components/data_variation_screen
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
 import 'package:acoride/presentation/router/router_constant.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

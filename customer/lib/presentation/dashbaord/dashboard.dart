@@ -3,14 +3,12 @@ import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/dashboard_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/presentation/dashbaord/components/dashboard_widget.dart';
-import 'package:acoride/utils/loadingImage.dart';
-import 'package:blurry_modal_progress_hud/blurry_modal_progress_hud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import '../../logic/states/dashboard_state.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key, }) : super(key: key);
@@ -34,7 +32,6 @@ class _MainHomePageState extends State<MainHomePage> {
                   builder: (dashboardContext, dashboardState) {
                     return BlurryModalProgressHUD(
                       inAsyncCall: dashboardState.userLoading,
-                      progressIndicator: const ProgressWithIcon(),
                       child: BlocListener<DashBoardCubit, DashBoardState>(
                           listener: (context, state) async {
                             // if (state.rideRequestModel != null) {
