@@ -18,7 +18,7 @@ class DebitCardWidget extends StatelessWidget {
           width: double.infinity,
           //margin: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-              color: HelperColor.slightWhiteColor,
+              color: HelperColor.whiteColor,
               boxShadow: [
                 BoxShadow(
                     color: HelperColor.black.withOpacity(0.01),

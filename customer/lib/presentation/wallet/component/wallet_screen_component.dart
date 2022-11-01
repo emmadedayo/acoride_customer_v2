@@ -4,7 +4,6 @@ import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/TransactionModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:iconsax/iconsax.dart';
 
 class TransactionWalletWidget extends StatelessWidget {
   final TransactionModel transactionModel;
@@ -38,7 +37,7 @@ class TransactionWalletWidget extends StatelessWidget {
                     context, HelperColor.black, 15, FontWeight.w400),
                 ),
                 const SizedBox(height: 5,),
-                Text("${transactionModel.createdAt}",
+                Text(HelperConfig.shortHistory(transactionModel.createdAt ?? ''),
                   style:HelperStyle.textStyle(
                       context, HelperColor.black, 12, FontWeight.w400),
 

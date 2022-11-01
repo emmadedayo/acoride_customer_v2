@@ -12,9 +12,8 @@ import 'package:acoride/presentation/wallet/component/wallet_screen_component.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:icons_plus/icons_plus.dart';
-import 'package:iconsax/iconsax.dart';
-import 'package:intl/intl.dart';
+
+import '../../utils/loadingImage.dart';
 
 
 class WalletScreen extends StatefulWidget {
@@ -72,7 +71,6 @@ class WalletScreenState extends State<WalletScreen> {
                       child:Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                             //margin: EdgeInsets.only(left: 5.0),
@@ -163,7 +161,7 @@ class WalletScreenState extends State<WalletScreen> {
                                   height: 10,
                                 ),
                                 emeState.isLoading?
-                                const Center(child: CircularProgressIndicator(),):
+                                const Center(child: LoadingWidget(),):
                                 emeState.transactions.isEmpty?
                                 const NotFoundCardTwo(text: 'No transaction',):
                                 ListView.builder(

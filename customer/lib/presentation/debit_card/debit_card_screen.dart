@@ -15,6 +15,8 @@ import 'package:flutter_paystack/flutter_paystack.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 
+import '../../utils/confirmation_widget.dart';
+
 
 class CardScreenIndex extends StatefulWidget {
   const CardScreenIndex({Key? key}) : super(key: key);
@@ -105,9 +107,9 @@ class CardScreenIndexState extends State<CardScreenIndex> {
               builder: (contextCubit, cadState) {
 
                 return Scaffold(
-                  backgroundColor: Colors.white,
+                  backgroundColor: HelperColor.slightWhiteColor,
                   appBar: AppBar(
-                    backgroundColor: Colors.white,
+                    backgroundColor:HelperColor.slightWhiteColor,
                     title: Text(
                       'Card Management',
                       style: HelperStyle.textStyleTwo(
@@ -248,7 +250,7 @@ class CardScreenIndexState extends State<CardScreenIndex> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   cadState.userCard.isEmpty ?
-                                  const NotFoundCard(text: 'No Debit Card Found',):
+                                  const NotFoundLottie():
                                   ListView.builder(
                                     itemCount: cadState.userCard.length,
                                     shrinkWrap: true,
@@ -257,7 +259,29 @@ class CardScreenIndexState extends State<CardScreenIndex> {
                                       return DebitCardWidget(
                                         userCard: cadState.userCard[index],
                                         onTap: (){
-                                          contextCubit.read<CardCubit>().deleteCard(cadState.userCard[index].id);
+                                          showModalBottomSheet(
+                                            enableDrag: true,
+                                            isDismissible: true,
+                                            isScrollControlled: true,
+                                            shape: const RoundedRectangleBorder(
+                                                borderRadius: BorderRadius.only(
+                                                  topLeft: Radius.circular(30.0),
+                                                  topRight: Radius.circular(30.0),
+                                                )),
+                                            context: context,
+                                            builder: (context) {
+                                              return DeleteConfirmationWidget(
+                                                onCancel: (){
+                                                  Navigator.pop(context);
+                                                },
+                                                onDelete: (){
+                                                  Navigator.pop(context);
+                                                  contextCubit.read<CardCubit>().deleteCard(cadState.userCard[index].id);
+                                                },
+                                              );
+                                            },
+                                          );
+
                                         },
                                       );
                                     },

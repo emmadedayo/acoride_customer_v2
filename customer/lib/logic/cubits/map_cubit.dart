@@ -255,6 +255,7 @@ class MapCubit extends Cubit<MapState> {
       state.amountLoading = false;
       state.amountLoadingResult = false;
       state.userRideRequest = result.result;
+      print("object hjgvhgvjh ${state.userRideRequest?.user?.name}");
     }
     emit(state.copy());
   }
