@@ -8,7 +8,6 @@ class VerifyEmailCubit extends Cubit<VerifyEmailState>{
   VerifyEmailCubit(VerifyEmailState initialState) : super(initialState);
 
   verifyEditProfile() async {
-    emit(state.copy());
     state.isLoading = true;
     emit(state.copy());
     var result = await userRepository.verifyEmail({

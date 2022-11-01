@@ -148,7 +148,7 @@ class VerifyEmailAccountScreenState extends State<VerifyEmailAccountScreen> {
                             ),
                             SizedBox(height: 50.0.h),
                             Text(
-                              'Didn’t receive code?',
+                              "Didn't receive code?",
                               style: HelperStyle.textStyleTwo(
                                   context, HelperColor.black, 15.sp, FontWeight.normal),
                             ),

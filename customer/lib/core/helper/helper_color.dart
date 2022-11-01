@@ -24,6 +24,7 @@ class HelperColor {
   static const Color lightGreyColor = Color(0xFFD4D4D4);
   static const Color slightGreyColor = Color(0xFFE4E4E4);
   static const Color slightWhiteColor = Color(0xFFF6F6F6);
+  static const Color whiteColor = Colors.white;
   static const Color black =  Colors.black;
 
   ///Text color

@@ -9,6 +9,7 @@ import 'package:acoride/presentation/profile/emergency/add_emergency_screen.dart
 import 'package:acoride/presentation/profile/emergency/component/emergency_component.dart';
 import 'package:acoride/presentation/profile/emergency/edit_emergency_screen.dart';
 import 'package:acoride/utils/blurry_modal_profress_hud.dart';
+import 'package:acoride/utils/confirmation_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -62,9 +63,9 @@ class EmergencyContactScreenState extends State<EmergencyContactScreen> {
               builder: (contextCubit, emeState) {
 
                 return Scaffold(
-                  backgroundColor: Colors.white,
+                  backgroundColor: HelperColor.slightWhiteColor,
                   appBar: AppBar(
-                    backgroundColor: Colors.white,
+                    backgroundColor:HelperColor.slightWhiteColor,
                     title: Text(
                       'Emergency Management',
                       style: HelperStyle.textStyleTwo(
@@ -117,32 +118,55 @@ class EmergencyContactScreenState extends State<EmergencyContactScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   emeState.emergency.isEmpty ?
-                                  const NotFoundCard(text: 'No Emergency Contact Added',)
+                                      const Center(
+                                        child: NotFoundLottie(),
+                                      )
                                       : ListView.builder(
-                                    shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemCount: emeState.emergency.length,
-                                    itemBuilder: (context, index) {
-                                      return EmergencyWidget(
-                                        emergencyModel: emeState.emergency[index],
-                                        onTap: () async {
-                                          Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => UpdateEmergencyScreen(
-                                                emergencyModel: emeState.emergency[index],
-                                              ),
-                                            ),
-                                          ).then((value) => {
-                                            contextCubit.read<EmergencyCubit>().initState()
-                                          });
-                                        },
-                                        deleteTap: () async {
-                                          //emeState.isLoading = true;
-                                          contextCubit.read<EmergencyCubit>().delete(emeState.emergency[index].id);
-                                        },
-                                      );
-                                    },
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount: emeState.emergency.length,
+                                            itemBuilder: (context, index) {
+                                            return EmergencyWidget(
+                                            emergencyModel: emeState.emergency[index],
+                                            onTap: () async {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) => UpdateEmergencyScreen(
+                                                    emergencyModel: emeState.emergency[index],
+                                                  ),
+                                                ),
+                                              ).then((value) => {
+                                                contextCubit.read<EmergencyCubit>().initState()
+                                              });
+                                            },
+                                            deleteTap: () async {
+                                              //emeState.isLoading = true;
+                                              showModalBottomSheet(
+                                                enableDrag: true,
+                                                isDismissible: true,
+                                                isScrollControlled: true,
+                                                shape: const RoundedRectangleBorder(
+                                                    borderRadius: BorderRadius.only(
+                                                      topLeft: Radius.circular(30.0),
+                                                      topRight: Radius.circular(30.0),
+                                                    )),
+                                                context: context,
+                                                builder: (context) {
+                                                  return DeleteConfirmationWidget(
+                                                    onCancel: (){
+                                                      Navigator.pop(context);
+                                                    },
+                                                    onDelete: (){
+                                                      Navigator.pop(context);
+                                                      contextCubit.read<EmergencyCubit>().delete(emeState.emergency[index].id);
+                                                    },
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          );
+                                     },
                                   ),
                                   SizedBox(height: 30.h,),
 

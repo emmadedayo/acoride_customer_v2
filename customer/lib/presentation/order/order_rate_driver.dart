@@ -121,19 +121,9 @@ class _OrderRateDriverState extends State<OrderRateDriver> {
                                       padding: const EdgeInsets.only(left: 20, right: 20, top: 5),
                                       child: Row(
                                         children: [
-                                          ClipOval(
-                                              child: SizedBox(
-                                                height: 50,
-                                                child: CachedNetworkImage(
-                                                  imageUrl: rateState.rideRequestModel?.user?.name ?? '',
-                                                  placeholder: (context, url) => const CircularProgressIndicator(),
-                                                  errorWidget: (context, url, error) => const Icon(Icons.error),
-                                                ),
-                                              )
-                                          ),
-                                          const CircleAvatar(
+                                          CircleAvatar(
                                             radius: 25.0,
-                                            backgroundImage: AssetImage('assets/images/passport.jpg'),
+                                            backgroundImage: NetworkImage('${rateState.rideRequestModel?.user?.kyc?.profileImage}'),
                                             backgroundColor: Colors.transparent,
                                           ),
                                           const SizedBox(width: 15,),

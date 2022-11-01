@@ -19,7 +19,7 @@ class EmergencyWidget extends StatelessWidget {
           margin: const EdgeInsets.all(4),
           width: double.infinity,
           decoration: BoxDecoration(
-              color: HelperColor.slightWhiteColor,
+              color: Colors.white,
               boxShadow: [
                 BoxShadow(
                     color: HelperColor.black.withOpacity(0.01),
