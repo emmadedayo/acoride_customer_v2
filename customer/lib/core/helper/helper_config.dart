@@ -1,6 +1,8 @@
+import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-
+import 'package:flutter/cupertino.dart';
+import 'package:http/http.dart' as http;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -162,5 +164,34 @@ class HelperConfig{
     FirebaseMessaging firebaseMessaging = FirebaseMessaging.instance;
     final String? fcmToken = await firebaseMessaging.getToken();
     return fcmToken;
+  }
+
+  static sendNotification(String title, String body, String token)async{
+    final data = {
+      'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+      'id': '1',
+      'status': 'done',
+      'title': title,
+      'message': body,
+    };
+    try{
+      http.Response response = await http.post(Uri.parse('https://fcm.googleapis.com/fcm/send'),headers: <String,String>{
+        'Content-Type': 'application/json',
+        'Authorization': 'key=AAAAz9RsaSs:APA91bG8egEQVvghiHlqo5MbRT-1J55C4NWmxfLfYyelTFGSqbGMFTa73Y0Wq_XN_mFRKdYzBStwzYUh-YTId_5jvWR9re8VbWsdH3ndEoMKG67SqK4BBNWSR8fK-eOEyk9TPRoALOmW'
+      }, body: jsonEncode(<String,dynamic>{
+        'notification': <String,dynamic> {'title': title,'body': body},
+        'priority': 'high',
+        'data': data,
+        'to': token
+      })
+      );
+      if(response.statusCode == 200){
+        debugPrint("Notification sent");
+      }else{
+        debugPrint("Notification not sent");
+      }
+    }catch(e){
+      debugPrint("Notification not sent ${e.toString()}");
+    }
   }
 }

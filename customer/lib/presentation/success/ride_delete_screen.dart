@@ -42,20 +42,13 @@ class TripDeleteScreenState extends State<TripDeleteScreen> {
                         ],
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.only(left: 12.0, right: 12.0),
-                              child: Text(
-                                'Your trip was cancelled',
-                                style: HelperStyle.textStyle(context,HelperColor.black,20,FontWeight.normal),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+                        child: Text(
+                          'Your trip was cancelled',
+                          style: HelperStyle.textStyle(context,HelperColor.black,20,FontWeight.normal),
+                          textAlign: TextAlign.center,
+                        ),
                       ),
                       SizedBox(height: MediaQuery.of(context).size.height * 0.10),
                       ButtonWidget(

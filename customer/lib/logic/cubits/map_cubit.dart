@@ -15,6 +15,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/helper/helper_config.dart';
 import '../../data/repositories/object_box_repository.dart';
+import '../../map_component/place_to_marker.dart';
 
 
 class MapCubit extends Cubit<MapState> {
@@ -87,7 +88,8 @@ class MapCubit extends Cubit<MapState> {
             "ride_type":"instant",
             "km":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
             "km_in_time":state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
-            "payment_type":"wallet",
+            "payment_type":state.paymentType,
+            "card_id":state.cardID,
             "estimated_price":state.userRideRequest?.estimatedPrice,
             "on_going": "1",
           }
@@ -104,6 +106,7 @@ class MapCubit extends Cubit<MapState> {
         state.hasError = false;
         state.message = result.message;
         state.rideRequestModel = result.result;
+        HelperConfig.sendNotification("Ride Notification Request", "You have a new ride request", result.result?.user?.deviceToken ?? "");
         objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
         state.positionLoading = CustomState.DONE;
       }
@@ -157,16 +160,19 @@ class MapCubit extends Cubit<MapState> {
 
   addMarker() async {
 
+    final pickUpIcons = await placeToMarker(state.dataFrom[0]['name'] ?? '', 0);
+    final destinationIcon = await placeToMarker(state.dataTo[0]['name'] ?? '', 0);
+
     state.dropOffMarker = Marker(
       markerId: MarkerId('drop_off_destination${UniqueKey()}'),
       position: LatLng(state.dataTo[0]['lat'] ?? 0.0 , state.dataTo[0]['long'] ?? 0.0),
-      icon:state.dropOffLocationIcon!
+      icon:destinationIcon
     );
 
     state.pickupMarker = Marker(
       markerId: MarkerId('pick_up_location${UniqueKey()}'),
       position: LatLng(state.dataFrom[0]['lat'] ?? 0.0, state.dataFrom[0]['long'] ?? 0.0),
-      icon:state.pickupLocationIcon!
+      icon:pickUpIcons
     );
 
     double miny = (state.dataFrom[0]['lat'] <= state.dataTo[0]['lat']) ? state.dataFrom[0]['lat'] : state.dataTo[0]['lat'];
@@ -232,7 +238,8 @@ class MapCubit extends Cubit<MapState> {
     emit(state.copy());
   }
 
-  updatePayment(payment) {
+  updatePayment(payment,cardID) {
+    state.cardID = cardID;
     state.paymentType = payment;
     emit(state.copy());
   }

@@ -157,9 +157,8 @@ class SelectDefaultCard extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-          width: double.infinity,
           decoration: BoxDecoration(
-              color: HelperColor.slightWhiteColor,
+              color: HelperColor.whiteColor,
               boxShadow: [
                 BoxShadow(
                     color: HelperColor.black.withOpacity(0.01),
@@ -171,12 +170,12 @@ class SelectDefaultCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(12)
           ),
           child: Padding(
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10, bottom: 10),
             child: Row(
               children: [
                 Container(
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                   decoration: const BoxDecoration(
                     image: DecorationImage(image: AssetImage('assets/images/wallet.png'), fit: BoxFit.cover),
 
@@ -221,7 +220,7 @@ class SelectDebitCardWidgetTwo extends StatelessWidget {
       child: Container(
           width: double.infinity,
           decoration: BoxDecoration(
-              color: HelperColor.slightWhiteColor,
+              color: HelperColor.whiteColor,
               boxShadow: [
                 BoxShadow(
                     color: HelperColor.black.withOpacity(0.01),

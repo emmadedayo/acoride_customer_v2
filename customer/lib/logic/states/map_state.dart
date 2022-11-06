@@ -32,7 +32,7 @@ class MapState {
   UserRideRequest? userRideRequest;
   UserModel? userModel;
   RideRequestModel? rideRequestModel;
-  String? paymentType;
+  String? paymentType,cardID;
   BitmapDescriptor? pickupLocationIcon, dropOffLocationIcon;
   Uint8List? markerIcon,startMarkerIcon;
 
@@ -50,13 +50,14 @@ class MapState {
     this.sourceLatLng, this.destinationLatLng, this.currentLatLng,this.dataFrom:const [], this.dataTo:const [],
     this.userModel,
     this.message,
+    this.cardID = '0',
     this.loadingView: true,
     this.loadingView2: false,
     this.amountLoading: false,
     this.amountLoadingResult:false,
     this.controller,
     this.hasError,
-    this.paymentType,
+    this.paymentType = "wallet",
     this.bottomSheetHeight = 0.5,
     this.bottomSheetHeight2 = 0.6,
     this.pickupLocationIcon = BitmapDescriptor.defaultMarker,
@@ -66,7 +67,7 @@ class MapState {
   MapState copy() {
     MapState copy = MapState(controller:controller,loadingView:loadingView,loadingView2:loadingView2,bottomSheetHeight2: bottomSheetHeight2,bottomSheetHeight: bottomSheetHeight,
         mapController: mapController, cameraPosition: cameraPosition, position: position, lastKnownPositions: lastKnownPositions,
-        dropOffMarker: dropOffMarker, positionLoading: positionLoading, sourceLatLng: sourceLatLng, destinationLatLng: destinationLatLng,
+        dropOffMarker: dropOffMarker, positionLoading: positionLoading, sourceLatLng: sourceLatLng, destinationLatLng: destinationLatLng, cardID: cardID,
         currentLatLng: currentLatLng, dataFrom: dataFrom, dataTo: dataTo,userModel: userModel,paymentType: paymentType,hasError: hasError,message: message,amountLoading: amountLoading,amountLoadingResult:amountLoadingResult);
 
     copy.polyLines.addAll(polyLines);

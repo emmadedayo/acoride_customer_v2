@@ -132,7 +132,7 @@ class DashBoardMapCubit extends Cubit<DashBoardMapState> {
   addMarker() async {
     Future.delayed(const Duration(milliseconds: 200), () async {
       state.mapController?.animateCamera(
-        CameraUpdate?.newCameraPosition(
+        CameraUpdate.newCameraPosition(
           CameraPosition(
             target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
             zoom: 17.0,
