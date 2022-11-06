@@ -1,10 +1,19 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/UserCard.dart';
+import 'package:acoride/logic/cubits/app_cubit.dart';
+import 'package:acoride/logic/cubits/card_cubit.dart';
+import 'package:acoride/logic/states/app_state.dart';
+import 'package:acoride/presentation/components/noWidgetFound.dart';
 import 'package:acoride/presentation/debit_card/component/debit_card_widget.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:intl/intl.dart';
+
+import '../../logic/states/card_state.dart';
 
 
 class SelectPaymentScreen extends StatefulWidget {
@@ -36,59 +45,93 @@ class SelectPaymentScreenState extends State<SelectPaymentScreen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          'Payment Method',
-          style: HelperStyle.textStyleTwo(
-              context, HelperColor.black, 20.sp, FontWeight.normal),
-        ),
-        elevation: 0,
-        automaticallyImplyLeading: true,
-        centerTitle: true,
-        iconTheme: const IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-      ),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SelectDefaultCard(
-                    onTap: () {
-                      Navigator.pop(context, "Wallet");
-                    },
-                    name: 'Default Wallet',
-                    amount: '20000',
-                  ),
-                  SizedBox(height: 10.h,),
-                  ListView.builder(
-                    itemCount: choices.length,
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (BuildContext context,int index){
-                      return SelectDebitCardWidgetTwo(
-                        userCard: choices[index],
-                        onTap: () {
-                          Navigator.pop(context, "Card");
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+    return BlocBuilder<AppCubit, AppState>(
+      builder: (context, appState) {
+        return BlocProvider<CardCubit>(
+          create: (context) => CardCubit(CardState(),),
+          child: BlocListener<CardCubit, CardState>(
+            listener: (cardContext, state) {
+              if (state.hasError == true) {
+                showToast(state.message,
+                    context: context,
+                    backgroundColor: Colors.red,
+                    axis: Axis.horizontal,
+                    alignment: Alignment.center,
+                    position: StyledToastPosition.top);
 
+                cardContext.read<CardCubit>().state.hasError = null;
+                cardContext.read<CardCubit>().state.message = null;
+              }
+            },
+            child: BlocBuilder<CardCubit, CardState>(
+              builder: (contextCubit, cadState) {
+
+                return Scaffold(
+                    backgroundColor: HelperColor.slightWhiteColor,
+                    appBar: AppBar(
+                      backgroundColor:HelperColor.slightWhiteColor,
+                      title: Text(
+                        'Select Payment Method',
+                        style: HelperStyle.textStyleTwo(
+                            context, HelperColor.black, 20.sp, FontWeight.normal),
+                      ),
+                      elevation: 0,
+                      automaticallyImplyLeading: true,
+                      centerTitle: true,
+                      iconTheme: const IconThemeData(
+                        color: Colors.black, //change your color here
+                      ),
+                    ),
+                    body: BlurryModalProgressHUD(
+                      inAsyncCall: cadState.isLoading,
+                      dismissible: true,
+                      child:SafeArea(
+                        child: ListView(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  SelectDefaultCard(
+                                    onTap: () {
+
+                                      Navigator.pop(context, {"name": "wallet", "card_id": 0});
+                                    },
+                                    name: 'Default Wallet',
+                                    amount: '20000',
+                                  ),
+                                  SizedBox(height: 10.h,),
+                                  cadState.userCard.isEmpty ?
+                                  const NotFoundLottie():
+                                  ListView.builder(
+                                    itemCount: cadState.userCard.length,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (BuildContext context,int index){
+                                      return SelectDebitCardWidgetTwo(
+                                        userCard: cadState.userCard[index],
+                                        onTap: (){
+                                          Navigator.pop(context, {"name": "card", "card_id": cadState.userCard[index].id.toString()});
+                                        },
+                                      );
+                                    },
+                                  ),
+                                  SizedBox(height: 30.h,),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                );
+              },
+            ),
+          ),
+        );
+      },
+    );
   }
 }
 

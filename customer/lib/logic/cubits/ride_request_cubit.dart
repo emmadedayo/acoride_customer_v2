@@ -51,7 +51,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
           state.rideRequestModel?.passengerDestinationLongitude.toString() ?? "",
         );
         state.mapController?.animateCamera(
-          CameraUpdate?.newCameraPosition(
+          CameraUpdate.newCameraPosition(
             CameraPosition(
               target: LatLng(state.position?.latitude ?? 0.0, state.position?.longitude ?? 0.0),
               zoom: 17.0,

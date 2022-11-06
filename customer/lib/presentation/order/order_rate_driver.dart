@@ -195,7 +195,7 @@ class _OrderRateDriverState extends State<OrderRateDriver> {
                                           borderSide: const BorderSide(
                                               color: HelperColor.primaryLightColor, width: 1.0),
                                         ),
-                                        // contentPadding: const EdgeInsets.all(5),
+                                        contentPadding: const EdgeInsets.all(5),
                                       ),
                                     ),
                                     const SizedBox(height: 20,),

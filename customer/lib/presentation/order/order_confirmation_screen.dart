@@ -166,7 +166,8 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           ),
                         ).then((value) => {
                         if(value != null){
-                            mapContext.read<MapCubit>().updatePayment(value),
+                            debugPrint("value is ${value['name']} ${value['card_id']}"),
+                            mapContext.read<MapCubit>().updatePayment(value['name'],value['card_id']),
                         }});
                       },
                       onContinue: (){

@@ -10,6 +10,7 @@ import 'package:google_geocoding/google_geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 import '../../core/helper/helper_config.dart';
+import '../../map_component/place_to_marker.dart';
 
 
 class RateCubit extends Cubit<RateState> {
@@ -84,16 +85,19 @@ class RateCubit extends Cubit<RateState> {
 
 
   addMarker() async {
+    final pickUpIcons = await placeToMarker(state.rideRequestModel?.passengerPickupAddress ?? '', 0);
+    final destinationIcon = await placeToMarker(state.rideRequestModel?.passengerDestinationAddress ?? '', 0);
+
     state.dropOffMarker = Marker(
       markerId: MarkerId('drop_off_destination${UniqueKey()}'),
       position: LatLng(state.rideRequestModel?.passengerDestinationLatitude ?? 0.0 , state.rideRequestModel?.passengerDestinationLongitude ?? 0.0),
-      icon:BitmapDescriptor.defaultMarker,
+      icon:destinationIcon,
     );
 
     state.pickupMarker = Marker(
         markerId: MarkerId('pick_up_location${UniqueKey()}'),
         position: LatLng(state.rideRequestModel?.passengerPickupLatitude ?? 0.0, state.rideRequestModel?.passengerPickupLongitude ?? 0.0),
-        icon:BitmapDescriptor.defaultMarker
+        icon:pickUpIcons
     );
 
     if (state.position != null) {
