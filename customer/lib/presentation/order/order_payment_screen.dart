@@ -96,7 +96,7 @@ class SelectPaymentScreenState extends State<SelectPaymentScreen> {
                                   SelectDefaultCard(
                                     onTap: () {
 
-                                      Navigator.pop(context, {"name": "wallet", "card_id": 0});
+                                      Navigator.pop(context, {"name": "wallet", "card_id": '0'});
                                     },
                                     name: 'Default Wallet',
                                     amount: '20000',

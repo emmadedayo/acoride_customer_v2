@@ -27,6 +27,7 @@ class DashBoardCubit extends Cubit<DashBoardState> {
       if (result.errorCode != 400) {
         state.userModel = result.result?.user;
         state.dashBoardModel = result.result;
+        state.rideRequestModel = result.result?.rideRequest;
         state.transactions = result.result?.transactions ?? [];
         state.advert = result.result?.advertisements ?? [];
       }

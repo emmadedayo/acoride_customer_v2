@@ -1,18 +1,21 @@
 import 'package:acoride/data/model/TransactionModel.dart';
+import 'package:acoride/data/model/ride_request_model.dart';
 
 import 'UserModel.dart';
 import 'advert_model.dart';
 
 class DashBoardModel {
   UserModel? user;
+  RideRequestModel? rideRequest;
   List<AdvertModel>? advertisements;
   List<TransactionModel>? transactions;
   int? notification;
 
-  DashBoardModel({this.user, this.advertisements, this.notification, this.transactions});
+  DashBoardModel({this.user, this.advertisements, this.notification, this.transactions,this.rideRequest});
 
   DashBoardModel.fromMap(json) {
     user = json['user'] != null ? UserModel.fromMap(json['user']) : null;
+    rideRequest = json['ride'] != null ? RideRequestModel.fromMap(json['ride']) : null;
     if (json['advertisements'] != null) {
       advertisements = <AdvertModel>[];
       json['advertisements'].forEach((v) {
@@ -30,6 +33,11 @@ class DashBoardModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
+    final rideRequest = this.rideRequest;
+    if (rideRequest != null) {
+      data['ride'] = rideRequest.toMap();
+    }
+
     final user = this.user;
     if (user != null) {
       data['user'] = user.toMap();

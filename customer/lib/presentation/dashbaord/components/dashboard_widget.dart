@@ -2,6 +2,7 @@ import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/logic/states/dashboard_state.dart';
+import 'package:acoride/presentation/order/order_trip_screen.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -263,6 +264,16 @@ class DashboardFullState extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
+                  appState.dashBoardModel?.user?.rideID != '0'?
+                  DashboardShimmerMenuWidget(
+                    context: context,
+                    title: 'Continue Ride',
+                    subTitle: 'Click to continue your ride',
+                    icons: LineAwesomeIcons.motorcycle,
+                    onTap: (){
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: appState.rideRequestModel!),), (route) => false);
+                    },
+                  ):
                   DashboardMenuWidget(
                     context: context,
                     title: 'Order Ride',
@@ -367,7 +378,7 @@ class DashboardFullState extends StatelessWidget {
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen()));
                 },
                 child: Text('View All',
-                  style: HelperStyle.textStyleTwo(context, HelperColor.secondaryColor, 16.sp, FontWeight.w500),
+                  style: HelperStyle.textStyleTwo(context, HelperColor.primaryColor, 10.sp, FontWeight.bold),
                 ),
               ),
             ],
