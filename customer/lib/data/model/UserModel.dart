@@ -35,6 +35,8 @@ class UserModel {
   bool? userHasLoan;
   String? deviceId;
   String? deviceToken;
+  String? rideID;
+  String? rideStatus;
   bool? hasPin;
   int? bonus;
   int? rate;
@@ -61,6 +63,8 @@ class UserModel {
     this.totalRide = 0,
     this.kyc,
     this.userBank,
+    this.rideID,
+    this.rideStatus,
   });
 
   UserModel.fromMap(Map json) {
@@ -79,6 +83,8 @@ class UserModel {
     hasPin = json['has_pin'] ?? false;
     bonus = json['bonus']  ?? 0;
     rate = json['rate']  ?? 0;
+    rideID = json['ride_id']  ?? 0;
+    rideStatus = json['ride_status']  ?? 0;
     totalRide = json['total_ride']  ?? 0;
     kyc = json['kyc'] != null ? Kyc.fromMap(json['kyc']) : null;
     userBank = json['userbank'] != null ? UserBank.fromMap(json['userbank']) : null;
@@ -102,6 +108,8 @@ class UserModel {
     data['has_pin'] = hasPin;
     data['bonus'] = bonus;
     data['rate'] = rate;
+    data['ride_status'] = rideStatus;
+    data['ride_id'] = rideID;
     data['total_ride'] = totalRide;
     if (kyc != null) {
       data['kyc'] = kyc!.toMap();

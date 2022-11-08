@@ -3,7 +3,6 @@ import 'package:acoride/core/helper/helper_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
-
 import '../../../core/constant/dashboard_constant.dart';
 import '../../../logic/states/dashboard_state.dart';
 import '../../router/router_constant.dart';
@@ -63,6 +62,70 @@ class DashboardMenuWidget extends StatelessWidget {
               Text(
                 subTitle,
                 style: HelperStyle.textStyle(context, HelperColor.black, 11, FontWeight.normal),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class DashboardShimmerMenuWidget extends StatelessWidget {
+  const DashboardShimmerMenuWidget({
+    Key? key,
+    required this.title,
+    required this.subTitle,
+    required this.icons,
+    this.context,
+    this.onTap,
+  }) : super(key: key);
+
+
+  final BuildContext? context;
+  final String title;
+  final String subTitle;
+  final IconData icons;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: const BoxDecoration(
+            color: HelperColor.secondaryColor,
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                      color: HelperColor.primaryColor,
+                      borderRadius: BorderRadius.circular(12)
+                  ),
+                  child: Icon(icons,color: HelperColor.whiteColor,size: 20,),
+                ),
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              Text(
+                title,
+                style: HelperStyle.textStyle(context, HelperColor.whiteColor, 18, FontWeight.normal),
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              Text(
+                subTitle,
+                style: HelperStyle.textStyle(context, HelperColor.whiteColor, 11, FontWeight.bold),
               ),
             ],
           ),
