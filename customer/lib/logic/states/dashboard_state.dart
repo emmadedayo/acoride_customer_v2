@@ -13,6 +13,7 @@ class DashBoardState {
   DashBoardModel? dashBoardModel;
   List<TransactionModel> transactions = [];
   List<AdvertModel> advert = [];
+  List<RideRequestModel> rideHistory = [];
 
   DashBoardState({this.userLoading=false, this.rideRequestModel, this.isLoading = false});
 
@@ -21,6 +22,7 @@ class DashBoardState {
     copy.userModel = userModel;
     copy.dashBoardModel = dashBoardModel;
     copy.transactions = transactions;
+    copy.rideHistory = rideHistory;
     copy.advert = advert;
     return copy;
   }

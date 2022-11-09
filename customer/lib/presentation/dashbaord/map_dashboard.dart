@@ -1,3 +1,5 @@
+import 'package:acoride/core/helper/helper_color.dart';
+import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/utils/blurry_modal_profress_hud.dart';
@@ -15,7 +17,13 @@ import 'mapcomponents/panelwidget.dart';
 
 
 class MapMainHomePage extends StatefulWidget {
-  const MapMainHomePage({Key? key, }) : super(key: key);
+  const MapMainHomePage({
+    Key? key,
+    required this.rideHistory,
+  }) : super(key: key);
+
+  final List<RideRequestModel> rideHistory;
+
   @override
   State<MapMainHomePage> createState() => _MapMainHomePageState();
 }
@@ -102,25 +110,18 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: [
-                                          InkWell(
-                                            onTap: () {
+                                          MaterialButton(
+                                            onPressed: () {
                                               Navigator.pop(context);
                                             },
-                                            child: Container(
-                                              margin: EdgeInsets.only(left: 20.w),
-                                              child: const Icon(
-                                                Iconsax.arrow_left_2,
-                                                color: Colors.black,
-                                                size: 25,
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            margin: EdgeInsets.only(right: 20.w),
+                                            elevation: 2,
+                                            color: Colors.white,
+                                            padding: const EdgeInsets.all(15),
+                                            shape: const CircleBorder(),
                                             child: const Icon(
-                                              Iconsax.share,
-                                              color: Colors.black,
-                                              size: 25,
+                                              Icons.arrow_back,
+                                              color: HelperColor.black,
+                                              size: 24,
                                             ),
                                           ),
                                         ],
@@ -134,6 +135,7 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
                                   scrollController: scrollController,
                                   panelController: panelController,
                                   dashBoardState: dashboardState,
+                                  rideHistory: widget.rideHistory,
                                 );
                               }
                           )

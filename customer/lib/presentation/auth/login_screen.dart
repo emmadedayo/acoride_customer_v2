@@ -184,8 +184,8 @@ class LoginScreenControllerState extends State<LoginScreenController> {
                                         containerHeight: 47.h,
                                         containerWidth: 341.w,
                                         buttonText: "Login",
-                                        color: HelperColor.black,
-                                        textColor:HelperColor.primaryColor,
+                                        color: HelperColor.primaryColor,
+                                        textColor:HelperColor.slightWhiteColor,
                                         onTap: (){
                                           FocusManager.instance.primaryFocus?.unfocus();
                                           if (_formKey.currentState!.validate()) {

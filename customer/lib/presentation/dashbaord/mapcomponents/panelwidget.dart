@@ -1,5 +1,6 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
+import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/states/dashboard_map_state.dart';
 import 'package:acoride/presentation/dashbaord/mapcomponents/panel_list_view.dart';
 import 'package:flutter/foundation.dart';
@@ -16,9 +17,10 @@ class MapSearchPanelWidget extends StatelessWidget {
   final DashBoardMapState? dashBoardState;
   final ScrollController scrollController;
   final PanelController? panelController;
+  final List<RideRequestModel> rideHistory;
   final VoidCallback? onSearch,onSelect;
 
-  const MapSearchPanelWidget({Key? key, required this.scrollController, this.panelController, this.onSearch, this.onSelect,required this.dashBoardState})
+  const MapSearchPanelWidget({Key? key, required this.rideHistory,required this.scrollController, this.panelController, this.onSearch, this.onSelect,required this.dashBoardState})
       : super(key: key);
 
   @override
@@ -105,32 +107,50 @@ class MapSearchPanelWidget extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              panelController!.isPanelOpen?
-              PanelListView(
-                dashBoardState: dashBoardState,
-              ) : Padding(
+              Padding(
                 padding: const EdgeInsets.only(left: 20,right: 20,top: 10,bottom: 5).r,
-                child: GridView.builder(
-                  itemCount: 3,
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  primary: false,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio:0.9,mainAxisSpacing: 8,crossAxisSpacing: 10),
-                  itemBuilder: (context, index) {
-                    return Column(
-                      children: [
-                        const Icon(LineAwesomeIcons.history,size: 20,color: HelperColor.primaryColor,),
-                        const SizedBox(height: 5,),
-                        Text(historyModel[index].text ?? "",
-                          style: HelperStyle.textStyle(context, Colors.black, 11.sp, FontWeight.w400),
-                          textAlign: TextAlign.center,
-                          maxLines: 2,
+                child:LayoutBuilder(
+                  builder: (context, constraints) {
+                    if(rideHistory.isEmpty){
+                      return Container(
+                        height: 200,
+                        child: Center(
+                          child: Text(
+                            "No ride history",
+                            style: HelperStyle.textStyle(context, Colors.black, 18.sp, FontWeight.w400),
+                          ),
                         ),
-                      ],
-                    );
+                      );
+                    }else{
+                      return GridView.builder(
+                        itemCount:rideHistory.length,
+                        physics: const NeverScrollableScrollPhysics(),
+                        shrinkWrap: true,
+                        primary: false,
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,childAspectRatio:1.8,mainAxisSpacing: 8,crossAxisSpacing: 10),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: (){
+
+                            },
+                            child: Column(
+                              children: [
+                                const Icon(LineAwesomeIcons.history,size: 20,color: HelperColor.primaryColor,),
+                                const SizedBox(height: 5,),
+                                Text(rideHistory[index].passengerDestinationAddress ?? "",
+                                  style: HelperStyle.textStyle(context, Colors.black, 11.sp, FontWeight.w400),
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
                   },
                 ),
-              )
+                )
             ],
           )
       )

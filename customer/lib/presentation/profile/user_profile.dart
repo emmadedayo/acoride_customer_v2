@@ -318,7 +318,9 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                                                       textColor: Colors.white,
                                                       radius: 20,
                                                       onTap: () async {
-                                                        appContext.read<AppCubit>().logout();
+                                                        await appContext.read<AppCubit>().logout().then((value) => {
+                                                          Navigator.of(context).pushNamedAndRemoveUntil(baseAuthScreen, (route) => false)
+                                                        });
                                                       },
 
                                                     ),
