@@ -23,6 +23,7 @@ class VerifyPhoneCubit extends Cubit<VerifyPhoneState>{
     } else {
       state.hasError = false;
       state.isLoading = false;
+      state.message = "Account verification successful";
       state.user = result.result;
     }
     state.isLoading = false;
@@ -33,6 +34,25 @@ class VerifyPhoneCubit extends Cubit<VerifyPhoneState>{
     state.hasError = false;
     state.isLoading = false;
     state.message = '';
+    emit(state.copy());
+  }
+
+  Future<void> resendOtp(phoneNumber) async {
+    state.isLoading = true;
+    emit(state.copy());
+    var result = await userRepository.resendOtp({
+      'phone_number': phoneNumber,
+    });
+    if (result?.errorCode == 400) {
+      state.message = result?.message;
+      state.hasError = true;
+      state.isLoading = false;
+    } else {
+      state.hasError = false;
+      state.isLoading = false;
+      state.message = result?.message;
+    }
+    state.isLoading = false;
     emit(state.copy());
   }
 

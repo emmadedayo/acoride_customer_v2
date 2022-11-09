@@ -181,10 +181,10 @@ class DashboardAppState extends StatelessWidget {
 class DashboardFullState extends StatelessWidget {
   const DashboardFullState({
     Key? key,
-    required this.appState,
+    required this.dashBoardState,
   }) : super(key: key);
 
-  final DashBoardState appState;
+  final DashBoardState dashBoardState;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -205,7 +205,7 @@ class DashboardFullState extends StatelessWidget {
                         style: HelperStyle.textStyleTwo(context, HelperColor.black.withOpacity(0.7), 16.sp, FontWeight.w500,letterSpacing: -0.5)
                     ),
 
-                    Text(appState.dashBoardModel?.user?.name ?? "",
+                    Text(dashBoardState.dashBoardModel?.user?.name ?? "",
                       style: HelperStyle.textStyleTwo(context, Colors.black, 16.sp, FontWeight.w500),
                     ),
                   ],
@@ -213,7 +213,7 @@ class DashboardFullState extends StatelessWidget {
                 const Spacer(),
                 GestureDetector(
                   child: Badge(
-                      badgeContent:Text('${appState.dashBoardModel?.notification}',style:  HelperStyle.textStyleTwo(context, HelperColor.fillColor, 8.sp, FontWeight.normal),),
+                      badgeContent:Text('${dashBoardState.dashBoardModel?.notification}',style:  HelperStyle.textStyleTwo(context, HelperColor.fillColor, 8.sp, FontWeight.normal),),
                       child:const Icon(Iconsax.notification1,color: Color(0xff5A5A5A),size: 23,)
                   ),
                   onTap: (){
@@ -227,7 +227,7 @@ class DashboardFullState extends StatelessWidget {
           padding: const EdgeInsets.only(left: 13,right: 13).r,
           child: CarouselSlider(
             options: CarouselOptions(height: 130.0.h,autoPlay: true,autoPlayInterval: const Duration(seconds: 6),viewportFraction:1,),
-            items: appState.advert.map((i) {
+            items: dashBoardState.advert.map((i) {
               return Builder(
                 builder: (BuildContext context) {
                   return GestureDetector(
@@ -264,14 +264,14 @@ class DashboardFullState extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  appState.dashBoardModel?.user?.rideID != '0'?
+                  dashBoardState.dashBoardModel?.user?.rideID != '0'?
                   DashboardShimmerMenuWidget(
                     context: context,
                     title: 'Continue Ride',
                     subTitle: 'Click to continue your ride',
                     icons: LineAwesomeIcons.motorcycle,
                     onTap: (){
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: appState.rideRequestModel!),), (route) => false);
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: dashBoardState.rideRequestModel!),), (route) => false);
                     },
                   ):
                   DashboardMenuWidget(
@@ -316,7 +316,7 @@ class DashboardFullState extends StatelessWidget {
                               )),
                           context: context,
                           builder: (context) {
-                            return DashBoardAirtimeWidget(dashBoardState: appState,);
+                            return DashBoardAirtimeWidget(dashBoardState: dashBoardState,);
                           },
                         ).then((value){
                           if(value.toString().isNotEmpty || value.toString()!=null){
@@ -345,7 +345,7 @@ class DashboardFullState extends StatelessWidget {
                               )),
                           context: context,
                           builder: (context) {
-                            return DashBoardDataWidget(dashBoardState: appState,);
+                            return DashBoardDataWidget(dashBoardState: dashBoardState,);
                           },
                         ).then((value){
                           if(value.toString().isNotEmpty || value.toString()!=null){
@@ -387,15 +387,15 @@ class DashboardFullState extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           //margin: EdgeInsets.only(left: 5.0),
-          child: appState.transactions.isEmpty?
+          child: dashBoardState.transactions.isEmpty?
           const NotFoundLottie():
           ListView.builder(
-            itemCount:appState.transactions.length,
+            itemCount:dashBoardState.transactions.length,
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (BuildContext context,int index){
               return TransactionWalletWidget(
-                transactionModel: appState.transactions[index],
+                transactionModel: dashBoardState.transactions[index],
               );
             },
           )

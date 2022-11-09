@@ -191,9 +191,9 @@ class DashBoardAirtimeWidget extends StatelessWidget {
                           ),
                           onTap: (){
                             if(index == 0) {
-                              Navigator.of(context).pushNamed(airtimeScreen);
+                              Navigator.of(context).pushNamed(airtimeScreen,arguments: {"walletBalance":dashBoardState.userModel?.walletBalance.toString()});
                             }else if(index == 1) {
-                              Navigator.of(context).pushNamed(dataScreen);
+                              Navigator.of(context).pushNamed(dataScreen,arguments: {"walletBalance":dashBoardState.userModel?.walletBalance.toString()});
                             }else{
 
                             }
@@ -267,9 +267,9 @@ class DashBoardDataWidget extends StatelessWidget {
                           ),
                           onTap: (){
                             if(index == 0) {
-                              Navigator.of(context).pushNamed(cableScreen);
+                              Navigator.of(context).pushNamed(cableScreen,arguments: {"walletBalance":dashBoardState.userModel?.walletBalance.toString()});
                             }else if(index == 1) {
-                              Navigator.of(context).pushNamed(electricityScreen);
+                              Navigator.of(context).pushNamed(electricityScreen,arguments: {"walletBalance":dashBoardState.userModel?.walletBalance.toString()});
                             }else {
 
                             }

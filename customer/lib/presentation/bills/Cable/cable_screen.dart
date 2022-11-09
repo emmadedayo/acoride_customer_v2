@@ -19,7 +19,12 @@ import '../../../core/helper/helper_config.dart';
 import 'component/cable_components.dart';
 
 class CableScreenIndex extends StatefulWidget {
-  const CableScreenIndex({Key? key}) : super(key: key);
+  const CableScreenIndex({
+    Key? key,
+    required this.walletBalance,
+  }) : super(key: key);
+
+  final String walletBalance;
 
   @override
   CableScreenIndexState createState() => CableScreenIndexState();
@@ -52,7 +57,7 @@ class CableScreenIndexState extends State<CableScreenIndex> {
                   context.read<BillsCubit>().state.message = null;
                 }else if(state.hasError == false){
                   Navigator.of(context).pushNamedAndRemoveUntil(successScreen, (route) => false,
-                      arguments: {'message': 'Your ${emeState.selectedBill?.name} bill was successfully paid'}
+                      arguments: {'message': 'Your airtime transaction of ${HelperConfig.currencyFormat(state.amount.text)} was successful'}
                   );
                 }
 
@@ -67,6 +72,7 @@ class CableScreenIndexState extends State<CableScreenIndex> {
                       return CableConfirmation(
                         billState: emeState,
                         onTap: (){
+                          Navigator.pop(context);
                           contextCubit.read<BillsCubit>().payBill();
                         },
                         onCancel: (){
@@ -120,7 +126,7 @@ class CableScreenIndexState extends State<CableScreenIndex> {
                                       children: [
                                         Text("Balance",style: HelperStyle.textStyle(context,HelperColor.slightWhiteColor,11.sp,FontWeight.normal)),
                                         const SizedBox(height: 5,),
-                                        Text('${HelperConfig.currencyFormat(context.read<AppCubit>().state.user?.walletBalance.toString() ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
+                                        Text('${HelperConfig.currencyFormat(widget.walletBalance ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
                                       ],
                                     ),
                                   ],

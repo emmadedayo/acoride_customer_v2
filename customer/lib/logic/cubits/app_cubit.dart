@@ -79,10 +79,10 @@ class AppCubit extends Cubit<AppState> {
   }
 
   Future logout() async {
-    repository.logout();
-    state.user = null;
+    await repository.logout();
+   // state.user = null;
+    //emit(state.copy());
   }
-
 
   ///############################################### NOTIFICATION #####################################################
 

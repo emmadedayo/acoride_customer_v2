@@ -27,6 +27,13 @@ class UserProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> resendOtp(Map<String,dynamic> map) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.resetAccount,
+        map, method: HttpMethod.POST);
+
+    return RestApi.getMapFromResponse(response);
+  }
+
   Future<Map> resetPassword(Map<String,dynamic> map) async {
     Response? response = await RestApi.getDataFromServer(ApiUrl.resetAccount,
         map, method: HttpMethod.POST);
@@ -124,6 +131,7 @@ class UserProvider{
   Future logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString(PREF_CURRENT_USER, json.encode({}));
+    await prefs.setString(USER_TOKEN, '');
   }
 
 }

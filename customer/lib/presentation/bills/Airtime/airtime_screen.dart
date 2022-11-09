@@ -1,6 +1,7 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
+import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/logic/cubits/airtime_cubit.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/airtime_state.dart';
@@ -15,11 +16,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
+import '../../../logic/states/dashboard_state.dart';
 import 'components/airtime_component.dart';
 
 
 class AirtimeScreenIndex extends StatefulWidget {
-  const AirtimeScreenIndex({Key? key}) : super(key: key);
+  const AirtimeScreenIndex({
+    Key? key,
+    required this.walletBalance,
+  }) : super(key: key);
+
+  final String walletBalance;
 
   @override
   AirtimeScreenIndexState createState() => AirtimeScreenIndexState();
@@ -57,7 +64,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
                   context.read<AirtimeCubit>().state.hasError = null;
                   context.read<AirtimeCubit>().state.message = null;
                   Navigator.of(context).pushNamedAndRemoveUntil(successScreen, (route) => false,
-                      arguments: {'message': 'Your airtime transaction of ${state.amount.text} was successful'}
+                      arguments: {'message': 'Your airtime transaction of ${HelperConfig.currencyFormat(state.amount.text)} was successful'}
                   );
                 }
               },
@@ -107,7 +114,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
                                               children: [
                                                 Text("Balance",style: HelperStyle.textStyle(context,HelperColor.slightWhiteColor,11.sp,FontWeight.normal)),
                                                 const SizedBox(height: 5,),
-                                                Text('${HelperConfig.currencyFormat(context.read<AppCubit>().state.user?.walletBalance.toString() ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
+                                                Text('${HelperConfig.currencyFormat(widget.walletBalance ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
                                               ],
                                             ),
                                           ],
@@ -226,6 +233,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
                                                       return AirtimeConfirmation(
                                                         airtimeState: emeState,
                                                         onTap: (){
+                                                          Navigator.pop(context);
                                                           contextCubit.read<AirtimeCubit>().payBill();
                                                         },
                                                         onCancel: (){

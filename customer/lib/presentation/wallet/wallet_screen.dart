@@ -163,7 +163,7 @@ class WalletScreenState extends State<WalletScreen> {
                                 emeState.isLoading?
                                 const Center(child: LoadingWidget(),):
                                 emeState.transactions.isEmpty?
-                                const NotFoundCardTwo(text: 'No transaction',):
+                                const NotFoundLottie():
                                 ListView.builder(
                                   itemCount:(emeState.transactions.length > 10 ? 10 : emeState.transactions.length),
                                   shrinkWrap: true,

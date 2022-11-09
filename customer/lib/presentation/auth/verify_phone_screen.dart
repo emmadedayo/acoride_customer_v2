@@ -102,6 +102,15 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                       position: StyledToastPosition.top);
                   context.read<VerifyPhoneCubit>().state.hasError = null;
                   context.read<VerifyPhoneCubit>().state.message = null;
+                }else if(state.hasError==false){
+                  showToast(state.message,
+                      context: context,
+                      backgroundColor: Colors.green,
+                      axis: Axis.horizontal,
+                      alignment: Alignment.center,
+                      position: StyledToastPosition.top);
+                  context.read<VerifyPhoneCubit>().state.hasError = null;
+                  context.read<VerifyPhoneCubit>().state.message = null;
                 }
               },
               child: PlatformScaffold(
@@ -172,19 +181,24 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                                     context, HelperColor.black, 15.sp, FontWeight.normal),
                               ),
                               SizedBox(height: 11.0.h),
-                              Text(
-                                'Resend',
-                                style: HelperStyle.textStyleTwo(
-                                    context, HelperColor.primaryColor, 15.sp, FontWeight.normal),
+                              InkWell(
+                                onTap: () {
+                                  regContext.read<VerifyPhoneCubit>().resendOtp(widget.phone);
+                                },
+                                child: Text(
+                                  'Resend',
+                                  style: HelperStyle.textStyleTwo(
+                                      context, HelperColor.primaryColor, 15.sp, FontWeight.normal),
+                                ),
                               ),
                               SizedBox(height: 20.0.h),
                               ButtonWidget(
                                 buttonTextSize: 18,
-                                containerHeight: 47.h,
+                                containerHeight: 45.h,
                                 containerWidth: 341.w,
                                 buttonText: "Verify Me",
-                                color: HelperColor.black,
-                                textColor:HelperColor.primaryColor,
+                                color: HelperColor.primaryColor,
+                                textColor:HelperColor.slightWhiteColor,
                                 onTap: (){
                                   if(regState.otpController.text.length == 4) {
                                     regContext.read<VerifyPhoneCubit>().verifyAccount(widget.phone);
