@@ -20,7 +20,12 @@ import 'component/list_electricity.dart';
 
 
 class ElectricityScreen extends StatefulWidget {
-  const ElectricityScreen({Key? key}) : super(key: key);
+  const ElectricityScreen({
+    Key? key,
+    required this.walletBalance,
+  }) : super(key: key);
+
+  final String walletBalance;
 
   @override
   ElectricityScreenState createState() => ElectricityScreenState();
@@ -53,7 +58,7 @@ class ElectricityScreenState extends State<ElectricityScreen> {
                     context.read<BillsCubit>().state.message = null;
                   }else if(state.hasError == false){
                     Navigator.of(context).pushNamedAndRemoveUntil(successScreen, (route) => false,
-                        arguments: {'message': 'Your ${emeState.selectedBill?.name} bill was successfully paid'}
+                        arguments: {'message': 'Your airtime transaction of ${HelperConfig.currencyFormat(state.amount.text)} was successful'}
                     );
                   }
 
@@ -68,6 +73,7 @@ class ElectricityScreenState extends State<ElectricityScreen> {
                         return ElectricityComponent(
                           billState: emeState,
                           onTap: (){
+                            Navigator.pop(context);
                             contextCubit.read<BillsCubit>().payBill();
                           },
                           onCancel: (){
@@ -131,7 +137,7 @@ class ElectricityScreenState extends State<ElectricityScreen> {
                                         children: [
                                           Text("Balance",style: HelperStyle.textStyle(context,HelperColor.slightWhiteColor,11.sp,FontWeight.normal)),
                                           const SizedBox(height: 5,),
-                                          Text('${HelperConfig.currencyFormat(context.read<AppCubit>().state.user?.walletBalance.toString() ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
+                                          Text('${HelperConfig.currencyFormat(widget.walletBalance ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
                                         ],
                                       ),
                                     ],

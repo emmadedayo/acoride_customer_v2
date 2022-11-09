@@ -32,7 +32,6 @@ class UserRepository{
 
   Future<ResultItem<UserModel?>> verifyAccount(maps) async {
     UserModel? newUser;
-
     Map map = await provider.verifyAccount(maps);
     int? statusCode = map[FIELD_STATUS_CODE];
     String message = map[FIELD_MESSAGE]?? '';
@@ -47,6 +46,21 @@ class UserRepository{
       }
     }
     return ResultItem<UserModel?>(result: newUser, errorCode: statusCode, message: message);
+  }
+
+  Future<ResultItem?> resendOtp(maps) async {
+    print("==============================> $maps");
+    Map map = await provider.resendOtp(maps).timeout(const Duration(seconds: 5));
+    try {
+      int? statusCode = map[FIELD_STATUS_CODE];
+      String message = map[FIELD_MESSAGE]?? '';
+      return ResultItem(result: null, errorCode: statusCode, message: message);
+
+    } on TimeoutException catch (e) {
+      return ResultItem(result: null, errorCode: 404, message: e.toString());
+    } catch(err) {
+      return ResultItem(result: null, errorCode: 404, message: err.toString());
+    }
   }
 
   Future<ResultItem?> resetAccount(maps) async {

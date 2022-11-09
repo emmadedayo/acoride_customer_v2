@@ -61,7 +61,7 @@ class _MainHomePageState extends State<MainHomePage> {
                                     if(dashboardState.userLoading){
                                       return DashboardAppState(appState: appState,);
                                     }else{
-                                      return DashboardFullState(appState: dashboardState,);
+                                      return DashboardFullState(dashBoardState: dashboardState,);
                                     }
                                   }
                               )

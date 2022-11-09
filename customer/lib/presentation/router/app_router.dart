@@ -83,7 +83,7 @@ class AppRouter {
         );
       case airtimeScreen:
         return MaterialPageRoute(
-            builder: (_) => const AirtimeScreenIndex()
+            builder: (_) =>AirtimeScreenIndex(walletBalance: arguments!['walletBalance'],)
         );
       case successScreen:
         return MaterialPageRoute(
@@ -91,15 +91,15 @@ class AppRouter {
         );
       case dataScreen:
         return MaterialPageRoute(
-            builder: (_) => const DataScreenIndex()
+            builder: (_) => DataScreenIndex(walletBalance: arguments!['walletBalance'],)
         );
       case cableScreen:
         return MaterialPageRoute(
-            builder: (_) => const CableScreenIndex()
+            builder: (_) => CableScreenIndex(walletBalance:arguments!['walletBalance'],)
         );
       case electricityScreen:
         return MaterialPageRoute(
-            builder: (_) => const ElectricityScreen()
+            builder: (_) => ElectricityScreen(walletBalance:arguments!['walletBalance'],)
         );
       case profilePage:
         return MaterialPageRoute(

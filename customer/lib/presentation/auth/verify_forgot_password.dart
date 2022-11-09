@@ -164,8 +164,8 @@ class VerifyForgotPasswordState extends State<VerifyForgotPassword> {
                                   containerHeight: 47.h,
                                   containerWidth: 341.w,
                                   buttonText: "Verify Me",
-                                  color: HelperColor.black,
-                                  textColor:HelperColor.primaryColor,
+                                  color: HelperColor.primaryColor,
+                                  textColor:HelperColor.slightWhiteColor,
                                   onTap: (){
                                     if(regState.otpController.text.length == 4) {
                                       regContext.read<ForgotPasswordCubit>().verifyResetAccountOtp(widget.phone);

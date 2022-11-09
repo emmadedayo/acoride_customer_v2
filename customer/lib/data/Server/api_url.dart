@@ -6,6 +6,7 @@ class ApiUrl {
   static const String userRegistration = '${BASE_URL}api/v1/customer/registration';
   static const String verifyRegistration = '${BASE_URL}api/verify_phone';
   static const String resetAccount = '${BASE_URL}api/reset_account';
+  static const String resendOtp = '${BASE_URL}api/reset_account';
   static const String verifyResetAccount = '${BASE_URL}api/verify_reset_account';
   static const String changePassword = '${BASE_URL}api/change_password';
   static const String login = '${BASE_URL}api/v1/customer/login';

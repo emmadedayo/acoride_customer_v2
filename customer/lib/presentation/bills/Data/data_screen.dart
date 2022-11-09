@@ -20,7 +20,12 @@ import 'components/data_variation_screen.dart';
 
 
 class DataScreenIndex extends StatefulWidget {
-  const DataScreenIndex({Key? key}) : super(key: key);
+  const DataScreenIndex({
+    Key? key,
+    required this.walletBalance,
+  }) : super(key: key);
+
+  final String walletBalance;
 
   @override
   DataScreenIndexState createState() => DataScreenIndexState();
@@ -57,7 +62,7 @@ class DataScreenIndexState extends State<DataScreenIndex> {
             context.read<BillsCubit>().state.hasError = null;
             context.read<BillsCubit>().state.message = null;
             Navigator.of(context).pushNamedAndRemoveUntil(successScreen, (route) => false,
-                arguments: {'message': 'Your data transaction of ${state.amount.text} was successful'}
+                arguments: {'message': 'Your airtime transaction of ${HelperConfig.currencyFormat(state.amount.text)} was successful'}
             );
           }
         },
@@ -107,7 +112,7 @@ class DataScreenIndexState extends State<DataScreenIndex> {
                                         children: [
                                           Text("Balance",style: HelperStyle.textStyle(context,HelperColor.slightWhiteColor,11.sp,FontWeight.normal)),
                                           const SizedBox(height: 5,),
-                                          Text('${HelperConfig.currencyFormat(context.read<AppCubit>().state.user?.walletBalance.toString() ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
+                                          Text('${HelperConfig.currencyFormat(widget.walletBalance ?? '')}',style: HelperStyle.textStyle(context,Colors.white,20.sp,FontWeight.bold)),
                                         ],
                                       ),
                                     ],
@@ -286,6 +291,7 @@ class DataScreenIndexState extends State<DataScreenIndex> {
                                                 return DataConfirmation(
                                                   billState: emeState,
                                                   onTap: (){
+                                                    Navigator.pop(context);
                                                     contextCubit.read<BillsCubit>().payBill();
                                                   },
                                                   onCancel: (){
