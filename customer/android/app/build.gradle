@@ -63,6 +63,12 @@ android {
 
     signingConfigs {
         release {
+            lintOptions {
+                disable 'InvalidPackage'
+                disable "Instantiatable"
+                checkReleaseBuilds false
+                abortOnError false
+            }
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'])
@@ -78,6 +84,7 @@ android {
         }
     }
 }
+
 
 flutter {
     source '../..'

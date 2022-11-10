@@ -3,6 +3,7 @@ import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/utils/blurry_modal_profress_hud.dart';
+import 'package:acoride/utils/loadingImage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,7 +80,7 @@ class _MapMainHomePageState extends State<MapMainHomePage> {
                                     height: MediaQuery.of(context).size.height,
                                     child:dashboardState.position == null?
                                     const Center(
-                                      child: CircularProgressIndicator(),
+                                      child: LoadingWidget(),
                                     ):
                                     GoogleMap(
                                       onMapCreated: (GoogleMapController controller) {

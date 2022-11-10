@@ -8,6 +8,8 @@ class FireStoreModel {
   bool? startTrip;
   bool? confirmTrip;
   int? amount;
+  String? time;
+  String? distance;
 
   FireStoreModel({
     required this.driverID,
@@ -18,6 +20,8 @@ class FireStoreModel {
     required this.sendTrip,
     required this.startTrip,
     required this.amount,
+    this.time = "1 min",
+    required this.distance,
   });
 
   FireStoreModel.fromJson(json) {
@@ -30,6 +34,8 @@ class FireStoreModel {
     startTrip = json['start_trip'];
     amount = json['trip_amount'];
     confirmTrip = json['confirm_trip'];
+    time = json['time'] ?? "1 min";
+    distance = json['distance'];
   }
 
   Map<String, dynamic> toMap() {
@@ -43,6 +49,8 @@ class FireStoreModel {
       'start_trip': startTrip,
       'trip_amount': amount,
       'confirm_trip': confirmTrip,
+      'time': time,
+      'distance': distance,
     };
   }
 }

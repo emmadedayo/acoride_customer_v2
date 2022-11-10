@@ -47,6 +47,9 @@ class ApiUrl {
   //////////////// Rating ////////////////
   static const String rate = '${BASE_URL}api/v1/rateRide';
 
+  //////////////// Emergency ////////////////
+  static const String emergencyAlert = '${BASE_URL}api/v1/panicService';
+
   //////////////////// Ride History //////////////////
   static const String getPassengerHistory = '${BASE_URL}api/v1/customer/passengerHistory';
 

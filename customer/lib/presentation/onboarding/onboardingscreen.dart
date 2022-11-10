@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_onboard/flutter_onboard.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../core/helper/helper_color.dart';
 import '../../logic/cubits/settings_cubit.dart';
 
