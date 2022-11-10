@@ -9,9 +9,10 @@ class DashBoardModel {
   RideRequestModel? rideRequest;
   List<AdvertModel>? advertisements;
   List<TransactionModel>? transactions;
+  List<RideRequestModel>? topThree;
   int? notification;
 
-  DashBoardModel({this.user, this.advertisements, this.notification, this.transactions,this.rideRequest});
+  DashBoardModel({this.user, this.topThree,this.advertisements, this.notification, this.transactions,this.rideRequest});
 
   DashBoardModel.fromMap(json) {
     user = json['user'] != null ? UserModel.fromMap(json['user']) : null;
@@ -28,6 +29,14 @@ class DashBoardModel {
         transactions?.add(TransactionModel.fromMap(v));
       });
     }
+
+    if (json['top_three_ride'] != null) {
+      topThree = <RideRequestModel>[];
+      json['top_three_ride'].forEach((v) {
+        topThree?.add(RideRequestModel.fromMap(v));
+      });
+    }
+
     notification = json['notification'];
   }
 
@@ -52,6 +61,13 @@ class DashBoardModel {
       data['transactions'] =
           transaction.map((v) => v.toMap()).toList();
     }
+
+    final topThree = this.topThree;
+    if (topThree != null) {
+      data['top_three_ride'] =
+          topThree.map((v) => v.toMap()).toList();
+    }
+
     data['notifications'] = notification;
     return data;
   }

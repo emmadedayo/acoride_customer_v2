@@ -30,6 +30,7 @@ class DashBoardCubit extends Cubit<DashBoardState> {
         state.rideRequestModel = result.result?.rideRequest;
         state.transactions = result.result?.transactions ?? [];
         state.advert = result.result?.advertisements ?? [];
+        state.rideHistory = result.result?.topThree ?? [];
       }
       state.userLoading = false;
       emit(state.copy());

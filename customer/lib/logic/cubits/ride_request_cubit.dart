@@ -206,25 +206,25 @@ class RideRequestCubit extends Cubit<RideRequestState> {
             ),
           );
         });
-        if(state.fireStoreModel?.confirmTrip == false){
-          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-              state.fireStoreLocationModel?.suppliedLongitude.toString(),
-              state.rideRequestModel?.passengerPickupLatitude.toString(),
-              state.rideRequestModel?.passengerPickupLongitude.toString()
-          );
-        }else if(state.fireStoreModel?.confirmTrip == true){
-          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-              state.fireStoreLocationModel?.suppliedLongitude.toString(),
-              state.rideRequestModel?.passengerPickupLatitude.toString(),
-              state.rideRequestModel?.passengerPickupLongitude.toString()
-          );
-        }else if(state.fireStoreModel?.startTrip == true){
-          getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
-              state.fireStoreLocationModel?.suppliedLongitude.toString(),
-              state.rideRequestModel?.passengerDestinationLatitude.toString(),
-              state.rideRequestModel?.passengerDestinationLongitude.toString()
-          );
-        }
+        // if(state.fireStoreModel?.confirmTrip == false && state.fireStoreModel?.sendTrip == true){
+        //   getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+        //       state.fireStoreLocationModel?.suppliedLongitude.toString(),
+        //       state.rideRequestModel?.passengerPickupLatitude.toString(),
+        //       state.rideRequestModel?.passengerPickupLongitude.toString()
+        //   );
+        // }else if(state.fireStoreModel?.confirmTrip == true && state.fireStoreModel?.sendTrip == false){
+        //   getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+        //       state.fireStoreLocationModel?.suppliedLongitude.toString(),
+        //       state.rideRequestModel?.passengerPickupLatitude.toString(),
+        //       state.rideRequestModel?.passengerPickupLongitude.toString()
+        //   );
+        // }else if(state.fireStoreModel?.startTrip == true && state.fireStoreModel?.endTrip == false){
+        //   getStartRideLocation(state.fireStoreLocationModel?.suppliedLatitude.toString(),
+        //       state.fireStoreLocationModel?.suppliedLongitude.toString(),
+        //       state.rideRequestModel?.passengerDestinationLatitude.toString(),
+        //       state.rideRequestModel?.passengerDestinationLongitude.toString()
+        //   );
+        // }
       }
      // emit(state.copy());
     });
@@ -249,5 +249,29 @@ class RideRequestCubit extends Cubit<RideRequestState> {
     state.rideRequestStream?.cancel();
     state.userStream?.cancel();
     return super.close();
+  }
+
+  panicAlert() async {
+   // state.isLoadingCard = true;
+    emit(state.copy());
+    var result = await rideRequestRepository.emergencyAlert({
+      "driver_id":state.rideRequestModel?.user?.userID,
+      "passenger_id":state.rideRequestModel?.passengerId,
+      "initiated_address": 'Unknown',
+      "initiated_by":state.rideRequestModel?.passengerId,
+      "ride_id":state.rideRequestModel?.rideId,
+      "initiated_latitude":state.position?.latitude.toString(),
+      "initiated_longitude":state.position?.longitude.toString(),
+    });
+    if ((result.errorCode ?? 0) >= 400) {
+      //state.isLoadingCard = false;
+      state.hasError = true;
+      state.message = result.message;
+    } else {
+      state.hasError = false;
+      state.message = result.message;
+    //  state.isLoadingCard = false;
+    }
+    emit(state.copy());
   }
 }

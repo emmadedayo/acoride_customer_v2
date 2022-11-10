@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
 import '../../core/helper/helper_color.dart';
+import '../../utils/loadingImage.dart';
 import '../cancellation/cancellation_screen.dart';
 import '../router/router_constant.dart';
 import 'order_rate_driver.dart';
@@ -74,7 +74,7 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                         height: MediaQuery.of(context).size.height,
                         child:mapState.position == null?
                         const Center(
-                          child: CircularProgressIndicator(),
+                          child: LoadingWidget(),
                         ):
                         GoogleMap(
                           onMapCreated: (GoogleMapController controller) {
@@ -105,7 +105,7 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                             children: [
                               MaterialButton(
                                 onPressed: () {
-                                  Navigator.pop(context);
+                                  Navigator.of(context).pushNamed(pageHome);
                                 },
                                 elevation: 2,
                                 color: Colors.white,
@@ -129,6 +129,9 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                       scrollController: scrollController,
                       mapState: mapState,
                       panelController: panelController,
+                      onPanic: () async {
+                        mapContext.read<RideRequestCubit>().panicAlert();
+                      },
                       onCancel: () async {
                         mapState.userStream!.cancel();
                         mapState.rideRequestStream?.cancel();

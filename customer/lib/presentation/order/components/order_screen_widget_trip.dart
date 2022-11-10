@@ -20,9 +20,9 @@ class OrderTripScreenWidget extends StatelessWidget {
   final RideRequestState mapState;
   final ScrollController scrollController;
   final PanelController? panelController;
-  final VoidCallback? onCancel;
+  final VoidCallback? onCancel,onPanic;
 
-  const OrderTripScreenWidget({Key? key, required this.mapState,required this.rideRequestModel, required this.scrollController, this.panelController, this.onCancel})
+  const OrderTripScreenWidget({Key? key, required this.mapState,required this.rideRequestModel, required this.scrollController, this.panelController, this.onCancel, this.onPanic})
       : super(key: key);
 
   @override
@@ -52,7 +52,9 @@ class OrderTripScreenWidget extends StatelessWidget {
                     children: [
                       Row(
                         children: [
-                          Text("Arriving in ${mapState.duration}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 18.sp, FontWeight.w600),),
+                          mapState.fireStoreModel == null?
+                          Text("Arriving in ....", style: HelperStyle.textStyleTwo(context, HelperColor.black, 18.sp, FontWeight.w600),):
+                          Text("Arriving in ${mapState.fireStoreModel?.time}", style: HelperStyle.textStyleTwo(context, HelperColor.black, 18.sp, FontWeight.w600),),
                           const Spacer(),
                           GestureDetector(
                             child: const Icon(LineAwesomeIcons.share, color: HelperColor.black,),
@@ -122,9 +124,7 @@ class OrderTripScreenWidget extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             MaterialButton(
-                              onPressed: () {
-
-                              },
+                              onPressed:onPanic,
                               elevation: 0,
                               color: HelperColor.black.withOpacity(0.3),
                               textColor: Colors.white,

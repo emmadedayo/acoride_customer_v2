@@ -76,4 +76,23 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState>{
     emit(state.copy());
   }
 
+  Future<void> resendOtp(String phone) async {
+    state.isLoading = true;
+    emit(state.copy());
+    var result = await userRepository.resendOtp({
+      'phone_number': phone,
+    });
+    if (result?.errorCode == 400) {
+      state.message = result?.message;
+      state.hasError = true;
+      state.isLoading = false;
+    } else {
+      state.hasError = false;
+      state.isLoading = false;
+      state.message = result?.message;
+    }
+    state.isLoading = false;
+    emit(state.copy());
+  }
+
 }

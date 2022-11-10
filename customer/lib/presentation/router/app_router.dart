@@ -123,7 +123,7 @@ class AppRouter {
         );
       case mainMapScreen:
         return MaterialPageRoute(
-            builder: (_) => const MapMainHomePage()
+            builder: (_) => MapMainHomePage(rideHistory: arguments!['rideHistory'],)
         );
       case locationPermissionScreen:
         return MaterialPageRoute(builder: (_) => const LocationPermission());

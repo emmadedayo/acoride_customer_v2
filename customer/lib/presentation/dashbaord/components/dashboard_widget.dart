@@ -280,7 +280,7 @@ class DashboardFullState extends StatelessWidget {
                     subTitle: 'Get a ride in minutes',
                     icons: LineAwesomeIcons.motorcycle,
                     onTap: (){
-                      Navigator.of(context).pushNamed(mainMapScreen);
+                      Navigator.of(context).pushNamed(mainMapScreen,arguments: {"rideHistory":dashBoardState.rideHistory});
                     },
                   ),
                   const SizedBox(

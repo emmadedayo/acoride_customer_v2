@@ -83,6 +83,15 @@ class VerifyForgotPasswordState extends State<VerifyForgotPassword> {
                         position: StyledToastPosition.top);
                     context.read<ForgotPasswordCubit>().state.hasError = null;
                     context.read<ForgotPasswordCubit>().state.message = null;
+                  }else if(state.hasError==false){
+                    showToast(state.message,
+                        context: context,
+                        backgroundColor: Colors.green,
+                        axis: Axis.horizontal,
+                        alignment: Alignment.center,
+                        position: StyledToastPosition.top);
+                    context.read<ForgotPasswordCubit>().state.hasError = null;
+                    context.read<ForgotPasswordCubit>().state.message = null;
                   }
                 },
                 child: PlatformScaffold(
@@ -148,15 +157,20 @@ class VerifyForgotPasswordState extends State<VerifyForgotPassword> {
                                 ),
                                 SizedBox(height: 50.0.h),
                                 Text(
-                                  'Didn’t receive code?',
+                                  "Didn't receive code?",
                                   style: HelperStyle.textStyleTwo(
                                       context, HelperColor.black, 15.sp, FontWeight.normal),
                                 ),
                                 SizedBox(height: 11.0.h),
-                                Text(
-                                  'Resend',
-                                  style: HelperStyle.textStyleTwo(
-                                      context, HelperColor.primaryColor, 15.sp, FontWeight.normal),
+                                InkWell(
+                                  onTap: () {
+                                    regContext.read<ForgotPasswordCubit>().resendOtp(widget.phone);
+                                  },
+                                  child: Text(
+                                    'Resend',
+                                    style: HelperStyle.textStyleTwo(
+                                        context, HelperColor.primaryColor, 15.sp, FontWeight.normal),
+                                  ),
                                 ),
                                 SizedBox(height: 20.0.h),
                                 ButtonWidget(

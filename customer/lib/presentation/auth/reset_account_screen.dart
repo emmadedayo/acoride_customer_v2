@@ -136,8 +136,8 @@ class ResetAccountScreenState extends State<ResetAccountScreen> {
                                           containerHeight: 47.h,
                                           containerWidth: 341.w,
                                           buttonText: "Reset Password",
-                                          color: HelperColor.black,
-                                          textColor:HelperColor.primaryColor,
+                                          color: HelperColor.primaryColor,
+                                          textColor:HelperColor.slightWhiteColor,
                                           onTap: (){
                                             FocusManager.instance.primaryFocus?.unfocus();
                                             if (_formKey.currentState!.validate()) {
@@ -156,24 +156,24 @@ class ResetAccountScreenState extends State<ResetAccountScreen> {
 
                                         ),
                                         SizedBox(height: 20.0.h),
-                                        GestureDetector(
-                                          child: RichText(
-                                            text: TextSpan(
-                                              text: 'Don’t have an account?',
-                                              style: HelperStyle.textStyle(
-                                                  context, HelperColor.primaryColor, 16.sp, FontWeight.normal),
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                    text: '  Sign Up',
-                                                    style: HelperStyle.textStyle(context, HelperColor.black,
-                                                        16.sp, FontWeight.normal)),
-                                              ],
-                                            ),
-                                          ),
-                                          onTap: (){
-                                            Navigator.of(context).pushNamed(resetAccountScreen);
-                                          },
-                                        ),
+                                        // GestureDetector(
+                                        //   child: RichText(
+                                        //     text: TextSpan(
+                                        //       text: 'Don’t have an account?',
+                                        //       style: HelperStyle.textStyle(
+                                        //           context, HelperColor.primaryColor, 16.sp, FontWeight.normal),
+                                        //       children: <TextSpan>[
+                                        //         TextSpan(
+                                        //             text: '  Sign Up',
+                                        //             style: HelperStyle.textStyle(context, HelperColor.black,
+                                        //                 16.sp, FontWeight.normal)),
+                                        //       ],
+                                        //     ),
+                                        //   ),
+                                        //   onTap: (){
+                                        //     Navigator.of(context).pushNamed(resetAccountScreen);
+                                        //   },
+                                        // ),
 
                                       ],
                                     ),

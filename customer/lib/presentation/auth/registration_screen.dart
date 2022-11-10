@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
@@ -110,7 +111,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                         decoration:  InputDecoration(
                                           filled: true,
                                           contentPadding: const EdgeInsets.all(10.0),
-                                          prefixIcon: const Icon(Iconsax.user,color: HelperColor.black,),
+                                          prefixIcon: const Icon(LineAwesomeIcons.user,color: HelperColor.black,),
                                           fillColor: HelperColor.fillColor,
                                           border: const OutlineInputBorder(),
                                           enabledBorder: OutlineInputBorder(
@@ -139,7 +140,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                         decoration:  InputDecoration(
                                           filled: true,
                                           contentPadding: const EdgeInsets.all(10.0),
-                                          prefixIcon: const Icon(Iconsax.mobile,color: HelperColor.black,),
+                                          prefixIcon: const Icon(LineAwesomeIcons.phone,color: HelperColor.black,),
                                           fillColor: HelperColor.fillColor,
                                           border: const OutlineInputBorder(),
                                           errorBorder: OutlineInputBorder(
@@ -170,7 +171,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                         decoration:  InputDecoration(
                                           filled: true,
                                           contentPadding: const EdgeInsets.all(10.0),
-                                          prefixIcon: const Icon(Iconsax.mobile,color: HelperColor.black,),
+                                          prefixIcon: const Icon(Icons.alternate_email,color: HelperColor.black,),
                                           fillColor: HelperColor.fillColor,
                                           border: const OutlineInputBorder(),
                                           enabledBorder: OutlineInputBorder(
@@ -247,7 +248,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                           filled: true,
                                           fillColor: HelperColor.fillColor,
                                           contentPadding: const EdgeInsets.all(10.0),
-                                          prefixIcon: const Icon(Iconsax.password_check,color: HelperColor.black,),
+                                          prefixIcon: const Icon(LineAwesomeIcons.lock,color: HelperColor.black,),
                                           suffixIcon: const Icon(Iconsax.eye,color: HelperColor.black,),
                                           border: const OutlineInputBorder(),
                                           enabledBorder: OutlineInputBorder(
@@ -273,8 +274,8 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                         containerHeight: 47.h,
                                         containerWidth: 341.w,
                                         buttonText: "Create Account",
-                                        color: HelperColor.black,
-                                        textColor:HelperColor.primaryColor,
+                                        color: HelperColor.primaryColor,
+                                        textColor:HelperColor.slightWhiteColor,
                                         onTap: (){
                                           FocusManager.instance.primaryFocus?.unfocus();
                                           if (_formKey.currentState!.validate()) {

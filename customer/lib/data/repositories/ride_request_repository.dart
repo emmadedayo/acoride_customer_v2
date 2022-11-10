@@ -135,4 +135,21 @@ class RideRequestRepository {
     }
     return sites;
   }
+
+  Future<ResultItem<RideRequestModel?>> emergencyAlert(maps) async {
+    debugPrint('=========Map : ${maps}');
+    RideRequestModel? user;
+    Map map = await provider.emergencyAlert(maps,await userRepository.getToken());
+    int? statusCode = map[FIELD_STATUS_CODE];
+    String message = map[FIELD_MESSAGE]?? '';
+    if (map.isNotEmpty) {
+      try {
+        user = RideRequestModel.fromMap(map[FIELD_DATA]);
+      }
+      catch(err) {
+        return ResultItem<RideRequestModel?>(result: null, errorCode: 404, message: 'Error: $err');
+      }
+    }
+    return ResultItem<RideRequestModel?>(result: user, errorCode: statusCode, message: message);
+  }
 }
