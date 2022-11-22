@@ -140,7 +140,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             hasLastIcon: false,
                             lastText: 'English',
                             onTap: () {
-                              Navigator.pushNamed(context, '/profile');
+                            // Navigator.pushNamed(context, '/profile');
                             },
                           ),
                           const SizedBox(
@@ -153,7 +153,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             hasLastIcon: true,
                             lastText: 'English',
                             onTap: () {
-                              Navigator.pushNamed(context, '/profile');
+                             // Navigator.pushNamed(context, '/profile');
                             },
                           ),
                         ],
@@ -183,7 +183,7 @@ class ProfileSettingsScreenState extends State<ProfileSettingsScreen> {
                             hasLastIcon: true,
                             lastText: 'English',
                             onTap: () {
-                              Navigator.pushNamed(context, '/profile');
+                            //  Navigator.pushNamed(context, '/profile');
                             },
                           ),
                           const SizedBox(

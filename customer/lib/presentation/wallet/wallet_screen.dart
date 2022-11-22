@@ -7,6 +7,7 @@ import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/logic/states/transaction_state.dart';
 import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/noWidgetFound.dart';
+import 'package:acoride/presentation/transaction/all_transaction.dart';
 import 'package:acoride/presentation/wallet/add_to_wallet.dart';
 import 'package:acoride/presentation/wallet/component/wallet_screen_component.dart';
 import 'package:flutter/material.dart';
@@ -150,7 +151,7 @@ class WalletScreenState extends State<WalletScreen> {
                                               context, const Color(0xff66AE3D), 15, FontWeight.w500,letterSpacing: -1),
                                         ),
                                         onTap: (){
-                                          // Navigator.push(context, MaterialPageRoute(builder: (context) => const TransactionIndexScreen(),),);
+                                          Navigator.push(context, MaterialPageRoute(builder: (context) => const AllTransactionScreen()));
                                         },
                                       )
                                     ],

@@ -14,6 +14,7 @@ import '../../../core/helper/helper_config.dart';
 import '../../../utils/conimage.dart';
 import '../../components/noWidgetFound.dart';
 import '../../router/router_constant.dart';
+import '../../transaction/all_transaction.dart';
 import '../../wallet/component/wallet_screen_component.dart';
 import 'dashboard_component.dart';
 
@@ -167,7 +168,7 @@ class DashboardAppState extends StatelessWidget {
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen()));
                 },
                 child: Text('View All',
-                  style: HelperStyle.textStyleTwo(context, HelperColor.secondaryColor, 16.sp, FontWeight.w500),
+                  style: HelperStyle.textStyleTwo(context, HelperColor.primaryColor, 12.sp, FontWeight.bold),
                 ),
               ),
             ],
@@ -375,10 +376,10 @@ class DashboardFullState extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: (){
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => TransactionScreen()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const AllTransactionScreen()));
                 },
                 child: Text('View All',
-                  style: HelperStyle.textStyleTwo(context, HelperColor.primaryColor, 10.sp, FontWeight.bold),
+                  style: HelperStyle.textStyleTwo(context, HelperColor.primaryColor, 12.sp, FontWeight.bold),
                 ),
               ),
             ],
