@@ -22,8 +22,8 @@ class TransactionWalletWidget extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(8)
         ),
-        margin: const EdgeInsets.only(bottom: 8,left: 5,right: 5).r,
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 18),
+        margin: const EdgeInsets.only(bottom: 8,left: 10,right: 10,top: 5).r,
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 18),
         child: Row(
           children: <Widget>[
             transactionModel.effect == "cr"?
