@@ -3,6 +3,7 @@ import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/states/map_state.dart';
 import 'package:acoride/presentation/order/components/confirmation_panel_widget.dart';
+import 'package:acoride/utils/loadingImage.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -103,7 +104,7 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                         height: MediaQuery.of(context).size.height,
                         child:mapState.position == null?
                         const Center(
-                          child: CircularProgressIndicator(),
+                          child: LoadingWidget(),
                         ):
                         GoogleMap(
                           onMapCreated: (GoogleMapController controller) {

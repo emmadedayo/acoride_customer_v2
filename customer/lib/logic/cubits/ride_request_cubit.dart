@@ -171,7 +171,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
   }
 
    getUsers(){
-     state.userStream = FirebaseFirestore.instance.collection('ride_request_staging').doc(state.rideRequestModel?.driverId.toString()).snapshots()
+     state.userStream = FirebaseFirestore.instance.collection(HelperConfig.getFirebaseEnvironment()).doc(state.rideRequestModel?.driverId.toString()).snapshots()
          .listen((DocumentSnapshot documentSnapshot) {
        state.fireStoreModel = FireStoreModel.fromJson(documentSnapshot.data()!);
        emit(state.copy());
@@ -180,7 +180,7 @@ class RideRequestCubit extends Cubit<RideRequestState> {
   }
 
   getDriverLocation(){
-    state.rideRequestStream = FirebaseFirestore.instance.collection('ride_request_staging_location').doc(state.rideRequestModel?.rideId.toString()).snapshots()
+    state.rideRequestStream = FirebaseFirestore.instance.collection(HelperConfig.getFirebaseRealTimeEnvironment()).doc(state.rideRequestModel?.rideId.toString()).snapshots()
         .listen((DocumentSnapshot documentSnapshot) {
       if (documentSnapshot.exists) {
         state.fireStoreLocationModel = FireStoreLocationModel.fromJson(documentSnapshot.data()!);

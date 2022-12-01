@@ -95,12 +95,12 @@ class OnBoardingPageState extends State<OnBoardingPage> {
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30),
-                  color: HelperColor.black,
+                  color: HelperColor.primaryColor,
                 ),
                 child: Text(
                   state.isLastPage ? "Continue" : "Next",
                   style:const TextStyle(
-                    color: HelperColor.primaryColor,
+                    color: HelperColor.whiteColor,
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
                   ),

@@ -6,6 +6,7 @@ import 'package:acoride/presentation/dashbaord/mapcomponents/panel_list_view.dar
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -62,6 +63,14 @@ class MapSearchPanelWidget extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 20,right: 20,top: 10).r,
                 child: GestureDetector(
                   onTap: () {
+                    dashBoardState?.position == null?
+                    showToast("Please wait while we get your location",
+                        context: context,
+                        backgroundColor: Colors.red,
+                        axis: Axis.horizontal,
+                        alignment: Alignment.center,
+                        position: StyledToastPosition.top):
+
                     Navigator.of(context).push(
                         MaterialPageRoute(
                             builder: (context) =>

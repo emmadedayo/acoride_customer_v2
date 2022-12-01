@@ -127,7 +127,7 @@ class RideRequestWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text(
-                        '${HelperConfig.currencyFormat(rideRequestModel?.amountPaid ?? '0')}',
+                        '${HelperConfig.currencyFormat(rideRequestModel?.tripAmountRequest?.total ?? '0')}',
                         style: HelperStyle.textStyle(
                             context, HelperColor.black, 12, FontWeight.w400),
                       ),

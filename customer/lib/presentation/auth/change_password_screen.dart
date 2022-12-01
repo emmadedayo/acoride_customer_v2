@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
@@ -128,8 +129,8 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           decoration:  InputDecoration(
                                             filled: true,
                                             fillColor: HelperColor.fillColor,
-                                            prefixIcon: const Icon(Iconsax.password_check,color: HelperColor.black,),
-                                            suffixIcon: const Icon(Iconsax.eye,color: HelperColor.black,),
+                                            prefixIcon: const Icon(LineAwesomeIcons.lock,color: HelperColor.black,),
+                                            suffixIcon: const Icon(LineAwesomeIcons.eye,color: HelperColor.black,),
                                             border: const OutlineInputBorder(),
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(10),
@@ -139,7 +140,7 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                            contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
                                         SizedBox(height: 20.0.h),
@@ -153,8 +154,8 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           decoration:  InputDecoration(
                                             filled: true,
                                             fillColor: HelperColor.fillColor,
-                                            prefixIcon: const Icon(Iconsax.password_check,color: HelperColor.black,),
-                                            suffixIcon: const Icon(Iconsax.eye,color: HelperColor.black,),
+                                            prefixIcon: const Icon(LineAwesomeIcons.lock,color: HelperColor.black,),
+                                            suffixIcon: const Icon(LineAwesomeIcons.eye,color: HelperColor.black,),
                                             border: const OutlineInputBorder(),
                                             enabledBorder: OutlineInputBorder(
                                                 borderRadius: BorderRadius.circular(10),
@@ -164,7 +165,7 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                            contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
 
@@ -181,8 +182,8 @@ class ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                           containerHeight: 47.h,
                                           containerWidth: 341.w,
                                           buttonText: "Change Password",
-                                          color: HelperColor.black,
-                                          textColor:HelperColor.primaryColor,
+                                          color: HelperColor.primaryColor,
+                                          textColor:HelperColor.whiteColor,
                                           onTap: (){
                                             FocusManager.instance.primaryFocus?.unfocus();
                                             if (_formKey.currentState!.validate()) {
