@@ -165,12 +165,12 @@ class MainInitState extends StatelessWidget {
                           locale: Locale(state.settings.langCode),
                           supportedLocales: supportedLanguages.toList().map((lang) => Locale(lang)),
                           material: (_, __)  => MaterialAppData(
-                            title: "Acoride",
+                            title: "AcoCustomer",
                             debugShowCheckedModeBanner: false,
                             theme: (state.settings.isDarkMode)? AppTheme.darkTheme: AppTheme.lightTheme,
                           ),
                           cupertino: (_, __) => CupertinoAppData(
-                            title: "Acoride",
+                            title: "AcoCustomer",
                             //theme: iOSTheme(),
                             debugShowCheckedModeBanner: false,
                           )

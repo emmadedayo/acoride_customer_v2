@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
+import 'package:acoride/core/constant/constants.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/services.dart';
@@ -65,9 +67,9 @@ class HelperConfig{
 
   static const String apiKey = 'AIzaSyCmBgWETLm4Ol9frxnnqXW40G2_lc1B558';
 
-  static const String payStackPublicKey = 'pk_test_0263338ba4246920824bd81ea2315ee3bcadb53a';
+  static const String payStackTestKey = 'pk_test_0263338ba4246920824bd81ea2315ee3bcadb53a';
 
-  static const String payStackTestKey = 'sk_test_05660c8db9f95d8c3354054d9cebc4bc17de3ed6';
+  static const String payStackProductionKey = 'sk_test_05660c8db9f95d8c3354054d9cebc4bc17de3ed6';
 
   static String getPngImage(String imageName){
     return 'assets/images/$imageName.png';
@@ -194,4 +196,38 @@ class HelperConfig{
       debugPrint("Notification not sent ${e.toString()}");
     }
   }
+
+  static getUrlEnvironment(){
+    if(kDebugMode){
+      return BASE_URL_TEST;
+    }else{
+      return BASE_URL_PRODUCTION;
+    }
+  }
+
+  static getFirebaseEnvironment(){
+    if(kDebugMode){
+      return FIREBASE_TEST;
+    }else{
+      return FIREBASE_PRODUCTION;
+    }
+  }
+
+  static getFirebaseRealTimeEnvironment(){
+    if(kDebugMode){
+      return FIREBASE_REALTIME_TEST;
+    }else{
+      return FIREBASE_REALTIME_PRODUCTION;
+    }
+  }
+
+  static getPayStackEnvironment(){
+    if(kDebugMode){
+      return payStackTestKey;
+    }else{
+      return payStackProductionKey;
+    }
+  }
+
+
 }

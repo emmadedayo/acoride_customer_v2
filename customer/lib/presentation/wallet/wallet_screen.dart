@@ -50,7 +50,6 @@ class WalletScreenState extends State<WalletScreen> {
             },
             child: BlocBuilder<TransactionCubit, TransactionState>(
               builder: (contextCubit, emeState) {
-
                 return Scaffold(
                   backgroundColor: HelperColor.slightWhiteColor,
                   appBar: AppBar(

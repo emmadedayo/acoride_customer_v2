@@ -10,6 +10,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../order/order_confirmation_screen.dart';
 
@@ -87,7 +88,7 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                                     style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
                                     decoration:  InputDecoration(
                                       filled: true,
-                                      prefixIcon: const Icon(Iconsax.global_search,color: HelperColor.black,),
+                                      prefixIcon: const Icon(LineAwesomeIcons.location_arrow,color: HelperColor.black,),
                                       fillColor: HelperColor.freyColor.withOpacity(0.1),
                                       hintText: "Your pickup location",
                                       hintStyle: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
@@ -139,7 +140,7 @@ class MapSearchAddressState extends State<MapSearchAddress> {
                                     style: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),
                                     decoration:  InputDecoration(
                                       filled: true,
-                                      prefixIcon: const Icon(Icons.location_on_outlined,color: HelperColor.primaryColor,size: 20,),
+                                      prefixIcon:const Icon(LineAwesomeIcons.location_arrow,color: HelperColor.black,),
                                       fillColor:HelperColor.freyColor.withOpacity(0.1),
                                       hintText: "Your destination",
                                       hintStyle: HelperStyle.textStyle(context,HelperColor.black,14,FontWeight.normal),

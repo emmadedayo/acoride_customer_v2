@@ -1,66 +1,66 @@
-import 'package:acoride/core/constant/constants.dart';
+import 'package:acoride/core/helper/helper_config.dart';
 class ApiUrl {
   ApiUrl._();
 
 
-  static const String userRegistration = '${BASE_URL}api/v1/customer/registration';
-  static const String verifyRegistration = '${BASE_URL}api/verify_phone';
-  static const String resetAccount = '${BASE_URL}api/reset_account';
-  static const String resendOtp = '${BASE_URL}api/reset_account';
-  static const String verifyResetAccount = '${BASE_URL}api/verify_reset_account';
-  static const String changePassword = '${BASE_URL}api/change_password';
-  static const String login = '${BASE_URL}api/v1/customer/login';
+  static  String userRegistration = '${HelperConfig.getUrlEnvironment()}api/v1/customer/registration';
+  static  String verifyRegistration = '${HelperConfig.getUrlEnvironment()}api/verify_phone';
+  static  String resetAccount = '${HelperConfig.getUrlEnvironment()}api/reset_account';
+  static  String resendOtp = '${HelperConfig.getUrlEnvironment()}api/reset_account';
+  static  String verifyResetAccount = '${HelperConfig.getUrlEnvironment()}api/verify_reset_account';
+  static  String changePassword = '${HelperConfig.getUrlEnvironment()}api/change_password';
+  static  String login = '${HelperConfig.getUrlEnvironment()}api/v1/customer/login';
 
-  static const String changePasswordAuth = '${BASE_URL}api/v1/changePassword';
-  static const String updateProfile = '${BASE_URL}api/v1/updateProfile';
-  static const String verifyEmail = '${BASE_URL}api/v1/verifyEmail';
-  static const String getMe = '${BASE_URL}api/v1/getMe';
-  static const String getDashboard = '${BASE_URL}api/v1/getDashboard';
+  static  String changePasswordAuth = '${HelperConfig.getUrlEnvironment()}api/v1/changePassword';
+  static  String updateProfile = '${HelperConfig.getUrlEnvironment()}api/v1/updateProfile';
+  static  String verifyEmail = '${HelperConfig.getUrlEnvironment()}api/v1/verifyEmail';
+  static  String getMe = '${HelperConfig.getUrlEnvironment()}api/v1/getMe';
+  static  String getDashboard = '${HelperConfig.getUrlEnvironment()}api/v1/getDashboard';
 
   //////////////// Card ////////////////
-  static const String saveCard = '${BASE_URL}api/v1/saveCard';
-  static const String deleteCard = '${BASE_URL}api/v1/deleteCard';
-  static const String getCard = '${BASE_URL}api/v1/getCard';
+  static  String saveCard = '${HelperConfig.getUrlEnvironment()}api/v1/saveCard';
+  static  String deleteCard = '${HelperConfig.getUrlEnvironment()}api/v1/deleteCard';
+  static  String getCard = '${HelperConfig.getUrlEnvironment()}api/v1/getCard';
 
   //////////////// Transaction ////////////////
-  static const String getTransaction = '${BASE_URL}api/v1/getMyTransaction';
-  static const String topUpWithCard = '${BASE_URL}api/v1/topUpWithCard';
-  static const String paystackTopUp = '${BASE_URL}api/v1/paystackTopUp';
+  static  String getTransaction = '${HelperConfig.getUrlEnvironment()}api/v1/getMyTransaction';
+  static  String topUpWithCard = '${HelperConfig.getUrlEnvironment()}api/v1/topUpWithCard';
+  static  String paystackTopUp = '${HelperConfig.getUrlEnvironment()}api/v1/paystackTopUp';
 
   //////////////// Emergency ////////////////
-  static const String getEmergency = '${BASE_URL}api/v1/getEmergencyContact';
-  static const String deleteEmergency = '${BASE_URL}api/v1/deleteEmergencyContact';
-  static const String updateEmergency = '${BASE_URL}api/v1/updateEmergencyContact';
-  static const String addEmergency = '${BASE_URL}api/v1/saveEmergencyContact';
+  static  String getEmergency = '${HelperConfig.getUrlEnvironment()}api/v1/getEmergencyContact';
+  static  String deleteEmergency = '${HelperConfig.getUrlEnvironment()}api/v1/deleteEmergencyContact';
+  static  String updateEmergency = '${HelperConfig.getUrlEnvironment()}api/v1/updateEmergencyContact';
+  static  String addEmergency = '${HelperConfig.getUrlEnvironment()}api/v1/saveEmergencyContact';
 
   ////////////////// Ride Request ////////////////
-  static const String requestRide = '${BASE_URL}api/v1/customer/requestRide';
-  static const String createTrip = '${BASE_URL}api/v1/customer/createTrip';
-  static const String getTrip = '${BASE_URL}api/v1/getTrip';
-  static const String getTripAmount = '${BASE_URL}api/v1/customer/getTripAmount';
+  static  String requestRide = '${HelperConfig.getUrlEnvironment()}api/v1/customer/requestRide';
+  static  String createTrip = '${HelperConfig.getUrlEnvironment()}api/v1/customer/createTrip';
+  static  String getTrip = '${HelperConfig.getUrlEnvironment()}api/v1/getTrip';
+  static  String getTripAmount = '${HelperConfig.getUrlEnvironment()}api/v1/customer/getTripAmount';
 
 
   //////////////// Cancellation ////////////////
-  static const String getCancellation = '${BASE_URL}api/v1/getCancellationReasons';
-  static const String cancelTrip = '${BASE_URL}api/v1/cancelRide';
+  static  String getCancellation = '${HelperConfig.getUrlEnvironment()}api/v1/getCancellationReasons';
+  static  String cancelTrip = '${HelperConfig.getUrlEnvironment()}api/v1/cancelRide';
 
   //////////////// Rating ////////////////
-  static const String rate = '${BASE_URL}api/v1/rateRide';
+  static  String rate = '${HelperConfig.getUrlEnvironment()}api/v1/rateRide';
 
   //////////////// Emergency ////////////////
-  static const String emergencyAlert = '${BASE_URL}api/v1/panicService';
+  static  String emergencyAlert = '${HelperConfig.getUrlEnvironment()}api/v1/panicService';
 
   //////////////////// Ride History //////////////////
-  static const String getPassengerHistory = '${BASE_URL}api/v1/customer/passengerHistory';
+  static  String getPassengerHistory = '${HelperConfig.getUrlEnvironment()}api/v1/customer/passengerHistory';
 
 
   //////////////// Mics ////////////////
-  static const String getState = '${BASE_URL}api/get_state';
+  static  String getState = '${HelperConfig.getUrlEnvironment()}api/get_state';
 
 
   ////////////////////// Get Billing ////////////////////////
-  static const String getBill = '${BASE_URL}api/v1/getBill';
-  static const String getVariation = '${BASE_URL}api/v1/getVariation';
-  static const String getSmartName = '${BASE_URL}api/v1/getSmartCardDetails';
-  static const String payBills = '${BASE_URL}api/v1/createTransaction';
+  static  String getBill = '${HelperConfig.getUrlEnvironment()}api/v1/getBill';
+  static  String getVariation = '${HelperConfig.getUrlEnvironment()}api/v1/getVariation';
+  static  String getSmartName = '${HelperConfig.getUrlEnvironment()}api/v1/getSmartCardDetails';
+  static  String payBills = '${HelperConfig.getUrlEnvironment()}api/v1/createTransaction';
 }

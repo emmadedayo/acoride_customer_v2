@@ -41,7 +41,7 @@ class TripDeleteScreenState extends State<TripDeleteScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                      SizedBox(height: 34.h),
                       Padding(
                         padding: const EdgeInsets.only(left: 12.0, right: 12.0),
                         child: Text(
@@ -50,7 +50,7 @@ class TripDeleteScreenState extends State<TripDeleteScreen> {
                           textAlign: TextAlign.center,
                         ),
                       ),
-                      SizedBox(height: MediaQuery.of(context).size.height * 0.10),
+                      SizedBox(height: 40.h),
                       ButtonWidget(
                         buttonTextSize: 15,
                         containerHeight: 42.h,

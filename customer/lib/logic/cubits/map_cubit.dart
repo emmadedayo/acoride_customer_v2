@@ -68,50 +68,58 @@ class MapCubit extends Cubit<MapState> {
     state.bottomSheetHeight2 = 0.4;
     state.loadingView = false;
     state.loadingView2 = true;
-
-    Future.delayed(const Duration(seconds: 10), () async {
-      var result = await rideRequestRepository.getDriver(
-          {
-            "myLat":state.dataFrom[0]['lat'],
-            "myLon":state.dataFrom[0]['long'],
-            "ride_id":HelperConfig.uuid(),
-            "driver_id":state.userRideRequest?.user?.userID.toString(),
-            "passenger_id": state.userModel?.userID.toString(),
-            "passenger_pickup_address":state.dataFrom[0]['name'],
-            "passenger_pickup_latitude":state.dataFrom[0]['lat'],
-            "passenger_pickup_longitude":state.dataFrom[0]['long'],
-            "passenger_destination_address":state.dataTo[0]['name'],
-            "passenger_destination_latitude":state.dataTo[0]['lat'],
-            "passenger_destination_longitude":state.dataTo[0]['long'],
-            "duration": state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
-            "distance":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
-            "ride_type":"instant",
-            "km":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
-            "km_in_time":state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
-            "payment_type":state.paymentType,
-            "card_id":state.cardID,
-            "estimated_price":state.userRideRequest?.estimatedPrice,
-            "on_going": "1",
-          }
-      );
-      if (result.errorCode! >= 400) {
-        state.positionLoading = CustomState.DONE;
-        state.hasError = true;
-        state.message = result.message;
-        state.bottomSheetHeight = 0.47;
-        state.bottomSheetHeight2 = 0.46;
-        state.loadingView = true;
-        state.loadingView2 = false;
-      } else {
-        state.hasError = false;
-        state.message = result.message;
-        state.rideRequestModel = result.result;
-        HelperConfig.sendNotification("Ride Notification Request", "You have a new ride request", result.result?.user?.deviceToken ?? "");
-        objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
-        state.positionLoading = CustomState.DONE;
-      }
-      emit(state.copy());
-    });
+    if(state.userRideRequest?.user?.userID.toString() == null){
+      state.bottomSheetHeight = 0.48;
+      state.bottomSheetHeight2 = 0.48;
+      state.loadingView = true;
+      state.loadingView2 = false;
+      state.hasError = true;
+      state.message = 'All acoride drivers are busy at the moment, please try again later';
+    }else{
+      Future.delayed(const Duration(seconds: 10), () async {
+        var result = await rideRequestRepository.getDriver(
+            {
+              "myLat":state.dataFrom[0]['lat'],
+              "myLon":state.dataFrom[0]['long'],
+              "ride_id":HelperConfig.uuid(),
+              "driver_id":state.userRideRequest?.user?.userID.toString(),
+              "passenger_id": state.userModel?.userID.toString(),
+              "passenger_pickup_address":state.dataFrom[0]['name'],
+              "passenger_pickup_latitude":state.dataFrom[0]['lat'],
+              "passenger_pickup_longitude":state.dataFrom[0]['long'],
+              "passenger_destination_address":state.dataTo[0]['name'],
+              "passenger_destination_latitude":state.dataTo[0]['lat'],
+              "passenger_destination_longitude":state.dataTo[0]['long'],
+              "duration": state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
+              "distance":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
+              "ride_type":"instant",
+              "km":state.googleDirectionModel?.routes?[0].legs?[0].distance?.value ?? 0,
+              "km_in_time":state.googleDirectionModel?.routes?[0].legs?[0].duration?.value ?? 0,
+              "payment_type":state.paymentType,
+              "card_id":state.cardID,
+              "estimated_price":state.userRideRequest?.estimatedPrice,
+              "on_going": "1",
+            }
+        );
+        if (result.errorCode! >= 400) {
+          state.positionLoading = CustomState.DONE;
+          state.hasError = true;
+          state.message = result.message;
+          state.bottomSheetHeight = 0.47;
+          state.bottomSheetHeight2 = 0.46;
+          state.loadingView = true;
+          state.loadingView2 = false;
+        } else {
+          state.hasError = false;
+          state.message = result.message;
+          state.rideRequestModel = result.result;
+          HelperConfig.sendNotification("Ride Notification Request", "You have a new ride request", result.result?.user?.deviceToken ?? "");
+          objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
+          state.positionLoading = CustomState.DONE;
+        }
+        emit(state.copy());
+      });
+    }
     state.positionLoading = CustomState.DONE;
     emit(state.copy());
   }

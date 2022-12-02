@@ -10,7 +10,8 @@ class PlaceService {
     String language = 'en';
     String region = 'NG';
     String apiKey = HelperConfig.apiKey;
-    String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?key=$apiKey&language=$language&region=$region&input=${Uri.encodeQueryComponent(keyword)}";
+    String location = "7.1151815%2C-2.5287003";
+    String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?location=$location&key=$apiKey&language=$language&region=$region&input=${Uri.encodeQueryComponent(keyword)}";
     HttpClient client = HttpClient();
     HttpClientRequest request = await client.getUrl(Uri.parse(url));
     HttpClientResponse response = await request.close();

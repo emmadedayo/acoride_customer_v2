@@ -63,7 +63,7 @@ class AddToWalletScreenState extends State<AddToWalletScreen> {
 
   @override
   void initState() {
-    plugin.initialize(publicKey: HelperConfig.payStackPublicKey);
+    plugin.initialize(publicKey: HelperConfig.getPayStackEnvironment());
     super.initState();
   }
 
