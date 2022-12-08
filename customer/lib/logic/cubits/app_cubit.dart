@@ -10,15 +10,19 @@ import 'package:acoride/logic/states/app_state.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../data/repositories/app_repository.dart';
+
 class AppCubit extends Cubit<AppState> {
 
   UserRepository repository = UserRepository();
   TransactionRepository transactionRepository = TransactionRepository();
   CardRepository cardRepository = CardRepository();
   ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
+  AppRepository appRepository = AppRepository();
 
   AppCubit(AppState initialState) : super(initialState) {
     initData();
+    getAppSettings();
   }
 
   Future initData() async {
@@ -27,6 +31,13 @@ class AppCubit extends Cubit<AppState> {
     //
   }
 
+  getAppSettings() async {
+    var result = await appRepository.getAppVersion();
+    if(result.errorCode! == 200) {
+      state.appSettings = result.result;
+    }
+    emit(state.copy());
+  }
 
   initCurrentUser() async {
     state.customState = CustomState.LOADING;
@@ -44,18 +55,6 @@ class AppCubit extends Cubit<AppState> {
         state.userInitialized = true;
       }
     }
-
-   // // state.user = await repository.setCurrentUser((await repository.getMe()).result!);
-   //  state.user = await repository.getMe();
-   //  state.token = await repository.getToken();
-   //  state.rideDetails = await objectBoxRepository.readObject();
-   //  if (state.user != null) {
-   //    state.userInitialized = true;
-   //    state.transactions = await transactionRepository.getTransaction();
-   //    state.cards = await cardRepository.getAll();
-   //    //
-   //  }
-
     state.customState = CustomState.DONE;
     emit(state.copy());
   }

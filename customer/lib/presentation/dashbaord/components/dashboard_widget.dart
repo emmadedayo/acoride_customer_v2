@@ -289,7 +289,7 @@ class DashboardFullState extends StatelessWidget {
                   ),
                   DashboardMenuWidget(
                       onTap: (){
-
+                        Navigator.of(context).pushNamed(deliveryScreen,arguments: {"rideHistory":dashBoardState.rideHistory});
                       },
                       context: context,
                       title: 'Delivery',

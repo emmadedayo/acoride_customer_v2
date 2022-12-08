@@ -41,3 +41,6 @@ const tripDeleteScreen = 'tripDeleteScreen';
 
 ///Trip History Screens///
 const tripHistoryScreen = 'tripHistoryScreen';
+
+///delievry
+const deliveryScreen = '/deliveryScreen';

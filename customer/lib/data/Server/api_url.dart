@@ -63,4 +63,11 @@ class ApiUrl {
   static  String getVariation = '${HelperConfig.getUrlEnvironment()}api/v1/getVariation';
   static  String getSmartName = '${HelperConfig.getUrlEnvironment()}api/v1/getSmartCardDetails';
   static  String payBills = '${HelperConfig.getUrlEnvironment()}api/v1/createTransaction';
+
+
+  ////////////////////// Delivery Billing ////////////////////////
+  static  String getUserDelivery = '${HelperConfig.getUrlEnvironment()}api/v1/customer/getUserDeliveryAmount';
+
+  ////////////////////// App Settings ////////////////////////
+  static  String getVersion = '${HelperConfig.getUrlEnvironment()}api/get_version';
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:acoride/core/constant/enum.dart';
 import 'package:acoride/data/entities/object-box.dart';
 import 'package:acoride/data/entities/settings_item.dart';
@@ -22,8 +21,9 @@ import 'package:acoride/presentation/auth/base_auth_screen.dart';
 import 'package:acoride/presentation/home/bottom_screen.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/router/app_router.dart';
+import 'package:acoride/presentation/splashscreen/app_maintainance.dart';
+import 'package:acoride/presentation/splashscreen/splashscreen.dart';
 import 'package:acoride/presentation/styles/styles.dart';
-import 'package:acoride/utils/loadingImage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -36,7 +36,6 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
 import 'core/constant/constants.dart';
 import 'data/Notification/firebase_notification_handler.dart';
 import 'firebase_options.dart';
@@ -136,17 +135,16 @@ class MainInitState extends StatelessWidget {
                                 child: BlocBuilder<AppCubit, AppState>(
                                     builder: (context, state) {
                                       if (state.customState == CustomState.LOADING) {
-                                        return const Scaffold(
-                                          body: Center(
-                                            child: LoadingWidget(),
-                                          ),
-                                        );
+                                        return SplashScreen(appState: state,);
                                       }
 
-                                      if (state.user != null) {
-                                        return const RootBottom();
+                                      if(state.appSettings?.isUpdate == true){
+                                        return AppMaintenanceScreen(appState: state.appSettings,);
+                                      }else{
+                                        if (state.user != null) {
+                                          return const RootBottom();
+                                        }
                                       }
-
                                       if (settings.isFirstUse) {
                                         return const OnBoardingPage();
                                       }

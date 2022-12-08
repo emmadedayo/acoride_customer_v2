@@ -6,6 +6,7 @@ class RideRequestModel {
   String? rideId;
   int? driverId;
   int? passengerId;
+  int? receiverId;
   String? passengerPickupAddress;
   double? passengerPickupLatitude;
   double? passengerPickupLongitude;
@@ -13,6 +14,7 @@ class RideRequestModel {
   double? passengerDestinationLatitude;
   double? passengerDestinationLongitude;
   String? rideType;
+  int? deliveryCategoryId;
   String? scheduleDateTime;
   String? scheduleStartRide;
   String? driverAcceptStatus;
@@ -42,6 +44,7 @@ class RideRequestModel {
         this.rideId,
         this.driverId,
         this.passengerId,
+        this.receiverId,
         this.passengerPickupAddress,
         this.passengerPickupLatitude,
         this.passengerPickupLongitude,
@@ -49,6 +52,7 @@ class RideRequestModel {
         this.passengerDestinationLatitude,
         this.passengerDestinationLongitude,
         this.rideType,
+        this.deliveryCategoryId,
         this.scheduleDateTime,
         this.scheduleStartRide,
         this.driverAcceptStatus,
@@ -77,6 +81,7 @@ class RideRequestModel {
     rideId = json['ride_id'];
     driverId = json['driver_id'];
     passengerId = json['passenger_id'];
+    receiverId = json['receiver_id'];
     passengerPickupAddress = json['passenger_pickup_address'];
     passengerPickupLatitude = json['passenger_pickup_latitude'];
     passengerPickupLongitude = json['passenger_pickup_longitude'];
@@ -84,6 +89,7 @@ class RideRequestModel {
     passengerDestinationLatitude = json['passenger_destination_latitude'];
     passengerDestinationLongitude = json['passenger_destination_longitude'];
     rideType = json['ride_type'];
+    deliveryCategoryId = json['delivery_category_id'];
     scheduleDateTime = json['schedule_date_time'];
     scheduleStartRide = json['schedule_start_ride'];
     driverAcceptStatus = json['driver_accept_status'];
@@ -115,14 +121,15 @@ class RideRequestModel {
     data['ride_id'] = rideId;
     data['driver_id'] = driverId;
     data['passenger_id'] = passengerId;
+    data['receiver_id'] = receiverId;
     data['passenger_pickup_address'] = passengerPickupAddress;
     data['passenger_pickup_latitude'] = passengerPickupLatitude;
     data['passenger_pickup_longitude'] = passengerPickupLongitude;
     data['passenger_destination_address'] = passengerDestinationAddress;
     data['passenger_destination_latitude'] = passengerDestinationLatitude;
-    data['passenger_destination_longitude'] =
-        passengerDestinationLongitude;
+    data['passenger_destination_longitude'] = passengerDestinationLongitude;
     data['ride_type'] = rideType;
+    data['delivery_category_id'] = deliveryCategoryId;
     data['schedule_date_time'] = scheduleDateTime;
     data['schedule_start_ride'] = scheduleStartRide;
     data['driver_accept_status'] = driverAcceptStatus;
