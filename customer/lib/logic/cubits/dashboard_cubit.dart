@@ -1,3 +1,4 @@
+import 'package:acoride/data/repositories/app_repository.dart';
 import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/data/repositories/ride_request_repository.dart';
 import 'package:acoride/logic/states/dashboard_state.dart';
@@ -11,12 +12,14 @@ class DashBoardCubit extends Cubit<DashBoardState> {
 
   DashBoardCubit(DashBoardState initialState) : super(initialState) {
     getDashboard();
+    getAppSettings();
   }
 
   var googleGeocoding = GoogleGeocoding(HelperConfig.apiKey);
   RideRequestRepository rideRequestRepository = RideRequestRepository();
   UserRepository userRepository = UserRepository();
   ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
+  AppRepository appRepository = AppRepository();
 
 
   getDashboard() async {
@@ -37,18 +40,12 @@ class DashBoardCubit extends Cubit<DashBoardState> {
     });
   }
 
-  // returnToRide() async {
-  //   state.isLoading = true;
-  //   emit(state.copy());
-  //
-  //   var result = await rideRequestRepository.getTrip(state.rideDetails?.rideId);
-  //   if (result.errorCode! >= 400) {
-  //     state.isLoading = false;
-  //   } else {
-  //     state.rideRequestModel = result.result;
-  //     state.isLoading = false;
-  //   }
-  //   state.isLoading = false;
-  //   emit(state.copy());
-  // }
+  getAppSettings() async {
+    var result = await appRepository.getAppVersion();
+    if(result.errorCode! == 200) {
+      state.appSettings = result.result;
+    }
+    emit(state.copy());
+  }
+
 }

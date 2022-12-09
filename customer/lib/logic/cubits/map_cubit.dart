@@ -113,7 +113,6 @@ class MapCubit extends Cubit<MapState> {
           state.hasError = false;
           state.message = result.message;
           state.rideRequestModel = result.result;
-          HelperConfig.sendNotification("Ride Notification Request", "You have a new ride request", result.result?.user?.deviceToken ?? "");
           objectBoxRepository.createRide(RideDetails(hasRide: true, rideId: result.result?.rideId ?? '', rideType: 'CREATE_RIDE'));
           state.positionLoading = CustomState.DONE;
         }

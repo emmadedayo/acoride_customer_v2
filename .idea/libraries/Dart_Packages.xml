@@ -16,6 +16,13 @@
             </list>
           </value>
         </entry>
+        <entry key="animated_text_kit">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/animated_text_kit-4.2.2/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="archive">
           <value>
             <list>
@@ -751,6 +758,13 @@
             </list>
           </value>
         </entry>
+        <entry key="launch_review">
+          <value>
+            <list>
+              <option value="$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/launch_review-3.0.1/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="line_awesome_flutter">
           <value>
             <list>
@@ -1422,6 +1436,7 @@
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/git/flutter_paystack-a4a33c3dd0a12f46d655a2e63d11e9f20ba82d01//lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/_fe_analyzer_shared-47.0.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/analyzer-4.7.0/lib" />
+      <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/animated_text_kit-4.2.2/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/archive-3.3.1/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/args-2.3.1/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/async-2.9.0/lib" />
@@ -1522,6 +1537,7 @@
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/io-1.0.3/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/js-0.6.4/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/json_annotation-4.6.0/lib" />
+      <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/launch_review-3.0.1/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/line_awesome_flutter-2.0.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.0/lib" />
       <root url="file://$USER_HOME$/Documents/flutterSysVersions/flutter/.pub-cache/hosted/pub.dartlang.org/loading_animation_widget-1.2.0+3/lib" />

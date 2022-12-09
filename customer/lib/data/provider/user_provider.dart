@@ -74,6 +74,12 @@ class UserProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> getAppVersion() async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.getVersion,
+        {}, method: HttpMethod.GET,token:"");
+    return RestApi.getMapFromResponse(response);
+  }
+
   ////////////////////////////////////////////////////////////////Session Here \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 

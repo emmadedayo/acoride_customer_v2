@@ -1,8 +1,8 @@
+import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/states/map_state.dart';
-import 'package:acoride/presentation/delivery/delivery_details/delivery_user_screen.dart';
 import 'package:acoride/presentation/order/components/confirmation_panel_widget.dart';
 import 'package:acoride/utils/loadingImage.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
@@ -14,11 +14,8 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-import '../../core/helper/helper_color.dart';
-import '../../core/helper/helper_style.dart';
-import '../delivery/components/delivery_components.dart';
-import 'order_payment_screen.dart';
-import 'order_trip_screen.dart';
+import '../../../core/helper/helper_color.dart';
+
 
 class ConfirmRideDetails extends StatefulWidget {
 
@@ -48,8 +45,8 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
           child: BlocBuilder<MapCubit, MapState>(
             builder: (mapContext, mapState) {
               return SlidingUpPanel(
-                minHeight:  MediaQuery.of(context).size.height * 0.4,
-                maxHeight: MediaQuery.of(context).size.height * 0.4,
+                minHeight:  MediaQuery.of(context).size.height * mapState.bottomSheetHeight,
+                maxHeight: MediaQuery.of(context).size.height * mapState.bottomSheetHeight2,
                 controller: panelController,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -57,48 +54,7 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                 ),
                 body: BlocListener<MapCubit, MapState>(
                   listener: (mapContext, states) async {
-                    if (states.rideRequestModel != null) {
-                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: states.rideRequestModel!,),), (route) => false);
-                    }
-                    if(states.amountLoadingResult == true){
-                      AwesomeDialog(
-                          context: context,
-                          dialogType: DialogType.error,
-                          animType: AnimType.topSlide,
-                          title: 'Warning',
-                          desc: 'Unable to process your request, please try again later',
-                          dismissOnBackKeyPress: false,
-                          btnOkText: 'Go Back',
-                          titleTextStyle: HelperStyle.textStyle(context, HelperColor.black, 15, FontWeight.w500),
-                          descTextStyle: HelperStyle.textStyle(context, HelperColor.black, 14, FontWeight.w400),
-                          dismissOnTouchOutside: false,
-                          barrierColor: Colors.black.withOpacity(0.2),
-                          btnCancelColor: HelperColor.primaryColor,
-                          btnOkOnPress: () {
 
-                          }).show();
-                    }
-
-                    if (states.hasError == true) {
-                      showToast(states.message,
-                          context: context,
-                          backgroundColor: Colors.red,
-                          axis: Axis.horizontal,
-                          alignment: Alignment.center,
-                          position: StyledToastPosition.top);
-
-                      mapContext.read<MapCubit>().state.hasError = null;
-                      mapContext.read<MapCubit>().state.message = null;
-                    }else if(states.hasError == false){
-                      showToast(states.message,
-                          context: context,
-                          backgroundColor: Colors.green,
-                          axis: Axis.horizontal,
-                          alignment: Alignment.center,
-                          position: StyledToastPosition.top);
-                      mapContext.read<MapCubit>().state.hasError = null;
-                      mapContext.read<MapCubit>().state.message = null;
-                    }
                   },
                   child:Stack(
                     children: [
@@ -158,16 +114,23 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                   ),
                 ),
                 panelBuilder: (scrollController) =>
-                    ConfirmationDeliveryWidget(scrollController: scrollController,
+                    ConfirmationWidget(scrollController: scrollController,
                       mapState: mapState,
                       panelController: panelController,
+                      selectPayment: () async {
+
+                        // await Navigator.push(context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => const SelectPaymentScreen(),
+                        //   ),
+                        // ).then((value) => {
+                        //   if(value != null){
+                        //     debugPrint("value is ${value['name']} ${value['card_id']}"),
+                        //     mapContext.read<MapCubit>().updatePayment(value['name'],value['card_id']),
+                        //   }});
+                      },
                       onContinue: (){
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DeliveryUserScreen(
-                            dataFrom: widget.dataFrom,
-                            dataTo: widget.dataTo,
-                          ),
-                        ));
+                        //mapContext.read<MapCubit>().loadingAndWaitingForDriver();
                       },
                     ),
               );

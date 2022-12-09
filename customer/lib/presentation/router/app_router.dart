@@ -6,6 +6,7 @@ import 'package:acoride/presentation/auth/verify_phone_screen.dart';
 import 'package:acoride/presentation/bills/Cable/cable_screen.dart';
 import 'package:acoride/presentation/bills/Data/data_screen.dart';
 import 'package:acoride/presentation/debit_card/debit_card_screen.dart';
+import 'package:acoride/presentation/delivery/delivery_dashboard.dart';
 import 'package:acoride/presentation/onboarding/onboardingscreen.dart';
 import 'package:acoride/presentation/order/order_rate_driver.dart';
 import 'package:acoride/presentation/order/order_trip_screen.dart';
@@ -124,6 +125,10 @@ class AppRouter {
       case mainMapScreen:
         return MaterialPageRoute(
             builder: (_) => MapMainHomePage(rideHistory: arguments!['rideHistory'],)
+        );
+      case deliveryScreen:
+        return MaterialPageRoute(
+            builder: (_) => DeliveryMapMainPage(rideHistory: arguments!['rideHistory'],)
         );
       case locationPermissionScreen:
         return MaterialPageRoute(builder: (_) => const LocationPermission());
