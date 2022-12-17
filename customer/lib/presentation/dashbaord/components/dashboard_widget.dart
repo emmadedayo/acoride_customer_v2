@@ -265,7 +265,7 @@ class DashboardFullState extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  dashBoardState.dashBoardModel?.user?.rideID != '0'?
+                  dashBoardState.dashBoardModel?.user?.isDelivery == false && dashBoardState.dashBoardModel?.user?.rideID != '0'?
                   DashboardShimmerMenuWidget(
                     context: context,
                     title: 'Continue Ride',

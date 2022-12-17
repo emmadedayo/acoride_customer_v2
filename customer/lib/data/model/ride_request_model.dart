@@ -30,6 +30,7 @@ class RideRequestModel {
   String? estimatedPrice;
   String? amountPaid;
   String? cancelledBy;
+  String? duration;
   String? onGoing;
   String? baseFareFee;
   String? deletedAt;
@@ -74,6 +75,7 @@ class RideRequestModel {
         this.estimatedDistanceCovered,
         this.deletedAt,
         this.createdAt,
+        this.duration,
         this.user});
 
   RideRequestModel.fromMap(json) {
@@ -99,6 +101,7 @@ class RideRequestModel {
     completedStatus = json['completed_status'];
     completedStatusTime = json['completed_status_time'];
     km = json['km'];
+    duration = json['duration'];
     kmInTime = json['km_in_time'];
     paymentType = json['payment_type'];
     paymentCardNumber = json['payment_card_number'];
@@ -145,6 +148,7 @@ class RideRequestModel {
     data['estimated_price'] = estimatedPrice;
     data['amount_paid'] = amountPaid;
     data['cancelled_by'] = cancelledBy;
+    data['duration'] = duration;
     data['on_going'] = onGoing;
     data['base_fare_fee'] = baseFareFee;
     data['deleted_at'] = deletedAt;

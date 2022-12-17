@@ -1,20 +1,19 @@
-import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/states/map_state.dart';
-import 'package:acoride/presentation/order/components/confirmation_panel_widget.dart';
+import 'package:acoride/presentation/delivery/delivery_details/delivery_user_screen.dart';
 import 'package:acoride/utils/loadingImage.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:acoride/utils/map.utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../../core/helper/helper_color.dart';
+import '../components/delivery_components.dart';
 
 
 class ConfirmRideDetails extends StatefulWidget {
@@ -45,8 +44,8 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
           child: BlocBuilder<MapCubit, MapState>(
             builder: (mapContext, mapState) {
               return SlidingUpPanel(
-                minHeight:  MediaQuery.of(context).size.height * mapState.bottomSheetHeight,
-                maxHeight: MediaQuery.of(context).size.height * mapState.bottomSheetHeight2,
+                minHeight:  MediaQuery.of(context).size.height *0.40,
+                maxHeight: MediaQuery.of(context).size.height *0.44,
                 controller: panelController,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -72,10 +71,16 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           compassEnabled: false,
                           polylines: mapState.polyLines,
                           zoomControlsEnabled: false,
+                          cameraTargetBounds: CameraTargetBounds(
+                            MapUtils.targetBounds(
+                              LatLng(widget.dataFrom[0]['lat'], widget.dataFrom[0]['long']),
+                              LatLng(widget.dataTo[0]['lat'], widget.dataTo[0]['long']),
+                            ),
+                          ),
                           myLocationButtonEnabled: false,
                           scrollGesturesEnabled: true,
                           myLocationEnabled: true,
-                          minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
+                          //minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
                           initialCameraPosition: CameraPosition(
                             target: LatLng(
                                 mapState.position != null ? mapState.position!.latitude : mapState.lastKnownPositions!.latitude,
@@ -114,23 +119,11 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                   ),
                 ),
                 panelBuilder: (scrollController) =>
-                    ConfirmationWidget(scrollController: scrollController,
+                    ConfirmationDeliveryWidget(scrollController: scrollController,
                       mapState: mapState,
                       panelController: panelController,
-                      selectPayment: () async {
-
-                        // await Navigator.push(context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => const SelectPaymentScreen(),
-                        //   ),
-                        // ).then((value) => {
-                        //   if(value != null){
-                        //     debugPrint("value is ${value['name']} ${value['card_id']}"),
-                        //     mapContext.read<MapCubit>().updatePayment(value['name'],value['card_id']),
-                        //   }});
-                      },
                       onContinue: (){
-                        //mapContext.read<MapCubit>().loadingAndWaitingForDriver();
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => DeliveryUserScreen(dataFrom: widget.dataFrom, dataTo: widget.dataTo)));
                       },
                     ),
               );

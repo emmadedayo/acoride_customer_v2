@@ -115,9 +115,8 @@ class SoftScreenUpdate extends StatelessWidget {
                         buttonText: "Update Now",
                         color: HelperColor.primaryColor,
                         textColor: Colors.white,
-                        onTap: () async {
-                          LaunchReview.launch(androidAppId: "com.app.flipex", iOSAppId: "");
-                        }, radius: 30,
+                        onTap: update,
+                        radius: 30,
                       ),
                       SizedBox(height: 10.sp),
                       GestureDetector(
@@ -177,10 +176,8 @@ class AppMaintenance extends StatelessWidget {
                         buttonText: "Update Now",
                         color: HelperColor.primaryColor,
                         textColor: Colors.white,
-                        onTap: () async {
-                          LaunchReview.launch(androidAppId: "com.app.flipex",
-                              iOSAppId: "");
-                        }, radius: 30,
+                        onTap:update,
+                        radius: 30,
                       ),
                       SizedBox(height: 20.sp),
                     ],

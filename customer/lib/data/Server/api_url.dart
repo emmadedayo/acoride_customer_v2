@@ -67,6 +67,8 @@ class ApiUrl {
 
   ////////////////////// Delivery Billing ////////////////////////
   static  String getUserDelivery = '${HelperConfig.getUrlEnvironment()}api/v1/customer/getUserDeliveryAmount';
+  static  String getDeliveryDriver = '${HelperConfig.getUrlEnvironment()}api/v1/customer/createDeliveryRequest';
+  static  String getCategory = '${HelperConfig.getUrlEnvironment()}api/getCategory';
 
   ////////////////////// App Settings ////////////////////////
   static  String getVersion = '${HelperConfig.getUrlEnvironment()}api/get_version';

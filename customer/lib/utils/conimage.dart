@@ -6,22 +6,6 @@ class ImageModel {
 List<ImageModel> Imagechoices = <ImageModel>[
   ImageModel(
     id: 1,
-    image: 'https://i.ibb.co/WnGJsJf/banner.png',
-  ),
-  ImageModel(
-    id: 2,
-    image: 'https://i.ibb.co/WnGJsJf/banner.png',
-  ),
-  ImageModel(
-    id: 3,
-    image: 'https://i.ibb.co/WnGJsJf/banner.png',
-  ),
-  ImageModel(
-    id: 4,
-    image: 'https://i.ibb.co/WnGJsJf/banner.png',
-  ),
-  ImageModel(
-    id: 5,
-    image: 'https://i.ibb.co/WnGJsJf/banner.png',
+    image: 'https://res.cloudinary.com/dxapwskuu/image/upload/v1670542326/302089777_462697689203963_679885827404132935_n_zfypdh.jpg',
   ),
 ];

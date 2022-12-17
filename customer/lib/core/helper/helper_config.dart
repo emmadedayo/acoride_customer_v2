@@ -69,7 +69,7 @@ class HelperConfig{
 
   static const String payStackTestKey = 'pk_test_0263338ba4246920824bd81ea2315ee3bcadb53a';
 
-  static const String payStackProductionKey = 'sk_test_05660c8db9f95d8c3354054d9cebc4bc17de3ed6';
+  static const String payStackProductionKey = 'pk_live_be0f1f28ae85420fb83f6d250986305a6bdac2ec';
 
   static String getPngImage(String imageName){
     return 'assets/images/$imageName.png';
@@ -108,6 +108,26 @@ class HelperConfig{
     } catch (e) {
       return false;
     }
+  }
+
+  static Future<bool> getLocationPermission() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return false;
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return false;
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return false;
+    }
+    return true;
   }
 
   static String uuid() {

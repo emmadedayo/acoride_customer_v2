@@ -16,6 +16,7 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
+import '../../utils/map.utils.dart';
 import '../delivery/components/delivery_components.dart';
 import 'order_payment_screen.dart';
 import 'order_trip_screen.dart';
@@ -48,8 +49,8 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
           child: BlocBuilder<MapCubit, MapState>(
             builder: (mapContext, mapState) {
               return SlidingUpPanel(
-                minHeight:  MediaQuery.of(context).size.height * 0.4,
-                maxHeight: MediaQuery.of(context).size.height * 0.4,
+                minHeight:  MediaQuery.of(context).size.height * mapState.bottomSheetHeight,
+                maxHeight: MediaQuery.of(context).size.height * mapState.bottomSheetHeight2,
                 controller: panelController,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(30),
@@ -116,10 +117,16 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           compassEnabled: false,
                           polylines: mapState.polyLines,
                           zoomControlsEnabled: false,
+                          cameraTargetBounds: CameraTargetBounds(
+                            MapUtils.targetBounds(
+                              LatLng(widget.dataFrom[0]['lat'], widget.dataFrom[0]['long']),
+                              LatLng(widget.dataTo[0]['lat'], widget.dataTo[0]['long']),
+                            ),
+                          ),
                           myLocationButtonEnabled: false,
                           scrollGesturesEnabled: true,
                           myLocationEnabled: true,
-                          minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
+                          //minMaxZoomPreference: const MinMaxZoomPreference(10, 20),
                           initialCameraPosition: CameraPosition(
                             target: LatLng(
                                 mapState.position != null ? mapState.position!.latitude : mapState.lastKnownPositions!.latitude,
@@ -158,16 +165,23 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                   ),
                 ),
                 panelBuilder: (scrollController) =>
-                    ConfirmationDeliveryWidget(scrollController: scrollController,
+                    ConfirmationWidget(scrollController: scrollController,
                       mapState: mapState,
                       panelController: panelController,
-                      onContinue: (){
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => DeliveryUserScreen(
-                            dataFrom: widget.dataFrom,
-                            dataTo: widget.dataTo,
+                      selectPayment: () async {
+
+                       await Navigator.push(context,
+                          MaterialPageRoute(
+                            builder: (context) => const SelectPaymentScreen(),
                           ),
-                        ));
+                        ).then((value) => {
+                        if(value != null){
+                            debugPrint("value is ${value['name']} ${value['card_id']}"),
+                            mapContext.read<MapCubit>().updatePayment(value['name'],value['card_id']),
+                        }});
+                      },
+                      onContinue: (){
+                        mapContext.read<MapCubit>().loadingAndWaitingForDriver();
                       },
                     ),
               );
