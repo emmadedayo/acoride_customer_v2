@@ -1,6 +1,7 @@
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/entities/settings_item.dart';
+import 'package:acoride/presentation/onboarding/components/onboarding_components.dart';
 import 'package:acoride/presentation/router/router_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,17 +48,11 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         pageController: _pageController,
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
         onSkip: () {
-          SettingsItem settings = context.read<SettingsCubit>().state.settings;
-          settings.isFirstUse = false;
-          context.read<SettingsCubit>().setSettings(settings);
-          Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
+          userConsentPermission(context);
         },
         // Either Provide onDone Callback or nextButton Widget to handle done state
         onDone: () {
-          SettingsItem settings = context.read<SettingsCubit>().state.settings;
-          settings.isFirstUse = false;
-          context.read<SettingsCubit>().setSettings(settings);
-          Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
+          userConsentPermission(context);
         },
         onBoardData: onBoardData,
         descriptionStyles: HelperStyle.textStyle(
@@ -72,10 +67,7 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         // Either Provide onSkip Callback or skipButton Widget to handle skip state
         skipButton: TextButton(
           onPressed: () {
-            SettingsItem settings = context.read<SettingsCubit>().state.settings;
-            settings.isFirstUse = false;
-            context.read<SettingsCubit>().setSettings(settings);
-            Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
+            userConsentPermission(context);
           },
           child: Text(
             "Skip",
@@ -121,12 +113,33 @@ class OnBoardingPageState extends State<OnBoardingPage> {
         curve: Curves.easeInOutSine,
       );
     } else {
-      SettingsItem settings = context.read<SettingsCubit>().state.settings;
-      settings.isFirstUse = false;
-      context.read<SettingsCubit>().setSettings(settings);
-      Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
+      userConsentPermission(context);
     }
   }
+}
+
+userConsentPermission(ctx){
+  showModalBottomSheet(
+    enableDrag: false,
+    isDismissible: false,
+    isScrollControlled: true,
+    shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(20.0),
+          topRight: Radius.circular(20.0),
+        )),
+    context: ctx,
+    builder: (BuildContext context) {
+      return OnboardingComponents(
+        onTap: () async {
+          SettingsItem settings = context.read<SettingsCubit>().state.settings;
+          settings.isFirstUse = false;
+          context.read<SettingsCubit>().setSettings(settings);
+          Navigator.pushNamedAndRemoveUntil(context, locationPermissionScreen, (route) => false);
+        },
+      );
+    },
+  );
 }
 
 final List<OnBoardModel> onBoardData = [

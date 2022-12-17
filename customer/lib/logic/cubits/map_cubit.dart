@@ -194,6 +194,7 @@ class MapCubit extends Cubit<MapState> {
     double northEastLatitude = maxy;
     double northEastLongitude = maxx;
 
+
     state.mapController?.animateCamera(
       CameraUpdate.newLatLngBounds(
         LatLngBounds(

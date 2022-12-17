@@ -3,9 +3,9 @@ const BASE_URL_TEST = 'https://development.acoride.com.ng/apistaging/public/';
 const BASE_URL_PRODUCTION = 'https://development.acoride.com.ng/apistaging/public/';
 
 const FIREBASE_TEST = 'ride_request_staging';
-const FIREBASE_PRODUCTION = 'ride_request_production';
+const FIREBASE_PRODUCTION = 'ride_request_staging';
 
-const FIREBASE_REALTIME_TEST = 'ride_request_staging';
+const FIREBASE_REALTIME_TEST = 'ride_request_staging_location';
 const FIREBASE_REALTIME_PRODUCTION = 'ride_request_staging_location';
 
 const USER_TOKEN = 'token';

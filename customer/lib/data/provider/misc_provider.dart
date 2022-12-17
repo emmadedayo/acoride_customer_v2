@@ -11,4 +11,10 @@ class MiscProvider{
     HttpMethod.GET);
     return RestApi.getListFromResponse(response);
   }
+
+  Future<List> getCategory() async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.getCategory, {}, method:
+    HttpMethod.GET);
+    return RestApi.getListFromResponse(response);
+  }
 }
