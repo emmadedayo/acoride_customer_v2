@@ -69,7 +69,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
         builder: (regContext, regState) {
           return BlurryModalProgressHUD(
             inAsyncCall: regState.isLoading,
-            dismissible: true,
+            dismissible: false,
             child: BlocListener<VerifyPhoneCubit, VerifyPhoneState>(
               listener: (context, state) async {
                 if (state.user!= null) {
@@ -146,7 +146,7 @@ class VerifyAccountScreenState extends State<VerifyAccountScreen> {
                               ),
                               SizedBox(height: 40.0.h),
                               Text(
-                                'Enter the 6-digit code sent to you at +234${widget.phone}',
+                                'Enter the 4-digit code sent to you at +234${widget.phone}',
                                 textAlign: TextAlign.center,
                                 style:HelperStyle.textStyleTwo(
                                     context, HelperColor.black, 18.sp, FontWeight.normal),

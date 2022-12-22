@@ -68,11 +68,13 @@ class VerifyForgotPasswordState extends State<VerifyForgotPassword> {
         builder: (regContext, regState) {
           return BlurryModalProgressHUD(
             inAsyncCall: regState.isLoading,
-            dismissible: true,
+            dismissible: false,
             child: BlocListener<ForgotPasswordCubit, ForgotPasswordState>(
                 listener: (context, state) async {
                   if (state.hasError == false) {
                     Navigator.of(context).pushNamedAndRemoveUntil(changePasswordScreen, (route) => true,arguments: {'phone': widget.phone});
+                    context.read<ForgotPasswordCubit>().state.hasError = null;
+                    context.read<ForgotPasswordCubit>().state.message = null;
                   }
                   if (state.hasError==true) {
                     showToast(state.message,

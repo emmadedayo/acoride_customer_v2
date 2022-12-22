@@ -46,6 +46,7 @@ class ApiUrl {
 
   //////////////// Rating ////////////////
   static  String rate = '${HelperConfig.getUrlEnvironment()}api/v1/rateRide';
+  static String deliveryRate = '${HelperConfig.getUrlEnvironment()}api/v1/deliveryRateRide';
 
   //////////////// Emergency ////////////////
   static  String emergencyAlert = '${HelperConfig.getUrlEnvironment()}api/v1/panicService';

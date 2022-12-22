@@ -4,6 +4,7 @@ class FireStoreModel {
   bool? deleteTrip;
   bool? endTrip;
   String? rideID;
+  String? rideType;
   bool? sendTrip;
   bool? startTrip;
   bool? confirmTrip;
@@ -18,6 +19,7 @@ class FireStoreModel {
     required this.endTrip,
     required this.rideID,
     required this.sendTrip,
+    required this.rideType,
     required this.startTrip,
     required this.amount,
     this.time = "1 min",
@@ -35,6 +37,7 @@ class FireStoreModel {
     amount = json['trip_amount'];
     confirmTrip = json['confirm_trip'];
     time = json['time'] ?? "1 min";
+    rideType = json['ride_type'];
     distance = json['distance'];
   }
 
@@ -51,6 +54,7 @@ class FireStoreModel {
       'confirm_trip': confirmTrip,
       'time': time,
       'distance': distance,
+      'ride_type': rideType,
     };
   }
 }

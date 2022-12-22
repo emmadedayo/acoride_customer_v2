@@ -240,7 +240,7 @@ class CardScreenIndexState extends State<CardScreenIndex> {
                   ),
                   body: BlurryModalProgressHUD(
                       inAsyncCall: cadState.isLoading,
-                      dismissible: true,
+                      dismissible: false,
                       child:SafeArea(
                         child: ListView(
                           children: [

@@ -5,7 +5,22 @@ import '../../data/repositories/user_repository.dart';
 
 class ProfileCubit extends Cubit<ProfileState>{
   UserRepository userRepository = UserRepository();
-  ProfileCubit(ProfileState initialState) : super(initialState);
+  ProfileCubit(ProfileState initialState) : super(initialState){
+    getProfile();
+  }
+
+  getProfile() async {
+    state.isLoading = true;
+    emit(state.copy());
+    Future.delayed(const Duration(seconds: 3), () async {
+      var result = await userRepository.getDashboard();
+      if (result.errorCode != 400) {
+        state.user = result.result?.user;
+      }
+      state.isLoading = false;
+      emit(state.copy());
+    });
+  }
 
   editProfile() async {
     state.isLoading = true;

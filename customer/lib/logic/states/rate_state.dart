@@ -33,7 +33,7 @@ class RateState {
 
   RateState({
     this.isLoading = false,
-    this.hasError = false,
+    this.hasError,
     this.rating = 4.5,
     this.mapController, this.cameraPosition, this.position, this.lastKnownPositions,
     this.dropOffMarker, this.positionLoading: CustomState.LOADING, this.locationSettings: const LocationSettings(),

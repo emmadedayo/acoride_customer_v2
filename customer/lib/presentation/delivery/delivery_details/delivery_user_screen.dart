@@ -9,6 +9,8 @@ import 'package:acoride/presentation/components/buttonWidget.dart';
 import 'package:acoride/presentation/components/form_widget_screen.dart';
 import 'package:acoride/presentation/components/progressive_loading.dart';
 import 'package:acoride/presentation/delivery/components/delivery_component_state.dart';
+import 'package:acoride/presentation/delivery_order/delivery_order_screen.dart';
+import 'package:acoride/presentation/order/order_trip_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -53,6 +55,9 @@ class DeliveryUserScreenState extends State<DeliveryUserScreen> {
         builder: (contextCubit, dayState) {
           return BlocListener<DeliveryReceiverCubit, DeliveryReceiverState>(
               listener: (context, state) async {
+                if(state.rideRequestModel != null){
+                  Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DeliveryOrderScreen(rideRequestModel: state.rideRequestModel!,),), (route) => false);
+                }
                 if(state.showLoader == true){
                   showModalBottomSheet(
                     enableDrag: false,
@@ -390,13 +395,22 @@ class DeliveryUserScreenState extends State<DeliveryUserScreen> {
                                         onTap: (){
                                           FocusManager.instance.primaryFocus?.unfocus();
                                           if (_formKey.currentState!.validate()) {
-                                            if(dayState.fullUsername.text.isEmpty){
-                                              showToast('Full Name is required',
+                                            if(dayState.fullUsername.text.isEmpty || dayState.categoryMethod.text.isEmpty || dayState.paymentMethod.text.isEmpty || dayState.whoIsPaying.text.isEmpty){
+                                              showToast('Please fill in all fields',
                                                   context: context,
                                                   backgroundColor: Colors.red,
                                                   axis: Axis.horizontal,
                                                   alignment: Alignment.center,
                                                   position: StyledToastPosition.top);
+                                            }else if(dayState.paymentMethod.text == "Cash" && dayState.whoIsPaying.text == "Sender"){
+                                              showToast('Please change paying account to sender for Cash Payment',
+                                                  context: context,
+                                                  duration: const Duration(seconds: 5),
+                                                  backgroundColor: Colors.red,
+                                                  axis: Axis.horizontal,
+                                                  alignment: Alignment.center,
+                                                  position: StyledToastPosition.top);
+
                                             }else{
                                               showModalBottomSheet(
                                                 enableDrag: true,
@@ -410,11 +424,11 @@ class DeliveryUserScreenState extends State<DeliveryUserScreen> {
                                                 context: context,
                                                 builder: (BuildContext context) {
                                                   return ConfirmDeliveryDetails(
-                                                      deliveryReceiverState: dayState,
-                                                      voidCallback: (){
-                                                        Navigator.pop(context);
-                                                        contextCubit.read<DeliveryReceiverCubit>().searchDriver();
-                                                      },
+                                                    deliveryReceiverState: dayState,
+                                                    voidCallback: (){
+                                                      Navigator.pop(context);
+                                                      contextCubit.read<DeliveryReceiverCubit>().searchDriver();
+                                                    },
                                                   );
                                                 },
                                               );

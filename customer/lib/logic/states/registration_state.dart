@@ -9,6 +9,7 @@ class RegistrationState{
   bool? success;
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
+  TextEditingController referralController = TextEditingController();
   TextEditingController stateController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -25,6 +26,7 @@ class RegistrationState{
     copy.emailController = emailController;
     copy.stateModel = stateModel;
     copy.phoneController = phoneController;
+    copy.referralController = referralController;
     copy.passwordController = passwordController;
     copy.stateController = stateController;
     copy.confirmPasswordController = confirmPasswordController;

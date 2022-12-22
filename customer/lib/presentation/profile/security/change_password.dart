@@ -39,7 +39,7 @@ class ChangePasswordScreenTwoState extends State<ChangePasswordScreenTwo> {
         builder: (context, state) {
           return BlurryModalProgressHUD(
             inAsyncCall: state.isLoading,
-            dismissible: true,
+            dismissible: false,
             child: BlocListener<ChangePasswordCubit, ChangePasswordState>(
                 listener: (context, state) async {
                   if (state.hasError == true) {

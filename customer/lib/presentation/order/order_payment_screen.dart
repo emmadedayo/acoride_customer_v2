@@ -84,7 +84,7 @@ class SelectPaymentScreenState extends State<SelectPaymentScreen> {
                     ),
                     body: BlurryModalProgressHUD(
                       inAsyncCall: cadState.isLoading,
-                      dismissible: true,
+                      dismissible: false,
                       child:SafeArea(
                         child: ListView(
                           children: [

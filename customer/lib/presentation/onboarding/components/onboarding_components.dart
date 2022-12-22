@@ -3,8 +3,6 @@ import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/presentation/onboarding/context_list.dart';
 import 'package:flutter/material.dart';
 
-import '../../../data/model/ride_request_model.dart';
-
 class OnboardingComponents extends StatelessWidget {
   final VoidCallback? onTap;
   const OnboardingComponents({Key? key,this.onTap})

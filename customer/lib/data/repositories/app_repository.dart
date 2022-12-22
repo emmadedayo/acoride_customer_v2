@@ -1,13 +1,9 @@
 import 'dart:async';
 
 import 'package:acoride/data/model/app_settings.dart';
-import 'package:acoride/data/model/dashboard_model.dart';
-import 'package:acoride/data/provider/user_provider.dart';
-import 'package:flutter/foundation.dart';
 
 import '../../core/constant/constants.dart';
 import '../Server/result_item.dart';
-import '../model/UserModel.dart';
 import '../provider/app_provider.dart';
 
 class AppRepository{

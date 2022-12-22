@@ -6,7 +6,7 @@ class DeliveryUserRequest {
   double? userLatitude;
   double? userLongitude;
   bool? available;
-  double? distance;
+  //int? distance;
   int? estimatedPrice;
   UserModel? receiver;
   UserModel? driver;
@@ -17,18 +17,18 @@ class DeliveryUserRequest {
         this.userLatitude,
         this.userLongitude,
         this.available,
-        this.distance,
+      //  this.distance,
         this.estimatedPrice,
         this.receiver,
         this.driver});
 
-  DeliveryUserRequest.fromJson(Map<String, dynamic> json) {
+  DeliveryUserRequest.fromJson(json) {
     id = json['id'];
     driverId = json['driver_id'];
     userLatitude = json['user_latitude'];
     userLongitude = json['user_longitude'];
     available = json['available'];
-    distance = json['distance'];
+   // distance = json['distance'];
     estimatedPrice = json['estimated_price'];
     receiver = json['receiver'] != null
         ? UserModel.fromMap(json['receiver'])
@@ -44,7 +44,7 @@ class DeliveryUserRequest {
     data['user_latitude'] = this.userLatitude;
     data['user_longitude'] = this.userLongitude;
     data['available'] = this.available;
-    data['distance'] = this.distance;
+ //   data['distance'] = this.distance;
     data['estimated_price'] = this.estimatedPrice;
     final receiver = this.receiver;
     if (receiver != null) {

@@ -1,4 +1,5 @@
 import 'package:acoride/data/model/UserModel.dart';
+import 'package:acoride/data/model/category_model.dart';
 import 'package:acoride/data/model/trip_request_amount.dart';
 
 class RideRequestModel {
@@ -6,15 +7,15 @@ class RideRequestModel {
   String? rideId;
   int? driverId;
   int? passengerId;
-  int? receiverId;
   String? passengerPickupAddress;
   double? passengerPickupLatitude;
   double? passengerPickupLongitude;
   String? passengerDestinationAddress;
   double? passengerDestinationLatitude;
   double? passengerDestinationLongitude;
+  double? driverStartRideLatitude;
+  double? driverStartRideLongitude;
   String? rideType;
-  int? deliveryCategoryId;
   String? scheduleDateTime;
   String? scheduleStartRide;
   String? driverAcceptStatus;
@@ -33,11 +34,13 @@ class RideRequestModel {
   String? duration;
   String? onGoing;
   String? baseFareFee;
-  String? deletedAt;
-  String? createdAt;
   String? distanceCovered;
   String? estimatedDistanceCovered;
+  String? deletedAt;
+  String? createdAt;
   UserModel? user;
+  UserModel? deliveryUser;
+  CategoryModel? categoryModel;
   TripAmountRequest? tripAmountRequest;
 
   RideRequestModel(
@@ -45,7 +48,6 @@ class RideRequestModel {
         this.rideId,
         this.driverId,
         this.passengerId,
-        this.receiverId,
         this.passengerPickupAddress,
         this.passengerPickupLatitude,
         this.passengerPickupLongitude,
@@ -53,7 +55,6 @@ class RideRequestModel {
         this.passengerDestinationLatitude,
         this.passengerDestinationLongitude,
         this.rideType,
-        this.deliveryCategoryId,
         this.scheduleDateTime,
         this.scheduleStartRide,
         this.driverAcceptStatus,
@@ -72,18 +73,22 @@ class RideRequestModel {
         this.onGoing,
         this.baseFareFee,
         this.distanceCovered,
-        this.estimatedDistanceCovered,
         this.deletedAt,
-        this.createdAt,
         this.duration,
-        this.user});
+        this.createdAt,
+        this.estimatedDistanceCovered,
+        this.user,
+        this.deliveryUser,
+        this.categoryModel,
+        this.driverStartRideLatitude,
+        this.driverStartRideLongitude,
+      });
 
   RideRequestModel.fromMap(json) {
     id = json['id'];
     rideId = json['ride_id'];
     driverId = json['driver_id'];
     passengerId = json['passenger_id'];
-    receiverId = json['receiver_id'];
     passengerPickupAddress = json['passenger_pickup_address'];
     passengerPickupLatitude = json['passenger_pickup_latitude'];
     passengerPickupLongitude = json['passenger_pickup_longitude'];
@@ -91,7 +96,6 @@ class RideRequestModel {
     passengerDestinationLatitude = json['passenger_destination_latitude'];
     passengerDestinationLongitude = json['passenger_destination_longitude'];
     rideType = json['ride_type'];
-    deliveryCategoryId = json['delivery_category_id'];
     scheduleDateTime = json['schedule_date_time'];
     scheduleStartRide = json['schedule_start_ride'];
     driverAcceptStatus = json['driver_accept_status'];
@@ -111,10 +115,14 @@ class RideRequestModel {
     onGoing = json['on_going'];
     baseFareFee = json['base_fare_fee'];
     distanceCovered = json['distance_covered'];
-    deletedAt = json['deleted_at'];
-    createdAt = json['created_at'];
     estimatedDistanceCovered = json['estimated_distance_covered'];
+    deletedAt = json['deleted_at'];
+    driverStartRideLatitude = json['driver_start_ride_latitude'];
+    driverStartRideLongitude = json['driver_start_ride_longitude'];
+    createdAt = json['created_at'];
     user = json['user'] != null ? UserModel.fromMap(json['user']) : null;
+    deliveryUser = json['delivery_user'] != null ? UserModel.fromMap(json['delivery_user']) : null;
+    categoryModel = json['category'] != null ? CategoryModel.fromJson(json['category']) : null;
     tripAmountRequest = json['trip_amount'] != null ? TripAmountRequest.fromMap(json['trip_amount']) : null;
   }
 
@@ -124,15 +132,14 @@ class RideRequestModel {
     data['ride_id'] = rideId;
     data['driver_id'] = driverId;
     data['passenger_id'] = passengerId;
-    data['receiver_id'] = receiverId;
     data['passenger_pickup_address'] = passengerPickupAddress;
     data['passenger_pickup_latitude'] = passengerPickupLatitude;
     data['passenger_pickup_longitude'] = passengerPickupLongitude;
     data['passenger_destination_address'] = passengerDestinationAddress;
     data['passenger_destination_latitude'] = passengerDestinationLatitude;
-    data['passenger_destination_longitude'] = passengerDestinationLongitude;
+    data['passenger_destination_longitude'] =
+        passengerDestinationLongitude;
     data['ride_type'] = rideType;
-    data['delivery_category_id'] = deliveryCategoryId;
     data['schedule_date_time'] = scheduleDateTime;
     data['schedule_start_ride'] = scheduleStartRide;
     data['driver_accept_status'] = driverAcceptStatus;
@@ -151,12 +158,18 @@ class RideRequestModel {
     data['duration'] = duration;
     data['on_going'] = onGoing;
     data['base_fare_fee'] = baseFareFee;
-    data['deleted_at'] = deletedAt;
-    data['created_at'] = createdAt;
     data['distance_covered'] = distanceCovered;
     data['estimated_distance_covered'] = estimatedDistanceCovered;
+    data['deleted_at'] = deletedAt;
+    data['created_at'] = createdAt;
     if (user != null) {
       data['user'] = user!.toMap();
+    }
+    if (deliveryUser != null) {
+      data['delivery_user'] = deliveryUser!.toMap();
+    }
+    if (categoryModel != null) {
+      data['category'] = categoryModel!.toJson();
     }
     if (tripAmountRequest != null) {
       data['trip_amount'] = tripAmountRequest!.toMap();

@@ -108,7 +108,7 @@ class EmergencyContactScreenState extends State<EmergencyContactScreen> {
                   ),
                   body:BlurryModalProgressHUD(
                       inAsyncCall: emeState.isLoading,
-                      dismissible: true,
+                      dismissible: false,
                       child:SafeArea(
                         child: ListView(
                           children: [

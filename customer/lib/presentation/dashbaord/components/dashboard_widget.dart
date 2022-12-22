@@ -2,6 +2,7 @@ import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/logic/states/dashboard_state.dart';
+import 'package:acoride/presentation/delivery_order/delivery_order_screen.dart';
 import 'package:acoride/presentation/order/order_trip_screen.dart';
 import 'package:badges/badges.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -287,6 +288,16 @@ class DashboardFullState extends StatelessWidget {
                   const SizedBox(
                     width: 16.0,
                   ),
+                  dashBoardState.dashBoardModel?.user?.isDelivery == true && dashBoardState.dashBoardModel?.user?.rideID != '0'?
+                  DashboardShimmerMenuWidget(
+                    context: context,
+                    title: 'Continue Ride',
+                    subTitle: 'Click to continue your ride',
+                    icons: LineAwesomeIcons.motorcycle,
+                    onTap: (){
+                      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DeliveryOrderScreen(rideRequestModel: dashBoardState.rideRequestModel!),), (route) => false);
+                    },
+                  ):
                   DashboardMenuWidget(
                       onTap: (){
                         Navigator.of(context).pushNamed(deliveryScreen,arguments: {"rideHistory":dashBoardState.rideHistory});
@@ -295,7 +306,7 @@ class DashboardFullState extends StatelessWidget {
                       title: 'Delivery',
                       subTitle: 'Deliver your goods in minutes',
                       icons: LineAwesomeIcons.truck
-                  ),
+                  )
                 ],
               ),
               const SizedBox(

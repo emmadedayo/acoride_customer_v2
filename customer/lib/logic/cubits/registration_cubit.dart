@@ -34,7 +34,8 @@ class RegistrationCubit extends Cubit<RegistrationState>{
       'phone_number': state.phoneController.text,
       'state_id':state.selectedState?.id.toString(),
       'password': state.passwordController.text,
-      'confirm_password': state.passwordController.text
+      'confirm_password': state.passwordController.text,
+      'referral_id':state.referralController.text,
     });
     if ((result.errorCode ?? 0) >= 400) {
       state.message = result.message;

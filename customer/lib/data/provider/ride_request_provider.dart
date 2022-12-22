@@ -43,6 +43,12 @@ class RideRequestProvider{
     return RestApi.getMapFromResponse(response);
   }
 
+  Future<Map> deliveryRate(Map<String,dynamic> map,token) async {
+    Response? response = await RestApi.getDataFromServer(ApiUrl.deliveryRate,
+        map, method: HttpMethod.POST_WITH_AUTH,token:token);
+    return RestApi.getMapFromResponse(response);
+  }
+
   Future<Map> rateRide(Map<String,dynamic> map,token) async {
     Response? response = await RestApi.getDataFromServer(ApiUrl.rate,
         map, method: HttpMethod.POST_WITH_AUTH,token:token);
