@@ -9,6 +9,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../../../core/helper/helper_config.dart';
 import '../../components/buttonWidget.dart';
 import 'delivery_constant.dart';

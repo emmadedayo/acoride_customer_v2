@@ -6,7 +6,7 @@ class UserRideRequest {
   double? userLatitude;
   double? userLongitude;
   bool? available;
-  double? distance;
+//  double? distance;
   int? estimatedPrice;
   UserModel? user;
 
@@ -16,7 +16,7 @@ class UserRideRequest {
         this.userLatitude,
         this.userLongitude,
         this.available,
-        this.distance,
+    //    this.distance,
         this.estimatedPrice,
         this.user});
 
@@ -26,7 +26,7 @@ class UserRideRequest {
     userLatitude = json['user_latitude'];
     userLongitude = json['user_longitude'];
     available = json['available'];
-    distance = json['distance'];
+ //   distance = json['distance'];
     estimatedPrice = json['estimated_price'];
     user = json['driver'] != null ? UserModel.fromMap(json['driver']) : null;
   }
@@ -38,7 +38,7 @@ class UserRideRequest {
     data['user_latitude'] = userLatitude;
     data['user_longitude'] = userLongitude;
     data['available'] = available;
-    data['distance'] = distance;
+   // data['distance'] = distance;
     data['estimated_price'] = estimatedPrice;
     if (user != null) {
       data['driver'] = user!.toMap();

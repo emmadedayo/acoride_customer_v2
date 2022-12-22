@@ -5,13 +5,14 @@ import 'package:acoride/logic/states/app_state.dart';
 import 'package:acoride/presentation/dashbaord/components/dashboard_widget.dart';
 import 'package:acoride/presentation/splashscreen/components/screenappupdate.dart';
 import 'package:acoride/presentation/splashscreen/updatescreen.dart';
+import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:launch_review/launch_review.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
 import '../../logic/states/dashboard_state.dart';
-import 'package:acoride/utils/blurry_modal_profress_hud.dart';
 
 class MainHomePage extends StatefulWidget {
   const MainHomePage({Key? key, }) : super(key: key);

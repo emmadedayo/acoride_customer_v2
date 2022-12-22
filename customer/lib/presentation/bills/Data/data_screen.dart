@@ -1,6 +1,5 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/bills_cubit.dart';
 import 'package:acoride/logic/states/bills_state.dart';
 import 'package:acoride/presentation/bills/Airtime/components/airtime_component.dart';
@@ -71,7 +70,7 @@ class DataScreenIndexState extends State<DataScreenIndex> {
 
             return BlurryModalProgressHUD(
                 inAsyncCall: emeState.isLoadingCard,
-                dismissible: true,
+                dismissible: false,
                 child: Scaffold(
                   backgroundColor: Colors.white,
                   appBar: AppBar(

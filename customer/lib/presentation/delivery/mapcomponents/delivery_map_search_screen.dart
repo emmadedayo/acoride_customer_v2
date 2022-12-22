@@ -1,16 +1,15 @@
 import 'dart:io';
+
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/Service/place_bloc_service.dart';
 import 'package:acoride/data/model/placeItem.dart';
 import 'package:acoride/presentation/delivery/delivery_details/confirm_delivery_details.dart';
-import 'package:acoride/presentation/delivery/delivery_details/delivery_user_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 class DeliveryMapSearchAddress extends StatefulWidget {

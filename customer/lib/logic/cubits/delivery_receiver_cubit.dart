@@ -3,6 +3,7 @@ import 'package:acoride/data/repositories/misc_repository.dart';
 import 'package:acoride/logic/states/delivery_receiver_state.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import '../../core/constant/enum.dart';
 import '../../core/helper/helper_config.dart';
 
@@ -41,14 +42,14 @@ class DeliveryReceiverCubit extends Cubit<DeliveryReceiverState> {
       state.isLoading = false;
       state.message = result.message;
     } else {
+      state.isLoading = false;
+      state.hasError = false;
+      state.message = result.message;
       state.deliveryUserRequest = result.result;
       state.userModel = result.result?.receiver;
       state.driver = result.result?.driver;
       state.fullUsername = TextEditingController(text: result.result!.receiver?.name);
       state.amount = TextEditingController(text: state.deliveryUserRequest?.estimatedPrice.toString());
-      state.message = result.message;
-      state.isLoading = false;
-      state.hasError = false;
     }
     state.isLoading = false;
     emit(state.copy());
@@ -83,7 +84,7 @@ class DeliveryReceiverCubit extends Cubit<DeliveryReceiverState> {
               "delivery_category_id":state.selectedCategory?.id,
               "km":0,
               "km_in_time":0,
-              "payment_type":state.paymentMethod.text,
+              "payment_type":state.paymentMethod.text.toLowerCase(),
               "payer":state.whoIsPaying.text,
               "card_id":"",
               "estimated_price":state.deliveryUserRequest?.estimatedPrice,

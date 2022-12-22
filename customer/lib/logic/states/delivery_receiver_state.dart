@@ -2,7 +2,6 @@ import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/data/model/category_model.dart';
 import 'package:acoride/data/model/delivery_user_request.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/constant/enum.dart';

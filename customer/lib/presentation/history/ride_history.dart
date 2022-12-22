@@ -3,7 +3,9 @@ import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/logic/cubits/ride_history_cubit.dart';
 import 'package:acoride/logic/states/ride_history_state.dart';
 import 'package:acoride/presentation/components/noWidgetFound.dart';
+import 'package:acoride/presentation/delivery_order/delivery_order_screen.dart';
 import 'package:acoride/presentation/history/components/ride_history_widget.dart';
+import 'package:acoride/presentation/order/order_trip_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -41,6 +43,7 @@ class RideHistoryScreenState extends State<RideHistoryScreen> {
                 backgroundColor: HelperColor.slightWhiteColor,
                 appBar: AppBar(
                   backgroundColor: Colors.white,
+                  automaticallyImplyLeading: false,
                   elevation: 0,
                   title: Text("Ride History",style: HelperStyle.textStyle(context,Colors.black,20.sp,FontWeight.w500),),
                 ),
@@ -67,10 +70,14 @@ class RideHistoryScreenState extends State<RideHistoryScreen> {
                                       return RideRequestWidget(
                                         rideRequestModel: emeState.history[index],
                                         onTap: () async {
-                                          Navigator.of(context).pushNamed(
-                                              tripHistoryScreen,
-                                              arguments: {'data':emeState.history[index]});
-                                        },
+                                          if(emeState.history[index].deletedAt != null || emeState.history[index].completedStatusTime != null){
+                                            Navigator.of(context).pushNamed(tripHistoryScreen, arguments: {'data':emeState.history[index]});
+                                          }else if(emeState.history[index].rideType == "delivery"){
+                                            Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DeliveryOrderScreen(rideRequestModel: emeState.history[index]),), (route) => false);
+                                          }else{
+                                          Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderTripScreen(rideRequestModel: emeState.history[index]),), (route) => false);
+                                          }
+                                      },
                                       );
                                     },
                                   ),

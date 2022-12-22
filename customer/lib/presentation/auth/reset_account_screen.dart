@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
@@ -110,7 +111,7 @@ class ResetAccountScreenState extends State<ResetAccountScreen> {
                                           ]),
                                           decoration:  InputDecoration(
                                             filled: true,
-                                            prefixIcon: const Icon(Iconsax.mobile,color: HelperColor.black,),
+                                            prefixIcon: const Icon(LineAwesomeIcons.phone,color: HelperColor.black,),
                                             fillColor: HelperColor.fillColor,
                                             border: const OutlineInputBorder(),
                                             enabledBorder: OutlineInputBorder(
@@ -121,7 +122,7 @@ class ResetAccountScreenState extends State<ResetAccountScreen> {
                                               borderSide: const BorderSide(
                                                   color: HelperColor.primaryLightColor, width: 1.0),
                                             ),
-                                            // contentPadding: const EdgeInsets.all(5),
+                                            contentPadding: const EdgeInsets.all(5),
                                           ),
                                         ),
                                       ],

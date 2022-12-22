@@ -107,6 +107,30 @@ class RateCubit extends Cubit<RateState> {
     emit(state.copy());
   }
 
+  deliveryRate() async {
+    state.isLoading = true;
+    emit(state.copy());
+    var result = await rideRequestRepository.deliveryRate(
+        {
+          "driver_id": state.rideRequestModel?.driverId,
+          "user_id": state.rideRequestModel?.passengerId,
+          "rate": state.rating,
+          "ride_id": state.rideRequestModel?.rideId,
+          "comment": state.commentController?.text,
+        }
+    );
+    if (result.errorCode! > 400) {
+      state.isLoading = false;
+      state.hasError = true;
+      state.message = result.message;
+    } else {
+      state.hasError = false;
+      state.message = result.message;
+      state.isLoading = false;
+    }
+    emit(state.copy());
+  }
+
   rate() async {
     state.isLoading = true;
     emit(state.copy());
@@ -125,6 +149,7 @@ class RateCubit extends Cubit<RateState> {
       state.message = result.message;
     } else {
       state.hasError = true;
+      state.rideRequestModel = result.result;
       state.message = result.message;
       state.isLoading = false;
     }

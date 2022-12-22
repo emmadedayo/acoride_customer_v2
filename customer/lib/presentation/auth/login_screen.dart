@@ -10,7 +10,6 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 
 import '../../core/helper/helper_color.dart';
@@ -42,7 +41,7 @@ class LoginScreenControllerState extends State<LoginScreenController> {
         builder: (context, state) {
           return BlurryModalProgressHUD(
             inAsyncCall: state.isLoading,
-            dismissible: true,
+            dismissible: false,
             child: BlocListener<LoginCubit, LoginState>(
               listener: (context, state) async {
                 if (state.user != null) {

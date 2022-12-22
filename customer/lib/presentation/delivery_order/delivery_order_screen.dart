@@ -2,7 +2,8 @@ import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/data/repositories/object_box_repository.dart';
 import 'package:acoride/logic/cubits/ride_request_cubit.dart';
 import 'package:acoride/logic/states/ride_request_state.dart';
-import 'package:acoride/presentation/order/components/order_screen_widget_trip.dart';
+import 'package:acoride/presentation/delivery_order/components/delivery_order_screen_widget.dart';
+import 'package:acoride/presentation/delivery_order/delivery_order_rate_ride.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -13,18 +14,17 @@ import '../../core/helper/helper_color.dart';
 import '../../utils/loadingImage.dart';
 import '../cancellation/cancellation_screen.dart';
 import '../router/router_constant.dart';
-import 'order_rate_driver.dart';
 
 
-class OrderTripScreen extends StatefulWidget {
+class DeliveryOrderScreen extends StatefulWidget {
   final RideRequestModel rideRequestModel;
-  const OrderTripScreen({Key? key,required this.rideRequestModel}) : super(key: key);
+  const DeliveryOrderScreen({Key? key,required this.rideRequestModel}) : super(key: key);
 
   @override
-  State<OrderTripScreen> createState() => OrderTripScreenState();
+  State<DeliveryOrderScreen> createState() => DeliveryOrderScreenState();
 }
 
-class OrderTripScreenState extends State<OrderTripScreen> {
+class DeliveryOrderScreenState extends State<DeliveryOrderScreen> {
 
   ObjectBoxRepository objectBoxRepository = ObjectBoxRepository();
   final panelController = PanelController();
@@ -56,16 +56,16 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                 body: BlocListener<RideRequestCubit, RideRequestState>(
                   listener: (mapContext, states) async {
                     if (states.fireStoreModel != null) {
-                      if (states.fireStoreModel!.deleteTrip == true) {
+                      if (states.fireStoreModel!.deleteTrip == true && states.fireStoreModel?.rideType == "delivery") {
                         objectBoxRepository.deleteRide();
                         states.userStream!.cancel();
                         states.rideRequestStream?.cancel();
                         Navigator.of(context).pushNamedAndRemoveUntil(tripDeleteScreen, (route) => false);
-                      } else if (states.fireStoreModel!.endTrip == true) {
+                      } else if (states.fireStoreModel!.endTrip == true && states.fireStoreModel?.rideType == "delivery") {
                         objectBoxRepository.deleteRide();
                         //states.userStream!.cancel();
                         states.rideRequestStream?.cancel();
-                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => OrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: states.fireStoreModel!.amount ?? 0,),), (route) => false);
+                        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => DeliveryOrderRateDriver(rideRequestModel: widget.rideRequestModel,amountToPay: states.fireStoreModel!.amount ?? 0,),), (route) => false);
                       }
                     }
                   },
@@ -126,7 +126,7 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                   ),
                 ),
                 panelBuilder: (scrollController) =>
-                    OrderTripScreenWidget(
+                    DeliveryOrderTripScreenWidget(
                       scrollController: scrollController,
                       mapState: mapState,
                       panelController: panelController,
@@ -140,8 +140,8 @@ class OrderTripScreenState extends State<OrderTripScreen> {
                           rideRequestModel: mapState.rideRequestModel!,
                           currentPosition: mapState.position!,
                         ))).then((value) => {
-                            mapState.userStream!.resume(),
-                            mapState.rideRequestStream?.resume(),
+                          mapState.userStream!.resume(),
+                          mapState.rideRequestStream?.resume(),
                         });
                       },
                       rideRequestModel: widget.rideRequestModel,

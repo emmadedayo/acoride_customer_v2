@@ -2,11 +2,8 @@ import 'package:acoride/core/helper/DateHelper.dart';
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/logic/cubits/ride_history_cubit.dart';
-import 'package:acoride/logic/states/ride_history_state.dart';
 import 'package:acoride/logic/states/transaction_state.dart';
 import 'package:acoride/presentation/components/noWidgetFound.dart';
-import 'package:acoride/presentation/history/components/ride_history_widget.dart';
 import 'package:acoride/presentation/wallet/component/wallet_screen_component.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -15,7 +12,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../logic/cubits/transaction_cubit.dart';
 import '../../utils/loadingImage.dart';
-import '../router/router_constant.dart';
 
 
 class AllTransactionScreen extends StatefulWidget {

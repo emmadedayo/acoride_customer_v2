@@ -20,11 +20,14 @@ class RideRequestRepository {
     Map map = await provider.getDriver(maps,await userRepository.getToken());
     int? statusCode = map[FIELD_STATUS_CODE];
     String message = map[FIELD_MESSAGE]?? '';
+  //  debugPrint('==================Get Ride Request Request ${map}==================');
     if (map.isNotEmpty) {
       try {
         user = RideRequestModel.fromMap(map[FIELD_DATA]);
+        debugPrint('==================Get Ride Request Request ${user.user}==================');
       }
       catch(err) {
+        debugPrint('==================Get Ride Request Map Error ${err}==================');
         return ResultItem<RideRequestModel?>(result: null, errorCode: 404, message: message);
       }
     }
@@ -53,6 +56,23 @@ class RideRequestRepository {
     debugPrint('=========Map : ${maps}');
     RideRequestModel? user;
     Map map = await provider.cancelTrip(maps,await userRepository.getToken());
+    int? statusCode = map[FIELD_STATUS_CODE];
+    String message = map[FIELD_MESSAGE]?? '';
+    if (map.isNotEmpty) {
+      try {
+        user = RideRequestModel.fromMap(map[FIELD_DATA]);
+      }
+      catch(err) {
+        return ResultItem<RideRequestModel?>(result: null, errorCode: 404, message: 'Error: $err');
+      }
+    }
+    return ResultItem<RideRequestModel?>(result: user, errorCode: statusCode, message: message);
+  }
+
+  Future<ResultItem<RideRequestModel?>> deliveryRate(maps) async {
+    debugPrint('=========Map : ${maps}');
+    RideRequestModel? user;
+    Map map = await provider.deliveryRate(maps,await userRepository.getToken());
     int? statusCode = map[FIELD_STATUS_CODE];
     String message = map[FIELD_MESSAGE]?? '';
     if (map.isNotEmpty) {

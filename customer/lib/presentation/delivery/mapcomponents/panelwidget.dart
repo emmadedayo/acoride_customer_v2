@@ -2,7 +2,6 @@ import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:acoride/logic/states/dashboard_map_state.dart';
-import 'package:acoride/presentation/dashbaord/mapcomponents/panel_list_view.dart';
 import 'package:acoride/presentation/delivery/mapcomponents/delivery_map_search_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +10,6 @@ import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
-
-import '../../../core/constant/dashboard_constant.dart';
-import '../../map_search/map_search_screen.dart';
 
 class MapSearchPanelWidget extends StatelessWidget {
   final DashBoardMapState? dashBoardState;

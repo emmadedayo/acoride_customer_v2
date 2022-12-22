@@ -3,6 +3,7 @@ import 'package:acoride/core/helper/helper_style.dart';
 import 'package:acoride/data/model/ride_request_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 import '../../../core/helper/helper_config.dart';
 
 
@@ -110,6 +111,15 @@ class RideRequestWidget extends StatelessWidget {
                               context, HelperColor.black, 12, FontWeight.w400),
                         ),
                         SizedBox(height: 5.h,),
+                        rideRequestModel?.completedStatusTime == null?
+                        Text(
+                          HelperConfig.shortHistory(rideRequestModel?.createdAt ?? ''),
+                          style: HelperStyle.textStyle(
+                              context,
+                              HelperColor.black.withOpacity(0.5),
+                              11,
+                              FontWeight.w400),
+                        ):
                         Text(
                           HelperConfig.shortHistory(rideRequestModel?.completedStatusTime ?? ''),
                           style: HelperStyle.textStyle(
@@ -117,7 +127,7 @@ class RideRequestWidget extends StatelessWidget {
                               HelperColor.black.withOpacity(0.5),
                               11,
                               FontWeight.w400),
-                        ),
+                        )
                       ],
                     ),
                   ),
@@ -132,6 +142,15 @@ class RideRequestWidget extends StatelessWidget {
                             context, HelperColor.black, 12, FontWeight.w400),
                       ),
                       SizedBox(height: 5.h,),
+                      rideRequestModel?.completedStatusTime == null?
+                      Text(
+                        'OnGoing',
+                        style: HelperStyle.textStyle(
+                            context,
+                            HelperColor.primaryColor.withOpacity(0.8),
+                            11,
+                            FontWeight.bold),
+                      ):
                       Text(
                         'Completed',
                         style: HelperStyle.textStyle(
@@ -139,7 +158,7 @@ class RideRequestWidget extends StatelessWidget {
                             HelperColor.primaryColor.withOpacity(0.8),
                             11,
                             FontWeight.bold),
-                      ),
+                      )
                     ],
                   )
                 ],

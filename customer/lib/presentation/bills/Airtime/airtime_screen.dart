@@ -1,7 +1,6 @@
 import 'package:acoride/core/helper/helper_color.dart';
 import 'package:acoride/core/helper/helper_config.dart';
 import 'package:acoride/core/helper/helper_style.dart';
-import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/logic/cubits/airtime_cubit.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/states/airtime_state.dart';
@@ -16,7 +15,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 
-import '../../../logic/states/dashboard_state.dart';
 import 'components/airtime_component.dart';
 
 
@@ -73,7 +71,7 @@ class AirtimeScreenIndexState extends State<AirtimeScreenIndex> {
 
                   return BlurryModalProgressHUD(
                       inAsyncCall: emeState.isLoadingCard,
-                      dismissible: true,
+                      dismissible: false,
                       child: Scaffold(
                         backgroundColor: Colors.white,
                         appBar: AppBar(

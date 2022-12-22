@@ -14,6 +14,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState>{
     emit(state.copy());
     var result = await userRepository.resetAccount({
       'phone_number': state.phoneController.text,
+      'type_min': 'customer',
     });
     if ((result?.errorCode ?? 0) >= 400) {
       state.message = result?.message;
@@ -31,7 +32,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState>{
   verifyResetAccountOtp(phoneNumber) async {
     state.isLoading = true;
     emit(state.copy());
-    var result = await userRepository.resetAccount({
+    var result = await userRepository.verifyResetAccount({
       'phone_number': phoneNumber,
       'otp': state.otpController.text,
     });
@@ -51,7 +52,7 @@ class ForgotPasswordCubit extends Cubit<ForgotPasswordState>{
   resetAccount(phoneNumber) async {
     state.isLoading = true;
     emit(state.copy());
-    var result = await userRepository.resetAccount({
+    var result = await userRepository.changePassword({
       "phone_number":phoneNumber,
       "password": state.passwordController.text,
       "password_confirmation": state.confirmPasswordController.text,

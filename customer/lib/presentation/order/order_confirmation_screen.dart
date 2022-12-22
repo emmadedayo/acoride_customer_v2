@@ -2,8 +2,8 @@ import 'package:acoride/data/model/UserModel.dart';
 import 'package:acoride/logic/cubits/app_cubit.dart';
 import 'package:acoride/logic/cubits/map_cubit.dart';
 import 'package:acoride/logic/states/map_state.dart';
-import 'package:acoride/presentation/delivery/delivery_details/delivery_user_screen.dart';
 import 'package:acoride/presentation/order/components/confirmation_panel_widget.dart';
+import 'package:acoride/presentation/router/router_constant.dart';
 import 'package:acoride/utils/loadingImage.dart';
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/foundation.dart';
@@ -17,7 +17,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 import '../../core/helper/helper_color.dart';
 import '../../core/helper/helper_style.dart';
 import '../../utils/map.utils.dart';
-import '../delivery/components/delivery_components.dart';
 import 'order_payment_screen.dart';
 import 'order_trip_screen.dart';
 
@@ -76,7 +75,7 @@ class _ConfirmRideDetailsState extends State<ConfirmRideDetails> {
                           barrierColor: Colors.black.withOpacity(0.2),
                           btnCancelColor: HelperColor.primaryColor,
                           btnOkOnPress: () {
-
+                            Navigator.of(context).pushNamedAndRemoveUntil(pageHome, (route) => false);
                           }).show();
                     }
 

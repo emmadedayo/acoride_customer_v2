@@ -1,8 +1,7 @@
 import 'dart:async';
+
 import 'package:acoride/core/constant/constants.dart';
 import 'package:acoride/data/Server/result_item.dart';
-import 'package:acoride/data/model/UserModel.dart';
-import 'package:acoride/data/model/category_model.dart';
 import 'package:acoride/data/model/delivery_user_request.dart';
 import 'package:acoride/data/provider/delivery_provider.dart';
 import 'package:acoride/data/provider/ride_request_provider.dart';

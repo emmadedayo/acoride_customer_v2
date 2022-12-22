@@ -42,7 +42,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
         builder: (regContext, regState) {
           return BlurryModalProgressHUD(
             inAsyncCall: regState.isLoading,
-            dismissible: true,
+            dismissible: false,
             child: BlocListener<RegistrationCubit, RegistrationState>(
               listener: (context, state) async {
                 if (state.success==true) {
@@ -171,7 +171,7 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                         decoration:  InputDecoration(
                                           filled: true,
                                           contentPadding: const EdgeInsets.all(10.0),
-                                          prefixIcon: const Icon(Icons.alternate_email,color: HelperColor.black,),
+                                          prefixIcon: const Icon(LineAwesomeIcons.at,color: HelperColor.black,),
                                           fillColor: HelperColor.fillColor,
                                           border: const OutlineInputBorder(),
                                           enabledBorder: OutlineInputBorder(
@@ -232,6 +232,34 @@ class RegistrationScreenControllerState extends State<RegistrationScreenControll
                                             ),
                                             // contentPadding: const EdgeInsets.all(5),
                                           ),
+                                        ),
+                                      ),
+
+                                      const SizedBox(height: 20.0),
+
+                                      FormTextPrefix(
+                                        hintText: 'Referral (Optional)',
+                                        textInputType: TextInputType.number,
+                                        controller:regState.referralController,
+                                        validator: MultiValidator([
+                                         // RequiredValidator(errorText: "* Required"),
+                                         // EmailValidator(errorText: "Enter a valid email address"),
+                                        ]),
+                                        decoration:  InputDecoration(
+                                          filled: true,
+                                          contentPadding: const EdgeInsets.all(10.0),
+                                          prefixIcon: const Icon(LineAwesomeIcons.users,color: HelperColor.black,),
+                                          fillColor: HelperColor.fillColor,
+                                          border: const OutlineInputBorder(),
+                                          enabledBorder: OutlineInputBorder(
+                                              borderRadius: BorderRadius.circular(10),
+                                              borderSide: const BorderSide(color: HelperColor.primaryLightColor, width: 1)),
+                                          focusedBorder: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(10),
+                                            borderSide: const BorderSide(
+                                                color: HelperColor.primaryLightColor, width: 1.0),
+                                          ),
+                                          // contentPadding: const EdgeInsets.all(5),
                                         ),
                                       ),
 

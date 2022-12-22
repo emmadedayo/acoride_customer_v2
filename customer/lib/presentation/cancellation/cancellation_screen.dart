@@ -86,7 +86,7 @@ class CancellationScreenState extends State<CancellationScreen> {
                     ),
                     body:BlurryModalProgressHUD(
                         inAsyncCall: emeState.isLoading,
-                        dismissible: true,
+                        dismissible: false,
                         child:SafeArea(
                           child: ListView(
                             children: [
